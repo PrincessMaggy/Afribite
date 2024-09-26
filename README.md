@@ -21,8 +21,18 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 ## Features
 
+- User Registration and Login (Food lovers and Restaurant owners)
+- Search for Restaurants by Location
+- Search for Restaurants by dishes
 - Menu Management
 - Notifications
+- Place Food Orders Online
+- Payment integration for orders
+- Leave a Restaurant Review
+- View Restaurant Reviews
+- Restaurant promotions
+- Advertise restaurant on Afribite
+- Featured restaurant listings
 
 ## My Contribution
 
