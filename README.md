@@ -39,6 +39,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 As part of the Afribite development team, I contributed to the frontend development, specifically focusing on:
 
 - Changed the browser tab icon to the Afribite logo (to give the server a unique view in the browser).
+- Added the Create Menu page for restaurant owners to add new/available dishes to their menu (On click on the Create Menu button, it will take user to a page where Restaurant owner can upload available dishes by category).
 
 ## Contributors
 
