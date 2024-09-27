@@ -30,9 +30,7 @@ const SignInForm = () => {
             </span>
   
   
-            <form onSubmit={handleSubmit} className="space-y-4
-  
-            ">
+            <form onSubmit={handleSubmit} className="space-y-4">
   
               <span className='my-12'>
                 <span className='my-4 block '>Username</span>
