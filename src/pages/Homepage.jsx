@@ -6,7 +6,7 @@ function Homepage() {
     <>
       <div>
         <p className="text-2xl font-bold underline">homepage</p>
-        <p> <Link to="/Sign-in">sign in</Link></p>
+        <p className="rounded-md border w-fit"> <Link to="/Sign-in">sign in</Link></p>
       </div>
     </>
   );
