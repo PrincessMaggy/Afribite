@@ -17,12 +17,10 @@ const SignInForm = () => {
 
   return (
     <div className="flex flex-row h-screen min-h-screen overflow-auto">
-      <div className="block h-full w-1/2 bg-cover bg-center" style={{backgroundImage: "url('/src/assets/Sign_background.jpg')"}}></div>
-      <div className="w-1/2  h-full  bg-gradient-to-b from-neutral-900 from-70% via-neutral-900 to-slate-600 to-100% text-white p-4 md:p-8 flex flex-col justify-center overflow-auto">
-        <div className="w-full  md:px-4 py-8 md:py-12 my-4 mx-auto max-w-md">
-
-
-<div className=''>
+      <div className=" hidden md:block h-full w-1/2 bg-cover bg-center" style={{backgroundImage: "url('/src/assets/Sign_background.jpg')"}}></div>
+      <div className="w-full md:w-1/2 h-full bg-gradient-to-b from-neutral-900 from-70% via-neutral-900 to-slate-600 to-100% text-white p-4 md:p-8 flex flex-col justify-center overflow-auto">
+        <div className="w-full md:px-4 py-8 md:py-12 my-4 mx-auto max-w-md">
+          <div className=''>
   
             <span className='mb-20  '>
               <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-center">Welcome to AfriBite!</h1>
