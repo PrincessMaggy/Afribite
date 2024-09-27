@@ -27,6 +27,9 @@ export default {
       width: {
         28: "40rem",
       },
+      height: {
+        80: "20rem",
+      },
     },
   },
   plugins: [],
