@@ -83,7 +83,7 @@ const SignInForm = () => {
             </form>
             <div className="mt-4 text-center flex items-center justify-center">
     <div className="flex-grow border-t border-gray-400"></div>
-    <span className="mx-4 text-gray-400 font-bold text-xl">or</span>
+    <span className="mx-4 text-gray-400 font-bold text-xl">Or</span>
     <div className="flex-grow border-t border-gray-400"></div>
   </div>
   
@@ -100,7 +100,7 @@ const SignInForm = () => {
 </div>
             <p className="mt-6 text-center text-gray-400">
   
-    Don't have an account? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link>
+    New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link>
   </p>
 </div>
         </div>

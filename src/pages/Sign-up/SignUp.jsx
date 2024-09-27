@@ -102,7 +102,7 @@ const SignUpForm = () => {
 
             <div className="mt-4 text-center flex items-center justify-center">
               <div className="flex-grow border-t border-gray-400"></div>
-              <span className="mx-4 text-gray-400 font-bold text-xl">or</span>
+              <span className="mx-4 text-gray-400 font-bold text-xl">Or</span>
               <div className="flex-grow border-t border-gray-400"></div>
             </div>
 
@@ -118,7 +118,7 @@ const SignUpForm = () => {
             </div>
 
             <p className="mt-6 text-center text-gray-400">
-              Already have an account? <Link to="/Sign-in" className="text-red-500 hover:underline">Sign in</Link>
+              Already a User? <Link to="/Sign-in" className="text-red-500 hover:underline">Sign in</Link>
             </p>
           </div>
         </div>
