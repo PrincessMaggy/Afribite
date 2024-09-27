@@ -5,7 +5,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
-import { NavLink, Link} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 const AdminSidebar = () => {
@@ -17,11 +17,11 @@ const AdminSidebar = () => {
           <p className="font-extrabold text-2xl sm:text-4xl mt-2 ">AfriBite</p>
           </div>
             <div className="flex flex-col gap-3 mt-16 sm:mt-32 sm:text-lg text-white/50">
-            <Link  to='/Dashboard'>
+            <NavLink  to='/Dashboard'>
               <div className="flex items-center gap-4  text-white font-bold">
                   <PiCirclesFourFill className="border rounded-full bg-white text-[#E2725B]" /> Dashboard
               </div>
-            </Link>
+            </NavLink>
             <NavLink>
               <div className="flex items-center gap-4 "><BiCube/>Promotions</div>
             </NavLink>

@@ -556,10 +556,6 @@ video {
   display: none;
 }
 
-<<<<<<< HEAD
-.m-auto {
-  margin: auto;
-=======
 body{
   margin: 0px;
   box-sizing: border-box;
@@ -579,7 +575,6 @@ h2{
     font-size: 1.875rem;
     line-height: 2.25rem;
   }
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
 }
 
 p{
@@ -590,22 +585,6 @@ p{
   color: rgb(153 153 153 / var(--tw-text-opacity));
 }
 
-<<<<<<< HEAD
-.mt-32 {
-  margin-top: 8rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
-=======
 @media (min-width: 1024px){
   p{
     font-size: 0.875rem;
@@ -613,14 +592,13 @@ p{
   }
 }
 
+.m-auto{
+  margin: auto;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
-}
-
-.my-40{
-  margin-top: 10rem;
-  margin-bottom: 10rem;
 }
 
 .my-36{
@@ -630,7 +608,6 @@ p{
 
 .mb-16{
   margin-bottom: 4rem;
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
 }
 
 .mb-3{
@@ -641,50 +618,12 @@ p{
   margin-top: 0.25rem;
 }
 
+.mt-16{
+  margin-top: 4rem;
+}
+
 .mt-2{
   margin-top: 0.5rem;
-}
-
-<<<<<<< HEAD
-.h-dvh {
-  height: 100dvh;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
-.h-screen {
-  height: 100vh;
-}
-
-.min-h-full {
-  min-height: 100%;
-}
-
-.w-2 {
-  width: 0.5rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.w-5 {
-  width: 1.25rem;
-}
-
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
-=======
-.mt-32{
-  margin-top: 8rem;
 }
 
 .mt-8{
@@ -699,32 +638,26 @@ p{
   display: grid;
 }
 
-.size-10{
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.size-12{
-  width: 3rem;
-  height: 3rem;
-}
-
 .size-14{
   width: 3.5rem;
   height: 3.5rem;
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
 }
 
-.h-svh{
-  height: 100svh;
-}
-
-.w-1\/6{
-  width: 16.666667%;
+.h-dvh{
+  height: 100dvh;
 }
 
 .w-\[90\%\]{
   width: 90%;
+}
+
+.w-fit{
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-full{
+  width: 100%;
 }
 
 .grid-rows-2{
@@ -739,14 +672,6 @@ p{
   place-items: center;
 }
 
-<<<<<<< HEAD
-.gap-3 {
-  gap: 0.75rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-=======
 .items-end{
   align-items: flex-end;
 }
@@ -777,7 +702,6 @@ p{
 
 .rounded-md{
   border-radius: 0.375rem;
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
 }
 
 .rounded-sm{
@@ -798,9 +722,6 @@ p{
   background-color: rgb(244 240 235 / var(--tw-bg-opacity));
 }
 
-<<<<<<< HEAD
-.text-2xl {
-=======
 .bg-p-button{
   --tw-bg-opacity: 1;
   background-color: rgb(226 114 91 / var(--tw-bg-opacity));
@@ -828,19 +749,8 @@ p{
 }
 
 .text-2xl{
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
   font-size: 1.5rem;
   line-height: 2rem;
-}
-
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.text-lg{
-  font-size: 1.125rem;
-  line-height: 1.75rem;
 }
 
 .text-xs{
@@ -856,25 +766,17 @@ p{
   font-weight: 800;
 }
 
-<<<<<<< HEAD
-.text-\[\#E2725B\] {
-=======
 .text-\[\#E2725B\]{
   --tw-text-opacity: 1;
   color: rgb(226 114 91 / var(--tw-text-opacity));
 }
 
 .text-n-n7{
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-<<<<<<< HEAD
-.text-white {
-=======
 .text-white{
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -887,33 +789,6 @@ p{
   text-decoration-line: underline;
 }
 
-<<<<<<< HEAD
-@media (min-width: 640px) {
-  .sm\:mt-32 {
-    margin-top: 8rem;
-  }
-
-  .sm\:w-1\/6 {
-    width: 16.666667%;
-  }
-
-  .sm\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .sm\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .sm\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-}
-
-=======
 .shadow-md{
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -942,6 +817,31 @@ p{
 .hover\:text-p-button:hover{
   --tw-text-opacity: 1;
   color: rgb(226 114 91 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px){
+  .sm\:mt-32{
+    margin-top: 8rem;
+  }
+
+  .sm\:w-1\/6{
+    width: 16.666667%;
+  }
+
+  .sm\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .sm\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .sm\:text-lg{
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 1024px){
@@ -977,4 +877,3 @@ p{
     line-height: 1.25rem;
   }
 }
->>>>>>> 683a070030077a2d59922fea0f47d89696025ef2
