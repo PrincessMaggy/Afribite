@@ -17,10 +17,12 @@ const SignInForm = () => {
 
   return (
     <div className="flex flex-row h-screen min-h-screen overflow-auto">
-      <div className=" hidden md:block h-full w-1/2 bg-cover bg-center" style={{backgroundImage: "url('/src/assets/Sign_background.jpg')"}}></div>
-      <div className="w-full md:w-1/2 h-full bg-gradient-to-b from-neutral-900 from-70% via-neutral-900 to-slate-600 to-100% text-white p-4 md:p-8 flex flex-col justify-center overflow-auto">
-        <div className="w-full md:px-4 py-8 md:py-12 my-4 mx-auto max-w-md">
-          <div className=''>
+      <div className="block h-full w-1/2 bg-cover bg-center" style={{backgroundImage: "url('/src/assets/Sign_background.jpg')"}}></div>
+      <div className="w-1/2  h-full  bg-gradient-to-b from-neutral-900 from-70% via-neutral-900 to-slate-600 to-100% text-white p-4 md:p-8 flex flex-col justify-center overflow-auto">
+        <div className="w-full  md:px-4 py-8 md:py-12 my-4 mx-auto max-w-md">
+
+
+<div className=''>
   
             <span className='mb-20  '>
               <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-center">Welcome to AfriBite!</h1>
@@ -81,7 +83,7 @@ const SignInForm = () => {
             </form>
             <div className="mt-4 text-center flex items-center justify-center">
     <div className="flex-grow border-t border-gray-400"></div>
-    <span className="mx-4 text-gray-400 font-bold text-xl">Or</span>
+    <span className="mx-4 text-gray-400 font-bold text-xl">or</span>
     <div className="flex-grow border-t border-gray-400"></div>
   </div>
   
