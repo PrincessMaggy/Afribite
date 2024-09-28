@@ -33,6 +33,9 @@ export default {
       height: {
         80: "20rem",
       },
+      backgroundImage: {
+        'backgroud': "url('./assets/background.png')"
+      }
     },
   },
   plugins: [],

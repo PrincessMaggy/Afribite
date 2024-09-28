@@ -41,9 +41,19 @@ As part of the Afribite development team, I contributed to the frontend developm
 - Changed the browser tab icon to the Afribite logo (to give the server a unique view in the browser).
 - Added the Create Menu page for restaurant owners to add new/available dishes to their menu (On click on the Create Menu button, it will take user to a page where Restaurant owner can upload available dishes by category).
 
+## Team 5 Contribution
+
+### Ndukuba Nneoma Chidinma
+- Created the Admin side bar and added the routes to other pages
+- Intstalled React icons and added icons to the admin side bar
+- Created Layout component
+- Created banner component to be used on the dashboard, advert and promotion pages
+- Created the Advert page
+
 ## Contributors
 
 - [Omowunmi Kamiludeen] - Frontend Developer
+- [Ndukuba Nneoma Chidinma] - Frontend Developer
 
 ## Links
 
