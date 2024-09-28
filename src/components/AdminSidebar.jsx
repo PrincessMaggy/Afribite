@@ -10,25 +10,27 @@ import logo from '../assets/logo.png'
 
 const AdminSidebar = () => {
   return (
-    <div className="h-dvh bg-[#E2725B] sm:w-1/6  text-white grid grid-rows-2">
-        <div className="flex flex-col justify-between items-center ">
-          <div className="flex flex-col mt-8">
-          <img src={logo} alt="" className="w-fit m-auto" />
-          <p className="font-extrabold text-2xl sm:text-4xl mt-2 ">AfriBite</p>
+    <div className="h-lvh bg-[#E2725B] hidden text-white sm:grid grid-rows-5 p-10">
+      
+
+          <div className="flex flex-col gap-2">
+          <img src={logo} alt="" className="w-fit mx-auto" />
+          <p className="font-extrabold text-2xl lg:text-4xl text-white text-center ">AfriBite</p>
           </div>
-            <div className="flex flex-col gap-3 mt-16 sm:mt-32 sm:text-lg text-white/50">
-            <NavLink  to='/Dashboard'>
+
+            <div className="flex flex-col gap-3  lg:text-lg text-white/50 row-span-2 justify-end">
+            <NavLink  to='/'>
               <div className="flex items-center gap-4  text-white font-bold">
                   <PiCirclesFourFill className="border rounded-full bg-white text-[#E2725B]" /> Dashboard
               </div>
             </NavLink>
-            <NavLink>
+            <NavLink to='Promotion'>
               <div className="flex items-center gap-4 "><BiCube/>Promotions</div>
             </NavLink>
             <NavLink to='/Advert'>
               <div className="flex items-center gap-4 "> <FiOctagon />Advertisement</div>
             </NavLink>
-            <NavLink>
+            <NavLink to='Menu'>
               <div className="flex items-center gap-4 "><HiOutlineSquaresPlus />Menu</div>
             </NavLink>
             <NavLink>
@@ -38,12 +40,10 @@ const AdminSidebar = () => {
             <div className="flex items-center gap-4 "><FaRegBell />Notification</div>
             </NavLink>
             </div>
-        </div>
+    
 
-        <div className="mb-16 flex items-end justify-center">
-            <div className="flex items-center gap-4 ">
+        <div className=" flex items-end justify-center row-span-2 gap-2 mb-8">
             <MdLogout className="sm:text-2xl" />Log out
-            </div>
         </div>
     </div>
   )
