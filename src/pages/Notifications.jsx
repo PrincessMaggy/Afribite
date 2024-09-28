@@ -1,10 +1,18 @@
 import React from "react";
+import AdminSidebar from "../components/AdminSidebar";
+import OrderPopup from "../components/OrderPopup";
+// import "../src/index.css";
 
 function Notifications() {
   return (
-    <>
-      <p className="text-2xl font-bold underline">notifications</p>
-    </>
+    <div className="flex items-center ">
+      <AdminSidebar/>
+      <div className="justify-between">
+
+        <OrderPopup/>
+      </div>
+      
+    </div>
   );
 }
 
