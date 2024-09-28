@@ -16,6 +16,9 @@ function App() {
         <Route path="/" element={<Dashboard/>}></Route>
         <Route path="/Advert" element={<Advert/>}></Route>
         <Route path="/Menu" element={<CreateMenu/>}></Route>
+        <Route path="/Sign-up/" element={<SignUpForm />}></Route>
+        <Route path="/Sign-in/" element={<SignInForm />}></Route>
+
       </Routes>
       </Layout>
     </BrowserRouter>
