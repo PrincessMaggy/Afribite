@@ -4,6 +4,9 @@ import CreateMenu from "./pages/CreateMenu";
 import Dashboard from "./pages/Dashboard";
 import Advert from "./pages/Advert";
 import Layout from "./components/Layout"
+import SignInForm from "./pages/Sign-in/SignIn";
+import SignUpForm from "./pages/Sign-up/SignUp";
+
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
         <Route path="/" element={<Dashboard/>}></Route>
         <Route path="/Advert" element={<Advert/>}></Route>
         <Route path="/Menu" element={<CreateMenu/>}></Route>
+        <Route path="/Sign-up/" element={<SignUpForm />}></Route>
+        <Route path="/Sign-in/" element={<SignInForm />}></Route>
+
       </Routes>
       </Layout>
     </BrowserRouter>
