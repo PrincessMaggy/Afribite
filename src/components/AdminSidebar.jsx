@@ -19,18 +19,18 @@ const AdminSidebar = () => {
           </div>
 
             <div className="flex flex-col gap-3  lg:text-lg text-white/50 row-span-2 justify-end">
-            <NavLink  to='/'>
+            <NavLink  to='/Adminhome/Dashboard'>
               <div className="flex items-center gap-4  text-white font-bold">
                   <PiCirclesFourFill className="border rounded-full bg-white text-[#E2725B]" /> Dashboard
               </div>
             </NavLink>
-            <NavLink to='Promotion'>
+            <NavLink>
               <div className="flex items-center gap-4 "><BiCube/>Promotions</div>
             </NavLink>
-            <NavLink to='/Advert'>
+            <NavLink to='/Adminhome/Advert'>
               <div className="flex items-center gap-4 "> <FiOctagon />Advertisement</div>
             </NavLink>
-            <NavLink to='Menu'>
+            <NavLink to='/Adminhome/Menu'>
               <div className="flex items-center gap-4 "><HiOutlineSquaresPlus />Menu</div>
             </NavLink>
             <NavLink>
