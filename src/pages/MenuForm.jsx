@@ -46,12 +46,12 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-36 mx-auto lg:my-52 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto  lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
         <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
           <MdDeleteOutline className="text-p-button text-2xl lg:text-4xl" />
         </div>
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
-          <div className="lg:ml-12">
+          <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
             <input
               type="file"
@@ -65,11 +65,11 @@ function MenuForm() {
             <img
               src={image} // Placeholder image or default image
               alt=""
-              className="cursor-pointer w-36 lg:w-60 h-32 rounded-xl object-cover border-gray-300"
+              className="cursor-pointer w-36 lg:w-40 h-32 lg:h-36 rounded-xl object-cover border-gray-300"
               onClick={handleImageClick}
             />
           </div>
-          <div className="">
+          <div className="lg:w-[70%]">
             {/* Dish Name */}
             <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
               <input
@@ -77,7 +77,7 @@ function MenuForm() {
                 placeholder="Dish Name"
                 value={dishName}
                 onChange={(e) => setDishName(e.target.value)}
-                className="w-[11rem] lg:w-[20rem] h-11 p-3 bg-transparent outline-none text-sm font-light"
+                className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
                 maxLength={maxDishNamechar}
                 required
               />
@@ -93,10 +93,10 @@ function MenuForm() {
                 placeholder="Price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-[11rem] lg:w-[24.5rem] h-11 p-3 bg-transparent outline-none text-sm font-light"
+                className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
                 required
               />
-              <span className="text-n-n3 text-sm ml-6 lg:ml-20">$</span>
+              <span className="text-n-n3 text-sm ml-6 lg:ml-16">$</span>
             </div>
 
             {/* Category */}
@@ -109,6 +109,11 @@ function MenuForm() {
               <option value="">Category</option>
               <option value="Main Dish">Main Dish</option>
               <option value="Appetizer">Appetizer</option>
+              <option value="Side">Side</option>
+              <option value="Soup">Soup</option>
+              <option value="Salad">Salad</option>
+              <option value="Special">Special</option>
+              <option value="Beverage">Beverage</option>
               <option value="Dessert">Dessert</option>
             </select>
 
@@ -136,7 +141,7 @@ function MenuForm() {
           {/* Save Button */}
           <Link
             to="/"
-            className="bg-transparent text-p-button3 px-5 py-1 hover:text-n-n7 hover:bg-p-button rounded-md ml-2 text-xs lg:text-sm"
+            className="bg-transparent text-p-button3 px-5 py-1 hover:text-n-n7 hover:bg-p-button rounded-md ml-2 lg:mr-3.5 text-xs lg:text-sm"
           >
             Save
           </Link>

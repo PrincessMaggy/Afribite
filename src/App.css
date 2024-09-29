@@ -655,6 +655,16 @@ p{
   margin-bottom: 1rem;
 }
 
+.mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.my-16{
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
 .mb-2{
   margin-bottom: 0.5rem;
 }
@@ -709,6 +719,10 @@ p{
 
 .mt-8{
   margin-top: 2rem;
+}
+
+.mr-3{
+  margin-right: 0.75rem;
 }
 
 .box-border{
@@ -799,6 +813,10 @@ p{
 
 .w-full{
   width: 100%;
+}
+
+.w-\[80\%\]{
+  width: 80%;
 }
 
 .max-w-md{
@@ -1436,6 +1454,18 @@ p{
     margin-top: 2.5rem;
   }
 
+  .lg\:mr-3{
+    margin-right: 0.75rem;
+  }
+
+  .lg\:mr-3\.5{
+    margin-right: 0.875rem;
+  }
+
+  .lg\:ml-16{
+    margin-left: 4rem;
+  }
+
   .lg\:hidden{
     display: none;
   }
@@ -1451,6 +1481,10 @@ p{
 
   .lg\:h-\[19rem\]{
     height: 19rem;
+  }
+
+  .lg\:h-36{
+    height: 9rem;
   }
 
   .lg\:w-60{
@@ -1475,6 +1509,38 @@ p{
 
   .lg\:w-full{
     width: 100%;
+  }
+
+  .lg\:w-\[24rem\]{
+    width: 24rem;
+  }
+
+  .lg\:w-\[50\%\]{
+    width: 50%;
+  }
+
+  .lg\:w-\[\]{
+    width: ;
+  }
+
+  .lg\:w-\[60\%\]{
+    width: 60%;
+  }
+
+  .lg\:w-\[70\%\]{
+    width: 70%;
+  }
+
+  .lg\:w-\[75\%\]{
+    width: 75%;
+  }
+
+  .lg\:w-40{
+    width: 10rem;
+  }
+
+  .lg\:w-\[80\%\]{
+    width: 80%;
   }
 
   .lg\:flex-row{
