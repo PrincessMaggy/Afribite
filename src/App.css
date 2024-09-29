@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Poppins, ui-sans-serif, system-ui;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -574,16 +574,52 @@ video {
   display: grid;
 }
 
+.h-\[387px\] {
+  height: 387px;
+}
+
+.h-\[847px\] {
+  height: 847px;
+}
+
 .h-svh {
   height: 100svh;
+}
+
+.h-\[50px\] {
+  height: 50px;
+}
+
+.h-\[10px\] {
+  height: 10px;
 }
 
 .w-1\/6 {
   width: 16.666667%;
 }
 
+.w-\[1072px\] {
+  width: 1072px;
+}
+
+.w-\[232px\] {
+  width: 232px;
+}
+
+.w-\[281px\] {
+  width: 281px;
+}
+
+.w-\[127px\] {
+  width: 127px;
+}
+
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -606,6 +642,10 @@ video {
   justify-content: space-between;
 }
 
+.gap-14 {
+  gap: 3.5rem;
+}
+
 .gap-3 {
   gap: 0.75rem;
 }
@@ -614,12 +654,36 @@ video {
   gap: 1rem;
 }
 
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-y-6 {
+  row-gap: 1.5rem;
+}
+
+.rounded-\[10px\] {
+  border-radius: 10px;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
+}
+
+.border-t-2 {
+  border-top-width: 2px;
+}
+
+.border-solid {
+  border-style: solid;
 }
 
 .bg-\[\#E2725B\] {
@@ -627,9 +691,27 @@ video {
   background-color: rgb(226 114 91 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#e2725b\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 114 91 / var(--tw-bg-opacity));
+}
+
+.bg-notif {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 245 233 / var(--tw-bg-opacity));
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .text-2xl {
@@ -647,6 +729,11 @@ video {
   line-height: 1.75rem;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -655,9 +742,31 @@ video {
   font-weight: 800;
 }
 
+.font-normal {
+  font-weight: 400;
+}
+
+.leading-5 {
+  line-height: 1.25rem;
+}
+
+.leading-8 {
+  line-height: 2rem;
+}
+
+.text-\[\#333333\] {
+  --tw-text-opacity: 1;
+  color: rgb(51 51 51 / var(--tw-text-opacity));
+}
+
 .text-\[\#E2725B\] {
   --tw-text-opacity: 1;
   color: rgb(226 114 91 / var(--tw-text-opacity));
+}
+
+.text-notif {
+  --tw-text-opacity: 1;
+  color: rgb(251 245 233 / var(--tw-text-opacity));
 }
 
 .text-white {
