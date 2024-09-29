@@ -561,13 +561,15 @@ body{
   box-sizing: border-box;
   padding: 0px;
   font-family: Poppins, Arial, sans-serif;
-  color: ##333333;
+  --tw-text-opacity: 1;
+  color: rgb(51 51 51 / var(--tw-text-opacity));
 }
 
 h2{
   font-family: Poppins, Arial, sans-serif;
   font-weight: 600;
-  color: ##333333;
+  --tw-text-opacity: 1;
+  color: rgb(51 51 51 / var(--tw-text-opacity));
 }
 
 @media (min-width: 1024px){
@@ -648,11 +650,6 @@ p{
 .my-4{
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.my-36{
-  margin-top: 9rem;
-  margin-bottom: 9rem;
 }
 
 .mb-2{
@@ -803,10 +800,6 @@ p{
 
 .w-full{
   width: 100%;
-}
-
-.w-\[11rem\]{
-  width: 11rem;
 }
 
 .max-w-md{
@@ -1283,14 +1276,6 @@ p{
   color-scheme: light;
 }
 
-.hover\:border-2:hover{
-  border-width: 2px;
-}
-
-.hover\:border-none:hover{
-  border-style: none;
-}
-
 .hover\:border-p-button:hover{
   --tw-border-opacity: 1;
   border-color: rgb(226 114 91 / var(--tw-border-opacity));
@@ -1445,11 +1430,6 @@ p{
     margin-bottom: 6rem;
   }
 
-  .lg\:my-52{
-    margin-top: 13rem;
-    margin-bottom: 13rem;
-  }
-
   .lg\:ml-10{
     margin-left: 2.5rem;
   }
@@ -1472,10 +1452,6 @@ p{
 
   .lg\:mt-10{
     margin-top: 2.5rem;
-  }
-
-  .lg\:ml-20{
-    margin-left: 5rem;
   }
 
   .lg\:hidden{
@@ -1521,18 +1497,6 @@ p{
 
   .lg\:w-full{
     width: 100%;
-  }
-
-  .lg\:w-60{
-    width: 15rem;
-  }
-
-  .lg\:w-\[20rem\]{
-    width: 20rem;
-  }
-
-  .lg\:w-\[24\.5rem\]{
-    width: 24.5rem;
   }
 
   .lg\:flex-row{
