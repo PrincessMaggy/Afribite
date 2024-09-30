@@ -566,6 +566,10 @@ video {
   margin-top: 2rem;
 }
 
+.box-content {
+  box-sizing: content-box;
+}
+
 .flex {
   display: flex;
 }
@@ -586,14 +590,6 @@ video {
   height: 100svh;
 }
 
-.h-\[50px\] {
-  height: 50px;
-}
-
-.h-\[10px\] {
-  height: 10px;
-}
-
 .w-1\/6 {
   width: 16.666667%;
 }
@@ -608,10 +604,6 @@ video {
 
 .w-\[281px\] {
   width: 281px;
-}
-
-.w-\[127px\] {
-  width: 127px;
 }
 
 .grid-rows-2 {
@@ -634,12 +626,48 @@ video {
   align-items: center;
 }
 
+.justify-normal {
+  justify-content: normal;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-stretch {
+  justify-content: stretch;
+}
+
+.justify-items-start {
+  justify-items: start;
+}
+
+.justify-items-center {
+  justify-items: center;
+}
+
+.gap-10 {
+  gap: 2.5rem;
 }
 
 .gap-14 {
@@ -658,8 +686,12 @@ video {
   gap: 2rem;
 }
 
-.gap-y-6 {
-  row-gap: 1.5rem;
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-y-5 {
+  row-gap: 1.25rem;
 }
 
 .rounded-\[10px\] {
@@ -706,12 +738,33 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.p-6 {
-  padding: 1.5rem;
+.bg-accent {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 114 91 / var(--tw-bg-opacity));
 }
 
-.p-5 {
-  padding: 1.25rem;
+.p-4 {
+  padding: 1rem;
+}
+
+.px-\[21px\] {
+  padding-left: 21px;
+  padding-right: 21px;
+}
+
+.py-\[23px\] {
+  padding-top: 23px;
+  padding-bottom: 23px;
+}
+
+.py-\[21px\] {
+  padding-top: 21px;
+  padding-bottom: 21px;
+}
+
+.px-\[23px\] {
+  padding-left: 23px;
+  padding-right: 23px;
 }
 
 .text-2xl {
@@ -746,12 +799,16 @@ video {
   font-weight: 400;
 }
 
-.leading-5 {
-  line-height: 1.25rem;
+.font-light {
+  font-weight: 300;
 }
 
-.leading-8 {
-  line-height: 2rem;
+.font-medium {
+  font-weight: 500;
+}
+
+.leading-5 {
+  line-height: 1.25rem;
 }
 
 .text-\[\#333333\] {
