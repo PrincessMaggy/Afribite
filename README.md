@@ -51,7 +51,7 @@ As part of the Afribite development team, I contributed to the frontend developm
 - Created the Advert page
 
 
-### Ogwo Precious Chidinma Ijeoma
+### Ogwo Ijeoma Precious Chidinma 
 - Created the sign in , sign up pages for the restaurant owners
 - Installed React icons and added icons to the Form
 - Created the Promotion page 
