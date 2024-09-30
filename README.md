@@ -44,16 +44,23 @@ As part of the Afribite development team, I contributed to the frontend developm
 ## Team 5 Contribution
 
 ### Ndukuba Nneoma Chidinma
-- Created the Admin side bar and added the routes to other pages
+- Created the Admin side bar and added the routes to the pages on it
 - Intstalled React icons and added icons to the admin side bar
 - Created Layout component
 - Created banner component to be used on the dashboard, advert and promotion pages
 - Created the Advert page
 
+
+### OGWO IJEOMA CHIDINMA PRECIOUS
+- Created the sign in , sign up pages for the restaurant owners
+- Installed React icons and added icons to the Form
+- Created the Promotion page 
+
 ## Contributors
 
 - [Omowunmi Kamiludeen] - Frontend Developer
 - [Ndukuba Nneoma Chidinma] - Frontend Developer
+- [Ogwo Ijeoma Precious Chidinma] -Frontend Developer
 
 ## Links
 
