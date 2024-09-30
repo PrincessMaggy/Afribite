@@ -566,20 +566,12 @@ video {
   margin-top: 2rem;
 }
 
-.box-content {
-  box-sizing: content-box;
-}
-
 .flex {
   display: flex;
 }
 
 .grid {
   display: grid;
-}
-
-.h-\[387px\] {
-  height: 387px;
 }
 
 .h-\[847px\] {
@@ -598,12 +590,12 @@ video {
   width: 1072px;
 }
 
-.w-\[232px\] {
-  width: 232px;
-}
-
 .w-\[281px\] {
   width: 281px;
+}
+
+.w-\[736px\] {
+  width: 736px;
 }
 
 .grid-rows-2 {
@@ -626,48 +618,12 @@ video {
   align-items: center;
 }
 
-.justify-normal {
-  justify-content: normal;
-}
-
-.justify-start {
-  justify-content: flex-start;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-around {
-  justify-content: space-around;
-}
-
-.justify-evenly {
-  justify-content: space-evenly;
-}
-
-.justify-stretch {
-  justify-content: stretch;
-}
-
-.justify-items-start {
-  justify-items: start;
-}
-
-.justify-items-center {
-  justify-items: center;
-}
-
-.gap-10 {
-  gap: 2.5rem;
 }
 
 .gap-14 {
@@ -686,8 +642,9 @@ video {
   gap: 2rem;
 }
 
-.gap-2 {
-  gap: 0.5rem;
+.gap-x-\[41px\] {
+  -moz-column-gap: 41px;
+       column-gap: 41px;
 }
 
 .gap-y-5 {
@@ -710,20 +667,12 @@ video {
   border-width: 1px;
 }
 
-.border-t-2 {
-  border-top-width: 2px;
-}
-
-.border-solid {
-  border-style: solid;
-}
-
 .bg-\[\#E2725B\] {
   --tw-bg-opacity: 1;
   background-color: rgb(226 114 91 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#e2725b\] {
+.bg-accent {
   --tw-bg-opacity: 1;
   background-color: rgb(226 114 91 / var(--tw-bg-opacity));
 }
@@ -738,33 +687,18 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-accent {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 114 91 / var(--tw-bg-opacity));
-}
-
 .p-4 {
   padding: 1rem;
-}
-
-.px-\[21px\] {
-  padding-left: 21px;
-  padding-right: 21px;
-}
-
-.py-\[23px\] {
-  padding-top: 23px;
-  padding-bottom: 23px;
-}
-
-.py-\[21px\] {
-  padding-top: 21px;
-  padding-bottom: 21px;
 }
 
 .px-\[23px\] {
   padding-left: 23px;
   padding-right: 23px;
+}
+
+.py-\[21px\] {
+  padding-top: 21px;
+  padding-bottom: 21px;
 }
 
 .text-2xl {
@@ -795,16 +729,12 @@ video {
   font-weight: 800;
 }
 
-.font-normal {
-  font-weight: 400;
-}
-
 .font-light {
   font-weight: 300;
 }
 
-.font-medium {
-  font-weight: 500;
+.font-normal {
+  font-weight: 400;
 }
 
 .leading-5 {
