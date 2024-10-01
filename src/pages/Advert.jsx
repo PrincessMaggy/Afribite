@@ -1,9 +1,25 @@
+import { useEffect, useState } from "react";
 import Banner from "../components/Banner"
 import Button from "../components/button"
 import { FiImage } from "react-icons/fi";
 
 
 const Advert = () => {
+  const [adForm, setAdForm] = useState({Title: '', Description: ''})
+
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setAdForm((prev)=>(
+      {...prev,
+        [name]: value
+      }
+    ))
+  }
+
+  useEffect(()=>{
+    console.log(adForm)
+  },[adForm])
+
   return (
         <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 rounded-lg grid place-items-center shadow-md bg-n-n6">
           <Banner text={"Boost Your Brand Visibility and Drive Sales with Advertisements"}/>
@@ -12,10 +28,21 @@ const Advert = () => {
             <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-start">Create Ad</h1>
 
             <p className="mt-4 font-semibold text-[#E2725B]">Ad title</p>
-            <input type="text" className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "/>
+            <input
+            name="Title"
+            value={adForm.Title}
+            onChange={handleChange}
+            type="text" 
+            className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "/>
 
             <p className="mt-4 font-semibold text-[#E2725B] ">Description</p>
-            <textarea name="" id="" rows={5} className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B]"></textarea>
+            <textarea 
+            name="Description"
+            value={adForm.Description}
+            onChange={handleChange}
+            id="" 
+            rows={5} 
+            className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B]"></textarea>
 
             <p className="mt-4 font-semibold text-[#E2725B] ">Upload image</p>
             <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">

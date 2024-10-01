@@ -10,7 +10,7 @@ import logo from '../assets/logo.png'
 
 const AdminSidebar = () => {
   return (
-    <div className="h-lvh bg-[#E2725B] hidden text-white sm:grid grid-rows-5 p-10">
+    <div className="h-lvh bg-[#E2725B] hidden text-white md:grid grid-rows-5 p-10">
       
 
           <div className="flex flex-col gap-2">
