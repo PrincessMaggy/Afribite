@@ -34,6 +34,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Advertise restaurant on Afribite
 - Featured restaurant listings
 
+## Contributions
+
 ## Team 2 Contribution
 
 ### Omowunmi Balikis Kamiludeen
