@@ -8,6 +8,8 @@ import SignInForm from "./pages/Sign-in/SignIn";
 import SignUpForm from "./pages/Sign-up/SignUp";
 import Homepage from "./pages/Homepage";
 import MenuForm from "./pages/MenuForm";
+import Promotions from "./pages/Promotion";
+
 
 function App() {
   return (
@@ -21,12 +23,14 @@ function App() {
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
+                <Route path="/Promotions" element={<Promotions/>}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
                 <Route path="/MenuForm" element={<MenuForm />}></Route>
               </Routes>
             </Layout>
           }
         ></Route>
+              
         <Route path="/Sign-up/" element={<SignUpForm />}></Route>
         <Route path="/Sign-in/" element={<SignInForm />}></Route>
       </Routes>
