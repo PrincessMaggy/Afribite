@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import Button from "../components/Button";
+import Button from "../components/button";
 import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 

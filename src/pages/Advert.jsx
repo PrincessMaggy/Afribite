@@ -1,5 +1,5 @@
 import Banner from "../components/Banner";
-import Button from "../components/Button";
+import Button from "../components/button";
 import { FiImage } from "react-icons/fi";
 
 const Advert = () => {
