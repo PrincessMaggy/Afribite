@@ -5,6 +5,7 @@ import { FiImage } from "react-icons/fi";
 import { useState } from "react";
 import Category from "../components/ui/Category";
 import { ChoiceDate } from "../components/ui/DatePicker";
+import { Link } from "react-router-dom";
 
 
 const Promotions = () => {
@@ -88,9 +89,12 @@ const Promotions = () => {
                 </form>
                 <div className=" pt-4 mt-2  flex justify-between">
 
+
+                    <Link to='/Adminhome/Dashboard'>
                     <button type="button" className="px-4 py-2 border border-[#E2725B] text-[#E2725B] rounded-md hover:bg-[#E2725B] hover:text-white transition-colors">
                         Cancel
                     </button>
+                    </Link>
 
                     <button type="button" className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors">
                         Upload
