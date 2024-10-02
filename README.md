@@ -57,6 +57,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 ### Ogwo Ijeoma Precious Chidinma 
 - Created the sign in , sign up pages for the restaurant owners
+- added the authentication system 
 - Installed React icons and added icons to the Form
 - Created the Promotion page 
 
