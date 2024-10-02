@@ -4,7 +4,7 @@ import Button from "../components/button"
 import { FiImage } from "react-icons/fi";
 
 const Advert = () => {
-  const [adForm, setAdForm] = useState({Title: '', Description: ''})
+  const [adForm, setAdForm] = useState({Title: '', Description: '', image:''})
 
   const handleChange = (e) => {
     const {name, value} = e.target

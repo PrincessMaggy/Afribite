@@ -765,6 +765,14 @@ p{
   height: 8rem;
 }
 
+.h-\[100px\]{
+  height: 100px;
+}
+
+.h-\[50px\]{
+  height: 50px;
+}
+
 .h-full{
   height: 100%;
 }
@@ -789,12 +797,24 @@ p{
   width: 4rem;
 }
 
+.w-3\/4{
+  width: 75%;
+}
+
 .w-36{
   width: 9rem;
 }
 
 .w-40{
   width: 10rem;
+}
+
+.w-\[100px\]{
+  width: 100px;
+}
+
+.w-\[50px\]{
+  width: 50px;
 }
 
 .w-\[80\%\]{
@@ -1011,11 +1031,6 @@ p{
   border-color: rgb(153 153 153 / var(--tw-border-opacity));
 }
 
-.border-p-button{
-  --tw-border-opacity: 1;
-  border-color: rgb(226 114 91 / var(--tw-border-opacity));
-}
-
 .border-red-500{
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity));
@@ -1127,6 +1142,11 @@ p{
   padding: 2rem;
 }
 
+.px-12{
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1169,10 +1189,6 @@ p{
 
 .pl-10{
   padding-left: 2.5rem;
-}
-
-.pt-8{
-  padding-top: 2rem;
 }
 
 .text-center{
@@ -1232,6 +1248,10 @@ p{
 
 .font-light{
   font-weight: 300;
+}
+
+.font-medium{
+  font-weight: 500;
 }
 
 .font-semibold{
@@ -1392,6 +1412,10 @@ p{
     margin-top: 2rem;
   }
 
+  .sm\:p-16{
+    padding: 4rem;
+  }
+
   .sm\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1538,6 +1562,10 @@ p{
     flex-direction: row;
   }
 
+  .lg\:gap-5{
+    gap: 1.25rem;
+  }
+
   .lg\:p-12{
     padding: 3rem;
   }
@@ -1545,6 +1573,11 @@ p{
   .lg\:px-10{
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+  }
+
+  .lg\:px-16{
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 
   .lg\:px-32{
