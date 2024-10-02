@@ -1,6 +1,6 @@
 # Afribite
 
-Guide:l
+Guide:
 _ Fork the repository
 _ Clone the repository
 _ Run npm install to install all dependencies
