@@ -11,7 +11,7 @@ const Layout = ({children}) => {
         <main className={`${location.pathname !== '/Adminhome/Dashboard' ? 'sm:p-16' : 'p-4 lg:px-16'}  mx-auto my-4 sm:my-0 w-full overflow-scroll`}>
             {children}
         </main>
-    </div>
+      </div>
     </div>
   )
 }
