@@ -36,8 +36,8 @@ const AdminSidebar = () => {
             <NavLink>
               <div className="flex items-center gap-4 "><BsCart />Orders</div>
             </NavLink>
-            <NavLink>
-            <div className="flex items-center gap-4 "><FaRegBell />Notification</div>
+            <NavLink to="/Adminhome/Notifications">
+            <div className="flex items-center gap-4 "><FaRegBell />Notifications</div>
             </NavLink>
             </div>
     

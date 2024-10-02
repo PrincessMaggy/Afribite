@@ -7,6 +7,7 @@ import Layout from "./components/Layout"
 import SignInForm from "./pages/Sign-in/SignIn";
 import SignUpForm from "./pages/Sign-up/SignUp";
 import Homepage from "./pages/Homepage";
+import Notifications from "./pages/Notifications";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard/>}></Route>
           <Route path="/Advert" element={<Advert/>}></Route>
           <Route path="/Menu" element={<CreateMenu/>}></Route>
+          <Route path="/Notifications" element={<Notifications/>}></Route>
           </Routes>
         </Layout>}></Route>
         <Route path="/Sign-up/" element={<SignUpForm />}></Route>

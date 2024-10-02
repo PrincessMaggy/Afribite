@@ -1,33 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-<<<<<<< HEAD
-    "./index.html",
-    "./src/**/*.{js,jsx,tsx}",
-  ],
-  theme: {
-    fontFamily: {
-      'sans': ['Poppins', 'ui-sans-serif', 'system-ui'],
-    },
-    extend: {
-      colors: {
-        'eggshell': '#fffcf2',
-        'notif':'#fbf5e9',
-        'notif-bord':'#f4e1c133',
-        'accent': '#e2725b',
-      },
-      spacing: {
-        '10px': '10px',
-        '21px': '21px',
-        '23px': '23px',
-      },
-=======
     "./index.html",  
     "./src/**/*.{html,js,jsx}" 
   ],
   theme: {
     extend: {
       colors: {
+        'eggshell': '#fffcf2',
+        'notif':'#fbf5e9',
+        'notif-bord':'#f4e1c133',
+        'accent': '#e2725b',
         p: {
           button: "#E2725B",
           button2: "#FFCC00",
@@ -57,7 +40,6 @@ export default {
       backgroundImage: {
         'backgroud': "url('./assets/background.png')"
       }
->>>>>>> 58940df1de1f73eb3a185cf0cd830840b9f6e28a
     },
   },
   plugins: [],
