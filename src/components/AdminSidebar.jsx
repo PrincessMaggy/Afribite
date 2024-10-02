@@ -25,7 +25,7 @@ const AdminSidebar = () => {
             Dashboard
           </div>
         </NavLink>
-        <NavLink>
+        <NavLink to="/Adminhome/Promotions">
           <div className="flex items-center gap-4 ">
             <BiCube />
             Promotions
