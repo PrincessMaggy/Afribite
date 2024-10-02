@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",  
-    "./src/**/*.{html,js,jsx}" 
-  ],
+  content: ["./index.html", "./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       colors: {
@@ -18,7 +15,7 @@ export default {
           button4: "#D6D602",
         },
         n: {
-          n1: "##333333",
+          n1: "#333333",
           n2: "#666666",
           n3: "#999999",
           n4: "#cccccc",
@@ -38,8 +35,8 @@ export default {
         80: "20rem",
       },
       backgroundImage: {
-        'backgroud': "url('./assets/background.png')"
-      }
+        backgroud: "url('./assets/background.png')",
+      },
     },
   },
   plugins: [],
