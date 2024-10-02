@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
         <Route
-          path="/Adminhome/"
+          path="/Adminhome/*"
           element={
             <Layout>
               <Routes>
