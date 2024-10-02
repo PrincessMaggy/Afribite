@@ -11,6 +11,7 @@ import MenuForm from "./pages/MenuForm";
 import Notifications from "./pages/Notifications";
 import Promotions from "./pages/Promotion";
 
+import MainDish from "./pages/MainDish";
 
 function App() {
   return (
@@ -24,15 +25,19 @@ function App() {
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
-                <Route path="/Promotions" element={<Promotions/>}></Route>
+                <Route path="/Promotions" element={<Promotions />}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
                 <Route path="/MenuForm" element={<MenuForm />}></Route>
-                <Route path="/Notifications" element={<Notifications />}></Route>
+                <Route
+                  path="/Notifications"
+                  element={<Notifications />}
+                ></Route>
+                <Route path="/MainDish" element={<MainDish />}></Route>
               </Routes>
             </Layout>
           }
         ></Route>
-              
+
         <Route path="/Sign-up/" element={<SignUpForm />}></Route>
         <Route path="/Sign-in/" element={<SignInForm />}></Route>
       </Routes>

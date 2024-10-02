@@ -140,7 +140,7 @@ function MenuForm() {
 
           {/* Save Button */}
           <Link
-            to="/"
+            to="/Adminhome/MainDish"
             className="bg-transparent text-p-button3 px-5 py-1 hover:text-n-n7 hover:bg-p-button rounded-md ml-2 lg:mr-3.5 text-xs lg:text-sm"
           >
             Save
