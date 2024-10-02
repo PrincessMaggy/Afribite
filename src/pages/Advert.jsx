@@ -1,32 +1,57 @@
-import Banner from "../components/Banner";
-import Button from "../components/button";
+import { useEffect, useState } from "react";
+import Banner from "../components/Banner"
+import Button from "../components/button"
 import { FiImage } from "react-icons/fi";
+import { LuPoundSterling } from "react-icons/lu";
+import { ChoiceDate } from "../components/ui/DatePicker";
+import { Link } from "react-router-dom";
 
 const Advert = () => {
+  const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:''})
+
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setAdForm((prev)=>(
+      {...prev,
+        [name]: value
+      }
+    ))
+  }
+
+  useEffect(()=>{
+    console.log(adForm)
+  },[adForm])
+
   return (
     <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 rounded-lg grid place-items-center shadow-md bg-n-n6">
+      {/* banner section */}
       <Banner
         text={"Boost Your Brand Visibility and Drive Sales with Advertisements"}
       />
 
+      {/* Ad form */}
       <form action="" className="mt-6 sm:mt-8 w-full">
         <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-start">
           Create Ad
         </h1>
 
-        <p className="mt-4 font-semibold text-[#E2725B]">Ad title</p>
-        <input
-          type="text"
-          className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "
-        />
+            <p className="mt-4 font-semibold text-[#E2725B]">Ad title</p>
+            <input
+            name="Title"
+            value={adForm.Title}
+            onChange={handleChange}
+            type="text" 
+            className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "/>
 
-        <p className="mt-4 font-semibold text-[#E2725B] ">Description</p>
-        <textarea
-          name=""
-          id=""
-          rows={5}
-          className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B]"
-        ></textarea>
+            <p className="mt-4 font-semibold text-[#E2725B] ">Description</p>
+            <textarea
+            placeholder="Write a detailed description about your Ad" 
+            name="Description"
+            value={adForm.Description}
+            onChange={handleChange}
+            id="" 
+            rows={5} 
+            className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] placeholder:text-[#E2725B]/40 placeholder:p-1"></textarea>
 
         <p className="mt-4 font-semibold text-[#E2725B] ">Upload image</p>
         <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
@@ -48,7 +73,53 @@ const Advert = () => {
           />
         </div>
 
-        <Button text="Save and Exit" className="mt-4" />
+        <div className="flex justify-between text-sm md:text-base mt-4 px-3 ">
+          <div>
+          <p className="mt-4 font-semibold text-[#E2725B]">Audience</p>
+
+          <div className="mt-2">
+          <div className="flex gap-2 ">
+          <input type="radio" className="" /> <p className="text-[#E2725B]">Everyone</p>
+          </div>
+          
+          <div className="flex gap-2">
+          <input type="radio" className="" /> <p className="text-[#E2725B]">Newcomers</p>
+          </div>
+          </div>
+            
+          </div>
+
+          <div>
+            <p className="mt-4 font-semibold text-[#E2725B]">Budget</p>
+            <div className='relative flex '>
+              <LuPoundSterling className="absolute left-2 top-3.5 text-n-n3" />
+              <input
+              name="budget"
+              value={adForm.budget}
+              onChange={handleChange}
+              type="number" 
+              className="border-2 bg-inherit border-[#E2725B]/20 w-full pl-6 p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "/>     
+            </div>
+          </div>
+        </div>
+
+
+        <div className="flex justify-between text-sm md:text-base mt-4  ">
+              <span>
+                 <h3 className="text-[#E2725B] font-semibold">Start date</h3>
+                 <ChoiceDate />
+              </span>
+
+              <span className="md:inline-block hidden">
+                   <h3 className="text-[#E2725B] font-semibold ">End date</h3>
+                   <ChoiceDate/>
+              </span>
+        </div>        
+        <div className="flex justify-end items-center mt-4 gap-5">
+        <Button text="Post Ad" className="px-6" />
+        <Button text="save as draft" className="bg-[#808000] hover:border-[#808000] hover:text-[#808000]" />
+        <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
+        </div>
       </form>
     </div>
   );

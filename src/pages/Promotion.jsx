@@ -12,8 +12,7 @@ const Promotions = () => {
     const [termsAccepted, setTermsAccepted] = useState(false);
 
     return (
-        <div className="w-full p-4 bg-white/70 rounded-lg shadow-md overflow-hidden">
-            <div className="p-4 sm:p-6 lg:p-8">
+        <div className="w-[90%] m-auto auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
                 <Banner text={"12% per annum"} />
 
                 <form className="mt-6 space-y-4">
@@ -98,9 +97,6 @@ const Promotions = () => {
                     </button>
                 </div>
             </div>
-
-
-        </div>
     );
 };
 
