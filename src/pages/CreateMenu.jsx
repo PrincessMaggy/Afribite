@@ -1,6 +1,6 @@
 import React from "react";
 import menuIcon from "../assets/menuIcon.svg";
-import { Link } from "react-router-dom";
+import Button from "../components/button";
 
 function CreateMenu() {
   return (
@@ -16,12 +16,11 @@ function CreateMenu() {
           Create menu to organize and display food and drinks on your point of
           sale.
         </p>
-        <Link
+        <Button
           to="/Adminhome/MenuForm"
-          className="bg-p-button p-3 mt-2 mb-8 rounded-md text-n-n7 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:text-p-button hover:bg-n-n7"
-        >
-          Create Now
-        </Link>
+          text="Create Now"
+          className="p-3 mt-2 mb-8"
+        />
       </div>
     </div>
   );
