@@ -8,6 +8,7 @@ import SignInForm from "./pages/Sign-in/SignIn";
 import SignUpForm from "./pages/Sign-up/SignUp";
 import Homepage from "./pages/Homepage";
 import MenuForm from "./pages/MenuForm";
+import Notifications from "./pages/Notifications";
 import Promotions from "./pages/Promotion";
 
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/Promotions" element={<Promotions/>}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
                 <Route path="/MenuForm" element={<MenuForm />}></Route>
+                <Route path="/Notifications" element={<Notifications />}></Route>
               </Routes>
             </Layout>
           }

@@ -1,4 +1,7 @@
 # Afribite
+Name: Magali Lapu
+Role: Developer, Menu Management Team
+Built orders notifications system for Afribite.
 
 Afribite is an innovative food delivery platform that focuses on promoting African cuisine by connecting local restaurants to customers. The platform offers users a seamless experience for ordering food online, tracking deliveries, and accessing special offers from restaurants.
 
@@ -36,6 +39,12 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 ## Contributions
 
+## Team 1 Contribution
+
+### Rhoda Ojetola
+
+- added alt text to the banner image
+
 ## Team 2 Contribution
 
 ### Omowunmi Balikis Kamiludeen
@@ -54,12 +63,14 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created banner component to be used on the dashboard, advert and promotion pages
 - Created the Advert page
 - Created Dashboard page
+- Changed the alt text for the image tag in the banner component 
 
 
 ### Ogwo Ijeoma Precious Chidinma 
 - Created the sign in , sign up pages for the restaurant owners
 - Installed React icons and added icons to the Form
 - Created the Promotion page 
+- add firebase authentification logic
 
 ## Contributors
 

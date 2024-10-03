@@ -4,13 +4,17 @@ import dishIcon from '../assets/dishicon.png'
 import vector from '../assets/Vector.png'
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDropdown } from "react-icons/io";
+import dish1 from '../assets/dish1.png'
+import dish2 from '../assets/dish2.png'
+import dish3 from '../assets/dish3.png'
+import RecentOrder from '../components/RecentOrder';
 
 const Dashboard = () => {
   return (
     <div className="">
       <div className='flex w-full mb-8 items-center'>
         {/* Search */}
-        <div className='relative flex flex-1 justify-center items-center'>
+        <div className='relative flex flex-1 justify-center items-center ml-10'>
           <CiSearch className='-m-10 text-2xl text-n-n3'/>
           <input type="text" className="w-3/4 bg-inherit border border-[#E2725B]/20 focus:outline-none focus:border-[#E2725B] px-12 p-3 rounded-3xl " placeholder='search'/>
         </div>
@@ -41,7 +45,7 @@ const Dashboard = () => {
                   <p className='text-sm md:text-base lg:text-lg text-black text-center'>Welcome to <span className='text-[#E2725B]'>AfriBite</span></p>
 
               </div>
-              <div className=' lg:h-56  flex'><img src={bannerImage} alt="" className=" lg:w-full" /></div>
+              <div className=' lg:h-56  flex'><img src={bannerImage} alt="" className="flex-1 lg:w-full" /></div>
             </div>
         </div>
 
@@ -93,6 +97,8 @@ const Dashboard = () => {
 
       {/* right side */}
       <div className=" ml-6 hidden lg:block">
+
+        {/* profile info display */}
         <div className="bg-white px-8 p-4">
           <h1 className="text-center text-2xl font-medium mb-4 ">My Profile</h1>
           <div className="mb-8">
@@ -118,7 +124,18 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* recent orders */}
+        <div className="bg-white px-2 p-4 mt-4 flex flex-col gap-2">
+          <h1 className="text-center text-l font-medium my-4 ">Recent Order</h1>
+          <RecentOrder image={dish1} dish={'Eforiro and Semo'} price={10} date={'21 sept 2021'} status={'Completed'}/>
+          <RecentOrder image={dish2} dish={'Afang soup and Eba'} price={10} date={'21 sept 2021'} status={'Completed'}/>
+          <RecentOrder image={dish3} dish={'Jollof rice and turkey'} price={20} date={'21 sept 2021'} status={'Completed'}/>
+        </div>
+
       </div>
+
+
       </div>
     </div>
   )

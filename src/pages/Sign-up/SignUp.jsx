@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../../firebase';
+ 
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -10,10 +13,34 @@ const SignUpForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Sign up submitted', { email, password, confirmPassword });
+    setError('');
+
+    if (password !== confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/Adminhome'); 
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      navigate('/Adminhome');
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -94,6 +121,7 @@ const SignUpForm = () => {
                   </button>
                 </div>
               </span>
+              {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign up
@@ -111,7 +139,10 @@ const SignUpForm = () => {
                 <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
-                <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full flex items-center justify-center">
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full flex items-center justify-center"
+                >
                   <FcGoogle className="text-white" size={24} />
                 </button>
               </div>
