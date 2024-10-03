@@ -1,4 +1,7 @@
 # Afribite
+Name: Magali Lapu
+Role: Developer, Menu Management Team
+Built orders notifications system for Afribite.
 
 Afribite is an innovative food delivery platform that focuses on promoting African cuisine by connecting local restaurants to customers. The platform offers users a seamless experience for ordering food online, tracking deliveries, and accessing special offers from restaurants.
 

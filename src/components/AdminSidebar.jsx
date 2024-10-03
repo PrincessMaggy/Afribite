@@ -49,10 +49,10 @@ const AdminSidebar = () => {
             Orders
           </div>
         </NavLink>
-        <NavLink>
+        <NavLink to="/Adminhome/Notifications">
           <div className="flex items-center gap-4 ">
             <FaRegBell />
-            Notification
+            Notifications
           </div>
         </NavLink>
       </div>
