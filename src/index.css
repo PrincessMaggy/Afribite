@@ -14,7 +14,7 @@
     @apply text-n-n1 font-pop box-border m-0 p-0;
   }
   h2 {
-    @apply text-n-n1 font-pop font-semibold lg:text-3xl;
+    @apply text-n-n1 font-pop font-normal lg:text-2xl;
   }
   p {
     @apply text-n-n3 font-pop text-xs lg:text-sm;

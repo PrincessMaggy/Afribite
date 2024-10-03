@@ -130,26 +130,29 @@ function MenuForm() {
           </div>
         </div>
 
-        <div className="w-full flex justify-end px-6">
+        <div className="w-full flex justify-end px-10">
           {/* Cancel Button */}
           <Button
             onClick={handleCancel} // Call the handleCancel function when clicked
-            className="bg-transparent text-p-button3 px-5 py-1 border-none hover:bg-p-button hover:text-n-n7"
+            className="bg-transparent text-p-button3 px-5 py-1 border-none hover:bg-p-button hover:text-n-n8"
             text="Cancel"
           />
 
           {/* Save Button */}
-          <Link
+          <Button
             to="/Adminhome/MainDish"
-            className="bg-transparent text-p-button3 px-5 py-1 hover:text-n-n7 hover:bg-p-button rounded-md ml-2 lg:mr-3.5 text-xs lg:text-sm"
-          >
-            Save
-          </Link>
+            className="bg-transparent text-p-button3 px-5 py-1 border-none hover:text-n-n8 hover:bg-p-button"
+            text="Save"
+          />
         </div>
 
         {/* Add new button */}
         <div className="w-full justify-start mt-12">
-          <Button text="Add new menu +" className="py-2 px-5 lg:px-10" />
+          <Button
+            text="Add new menu +"
+            className="py-2 px-5 lg:px-10"
+            to="/Adminhome/MenuForm"
+          />
         </div>
       </div>
     </div>
