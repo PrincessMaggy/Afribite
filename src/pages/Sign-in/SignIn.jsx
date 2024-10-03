@@ -127,6 +127,7 @@ const SignInForm = () => {
               </span>
 
               {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign in

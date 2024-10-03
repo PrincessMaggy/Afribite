@@ -21,11 +21,13 @@ const SignUpForm = () => {
 
     if (password !== confirmPassword) {
       setError("Passwords do not match. Please check and try again.");
+      setError("Passwords do not match. Please check and try again.");
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/Adminhome');
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
@@ -76,6 +78,19 @@ const SignUpForm = () => {
       await signInWithPopup(auth, provider);
       navigate('/Adminhome');
     } catch (error) {
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          setError("The sign-in window was closed. Please try again.");
+          break;
+        case 'auth/cancelled-popup-request':
+          setError("The sign-in request was cancelled. Please try again.");
+          break;
+        case 'auth/popup-blocked':
+          setError("The pop-up window was blocked by your browser. Please allow pop-ups for this site and try again.");
+          break;
+        default:
+          setError("An error occurred during Google sign-in. Please try again later.");
+      }
       switch (error.code) {
         case 'auth/popup-closed-by-user':
           setError("The sign-in window was closed. Please try again.");
@@ -170,6 +185,7 @@ const SignUpForm = () => {
                   </button>
                 </div>
               </span>
+              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
               {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
