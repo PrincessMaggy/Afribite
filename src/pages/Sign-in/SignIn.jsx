@@ -4,8 +4,8 @@ import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+import { auth } from '/src/firebase';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +17,20 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/Adminhome'); 
+      navigate('/Adminhome');
     } catch (error) {
-      setError(error.message);
+      switch (error.code) {
+        case 'auth/user-not-found':
+          setError("User not found. Please check and try again.");
+          break;
+        case 'auth/wrong-password':
+          setError("Incorrect password. Please check and try again.");
+          break;
+        default:
+          setError("An error occurred during sign-in. Please try again later.");
+      }
     }
   };
 
@@ -32,9 +40,35 @@ const SignInForm = () => {
       await signInWithPopup(auth, provider);
       navigate('/Adminhome');
     } catch (error) {
-      setError(error.message);
+   
     }
   };
+
+  const handleAppleSignIn = async () => {
+    const provider = new OAuthProvider('apple.com');
+    try {
+      await signInWithPopup(auth, provider);
+      navigate('/Adminhome');
+    } catch (error) {
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          setError("The sign-in window was closed. Please try again.");
+          break;
+        case 'auth/cancelled-popup-request':
+          setError("The sign-in request was cancelled. Please try again.");
+          break;
+        case 'auth/popup-blocked':
+          setError("The pop-up window was blocked by your browser. Please allow pop-ups for this site and try again.");
+          break;
+        case 'auth/account-exists-with-different-credential':
+          setError("An account already exists with the same email address but different sign-in credentials. Please sign in using the original method.");
+          break;
+        default:
+          setError("An error occurred during Apple sign-in. Please try again later.");
+      }
+    }
+  };
+
 
   return (
     <div className="flex flex-row h-screen min-h-screen overflow-auto">
@@ -92,7 +126,7 @@ const SignInForm = () => {
                 </div>
               </span>
 
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign in
@@ -107,10 +141,13 @@ const SignInForm = () => {
 
             <div className="mt-4 w-full flex justify-center">
               <div className="flex space-x-4 w-40">
-                <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
+                <button
+                  onClick={handleAppleSignIn}
+                  className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center"
+                >
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
-                <button 
+                <button
                   onClick={handleGoogleSignIn}
                   className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full flex items-center justify-center"
                 >
