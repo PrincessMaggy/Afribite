@@ -4,8 +4,8 @@ import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
-import { auth } from '/src/firebase';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -17,16 +17,26 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/Adminhome');
+      navigate('/Adminhome'); 
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
-          setError("User not found. Please check and try again.");
+          setError("No account found with this email. Please check your email or sign up.");
           break;
         case 'auth/wrong-password':
-          setError("Incorrect password. Please check and try again.");
+          setError("Incorrect password. Please try again or reset your password.");
+          break;
+        case 'auth/invalid-email':
+          setError("Invalid email format. Please enter a valid email address.");
+          break;
+        case 'auth/user-disabled':
+          setError("This account has been disabled. Please contact support.");
+          break;
+        case 'auth/too-many-requests':
+          setError("Too many failed attempts. Please try again later or reset your password.");
           break;
         default:
           setError("An error occurred during sign-in. Please try again later.");
@@ -36,16 +46,6 @@ const SignInForm = () => {
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      navigate('/Adminhome');
-    } catch (error) {
-   
-    }
-  };
-
-  const handleAppleSignIn = async () => {
-    const provider = new OAuthProvider('apple.com');
     try {
       await signInWithPopup(auth, provider);
       navigate('/Adminhome');
@@ -64,11 +64,10 @@ const SignInForm = () => {
           setError("An account already exists with the same email address but different sign-in credentials. Please sign in using the original method.");
           break;
         default:
-          setError("An error occurred during Apple sign-in. Please try again later.");
+          setError("An error occurred during Google sign-in. Please try again later.");
       }
     }
   };
-
 
   return (
     <div className="flex flex-row h-screen min-h-screen overflow-auto">
@@ -127,7 +126,6 @@ const SignInForm = () => {
               </span>
 
               {error && <p className="text-red-500 text-center text-sm">{error}</p>}
-              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign in
@@ -142,13 +140,10 @@ const SignInForm = () => {
 
             <div className="mt-4 w-full flex justify-center">
               <div className="flex space-x-4 w-40">
-                <button
-                  onClick={handleAppleSignIn}
-                  className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center"
-                >
+                <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
-                <button
+                <button 
                   onClick={handleGoogleSignIn}
                   className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full flex items-center justify-center"
                 >
@@ -158,7 +153,7 @@ const SignInForm = () => {
             </div>
 
             <p className="mt-6 text-center text-gray-400">
-              New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link>
+              {/* New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> */}
             </p>
           </div>
         </div>
