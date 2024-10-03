@@ -23,7 +23,7 @@ const Advert = () => {
   },[adForm])
 
   return (
-    <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 rounded-lg grid place-items-center shadow-md bg-n-n6">
+    <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
       {/* banner section */}
       <Banner
         text={"Boost Your Brand Visibility and Drive Sales with Advertisements"}
@@ -117,7 +117,8 @@ const Advert = () => {
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
         <Button text="Post Ad" className="px-6" />
-        <Button text="save as draft" className="bg-[#808000] hover:border-[#808000] hover:text-[#808000]" />
+        <button className="inline-block box-border border-2 pointer p-3 rounded-md text-n-n7 text-xs lg:text-sm font-pop bg-[#808000] hover:border-[#808000] hover:text-[#808000] hover:bg-white"
+        >Save as draft</button>
         <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
       </form>
