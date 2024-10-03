@@ -153,7 +153,7 @@ const SignInForm = () => {
             </div>
 
             <p className="mt-6 text-center text-gray-400">
-              {/* New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> */}
+              New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> 
             </p>
           </div>
         </div>
