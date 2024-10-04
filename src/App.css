@@ -1424,6 +1424,11 @@ p{
   padding-right: 0px;
 }
 
+.px-10{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
@@ -1482,16 +1487,6 @@ p{
 .py-\[21px\]{
   padding-top: 21px;
   padding-bottom: 21px;
-}
-
-.px-9{
-  padding-left: 2.25rem;
-  padding-right: 2.25rem;
-}
-
-.px-10{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
 }
 
 .pl-10{
@@ -1846,9 +1841,9 @@ p{
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
-.hover\:text-n-n7:hover{
+.hover\:text-n-n8:hover{
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(249 249 249 / var(--tw-text-opacity));
 }
 
 .hover\:text-p-button:hover{
@@ -1868,11 +1863,6 @@ p{
 
 .hover\:text-white\/30:hover{
   color: rgb(255 255 255 / 0.3);
-}
-
-.hover\:text-n-n8:hover{
-  --tw-text-opacity: 1;
-  color: rgb(249 249 249 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover{

@@ -6,7 +6,7 @@ export default {
       colors: {
         eggshell: "#fffcf2",
         notif: "#fbf5e9",
-        "notif-bord": "#f4e1c133",
+        notif-bord: "#f4e1c133",
         accent: "#e2725b",
         p: {
           button: "#E2725B",
