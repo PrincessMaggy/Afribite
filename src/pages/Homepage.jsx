@@ -10,7 +10,7 @@ function Homepage() {
         <p className="text-2xl font-bold underline">
           <Link to="/Adminhome/Dashboard">Admin Home page</Link>
         </p>
-                <p className="rounded-md border w-fit">
+        <p className="rounded-md border w-fit">
           {/* Remove the wrapping <Link> and pass the 'to' prop directly */}
           <Button text="Sign up as Admin" to="/Sign-up" />
         </p>
