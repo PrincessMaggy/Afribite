@@ -33,6 +33,20 @@ export default {
       backgroundImage: {
         backgroud: "url('./assets/background.png')",
       },
+      colors: {
+        'terra-cotta': '#E2725B',
+      },
+      spacing: {
+        '115': '115px',
+      },
+      screens: {
+        'tablet': '768px',
+        // => @media (min-width: 768px) { ... }
+  
+        'laptop': '1330px',
+        // => @media (min-width: 1330px) { ... }
+  
+      },
     },
   },
   plugins: [],
