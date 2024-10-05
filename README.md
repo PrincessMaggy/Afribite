@@ -40,7 +40,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 ### Rhoda Ojetola
 
-- added alt text to the banner image
+- Created NavBar component
+- Created Landing Page
 
 ## Team 2 Contribution
 
