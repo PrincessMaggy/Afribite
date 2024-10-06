@@ -1,4 +1,3 @@
-import React from "react";
 import menuIcon from "../assets/menuIcon.svg";
 import Button from "../components/button";
 
