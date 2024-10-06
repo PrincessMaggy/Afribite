@@ -10,14 +10,19 @@ import Homepage from "./pages/Homepage";
 import MenuForm from "./pages/MenuForm";
 import Notifications from "./pages/Notifications";
 import Promotions from "./pages/Promotion";
-
+import Review from "./pages/review/Review";
 import MainDish from "./pages/MainDish";
+import { Rating } from "./pages/rating/Rating";
+import LeaveReview from "./pages/leave_a_review/leave_review";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
+        <Route path="/review" element={<Review />}></Route>
+        <Route path="/rating" element={<Rating />}></Route>
+        <Route path="/leave-a-review" element={<LeaveReview />}></Route>
         <Route
           path="/Adminhome/*"
           element={
