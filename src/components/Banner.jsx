@@ -10,7 +10,7 @@ const Banner = ({text}) => {
                 <p className='text-sm md:text-base lg:text-lg text-center'>{text}</p>
 
             </div>
-            <div className=' lg:h-56  flex'><img src={bannerImage} alt="" className=" lg:w-full" /></div>
+            <div className=' lg:h-56  flex'><img src={bannerImage} alt="page banner" className=" lg:w-full" /></div>
           </div>
     </div>
   )

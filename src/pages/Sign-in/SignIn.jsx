@@ -22,7 +22,25 @@ const SignInForm = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/Adminhome'); 
     } catch (error) {
-      setError(error.message);
+      switch (error.code) {
+        case 'auth/user-not-found':
+          setError("No account found with this email. Please check your email or sign up.");
+          break;
+        case 'auth/wrong-password':
+          setError("Incorrect password. Please try again or reset your password.");
+          break;
+        case 'auth/invalid-email':
+          setError("Invalid email format. Please enter a valid email address.");
+          break;
+        case 'auth/user-disabled':
+          setError("This account has been disabled. Please contact support.");
+          break;
+        case 'auth/too-many-requests':
+          setError("Too many failed attempts. Please try again later or reset your password.");
+          break;
+        default:
+          setError("An error occurred during sign-in. Please try again later.");
+      }
     }
   };
 
@@ -32,7 +50,22 @@ const SignInForm = () => {
       await signInWithPopup(auth, provider);
       navigate('/Adminhome');
     } catch (error) {
-      setError(error.message);
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          setError("The sign-in window was closed. Please try again.");
+          break;
+        case 'auth/cancelled-popup-request':
+          setError("The sign-in request was cancelled. Please try again.");
+          break;
+        case 'auth/popup-blocked':
+          setError("The pop-up window was blocked by your browser. Please allow pop-ups for this site and try again.");
+          break;
+        case 'auth/account-exists-with-different-credential':
+          setError("An account already exists with the same email address but different sign-in credentials. Please sign in using the original method.");
+          break;
+        default:
+          setError("An error occurred during Google sign-in. Please try again later.");
+      }
     }
   };
 
@@ -92,7 +125,7 @@ const SignInForm = () => {
                 </div>
               </span>
 
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign in
@@ -120,7 +153,7 @@ const SignInForm = () => {
             </div>
 
             <p className="mt-6 text-center text-gray-400">
-              New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link>
+              New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> 
             </p>
           </div>
         </div>
