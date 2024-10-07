@@ -4,6 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        eggshell: "#fffcf2",
+        notif: "#fbf5e9",
+        "notif-bord": "#f4e1c133",
+        accent: "#e2725b",
         p: {
           button: "#E2725B",
           button2: "#FFCC00",
@@ -46,8 +50,14 @@ export default {
         'laptop': '1330px',
         // => @media (min-width: 1330px) { ... }
   
+      gridTemplateRows: {
+        // Simple 16 row grid
+        16: "repeat(16, minmax(0, 1fr))",
+
+        // Complex site-specific row configuration
+        layout: "200px minmax(900px, 1fr) 100px",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
