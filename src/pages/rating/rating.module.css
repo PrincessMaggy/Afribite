@@ -1,0 +1,35 @@
+.main {
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.profile_pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  background-image: url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.heading {
+  font-size: 30px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.cuisines {
+  color: #e2725b;
+}
+
+.card_group {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}

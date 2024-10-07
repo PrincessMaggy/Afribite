@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MdToggleOff, MdToggleOn } from "react-icons/md"; // Combined import
 
 function Menu(items) {
   // Fix the useState destructuring
+
   const [toggle, setToggle] = useState(false);
 
   return (
