@@ -19,7 +19,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="py-8 px-6 md:px-24 tablet:p-6 flex items-center justify-between flex-wrap font-pop">
+    <nav className="py-8 px-6 bg-transparent laptop:px-20 laptop:pr-6 tablet:p-6 flex items-center justify-between flex-wrap font-pop">
       {/* Logo */}
       
       <div className="flex w-36 gap-3.5 items-center">
@@ -89,9 +89,9 @@ const Navbar = () => {
       </div>
       <div className="laptop:hidden tablet:flex hidden items-center cursor-pointer">
         {isSearchOpen ? (
-          <IoClose className="text-black" size={24} onClick={toggleSearchBar} />
+          <IoClose className="text-terra-cotta" size={24} onClick={toggleSearchBar} />
         ) : (
-          <IoSearch className="text-black" size={24} onClick={toggleSearchBar} />
+          <IoSearch className="text-terra-cotta" size={24} onClick={toggleSearchBar} />
         )}
       </div>
   
