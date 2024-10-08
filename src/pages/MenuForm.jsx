@@ -2,19 +2,21 @@ import { useState, useRef } from "react";
 import Button from "../components/button";
 import { MdDeleteOutline } from "react-icons/md";
 import { addDoc, collection } from "@firebase/firestore";
-import { db } from "../firebase";
+import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
+import { db, ImageDb } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 function MenuForm() {
-  // Initial image placeholder
-  const initialImage = "/src/assets/imagePlaceHolder.svg";
-
   // Form states
-  const [image, setImage] = useState(initialImage);
+  const [image, setImage] = useState("/src/assets/imagePlaceHolder.svg");
+  const [uploadImage, setUploadImage] = useState(null);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [items, setItems] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
@@ -22,7 +24,7 @@ function MenuForm() {
 
   // Handle image click
   const handleImageClick = () => {
-    fileInputRef.current.click(); // Trigger the file input
+    fileInputRef.current.click(); // Trigger the file input element to open the file picker dialog
   };
 
   // Handle image change
@@ -34,38 +36,43 @@ function MenuForm() {
         setImage(render.result); // Convert the image file to upload file
       };
       render.readAsDataURL(file); // Convert the file as data URL
+      setUploadImage(file); // Set the image file to upload
     }
   };
 
-  const handleSubmit = (e) => {
+  const dbref = collection(db, "menu"); // Reference to the Firestore collection
+  const imageRef = ref(ImageDb, `menu/${uuidv4()}`); // Reference to the image storage
+  const metadata = {
+    contentType: "image/png",
+  };
+
+  // Add Form data Firestore database
+  const sendForm = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const newItem = {
-      image,
-      dishName,
-      price,
-      category,
-      description,
-    };
+    try {
+      await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
+      const imageUrl = await getDownloadURL(imageRef);
 
-    addDoc(collection(db, "menuItems"), newItem)
-      .then(() => {
-        setItems([...items, newItem]);
-
-        setImage(initialImage);
-        setDishName("");
-        setPrice("");
-        setCategory("");
-        setDescription("");
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
+      await addDoc(dbref, {
+        Img: imageUrl,
+        Name: dishName,
+        Price: price,
+        Category: category,
+        Desc: description,
       });
+      alert("Sent Successfully!");
+      navigate("/Adminhome/MainDish");
+    } catch (error) {
+      alert("Form failed to be sent!");
+      setError(error.message);
+    }
   };
 
   // Handle cancel button click (reset form fields)
   const handleCancel = () => {
-    setImage(initialImage); // Reset image to the initial placeholder
+    setImage("/src/assets/imagePlaceHolder.svg"); // Reset image to the initial placeholder
     setDishName(""); // Reset dish name input
     setPrice(""); // Reset price input
     setCategory(""); // Reset category input
@@ -84,7 +91,9 @@ function MenuForm() {
             <input
               type="file"
               ref={fileInputRef}
-              onChange={handleImageChange}
+              onChange={(e) => {
+                handleImageChange(e);
+              }}
               className="hidden lg:hidden"
               accept="image/*" // Only allow image files
             />
@@ -98,7 +107,7 @@ function MenuForm() {
             />
           </div>
           <div className="lg:w-[70%]">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={sendForm}>
               {/* Dish Name */}
               <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
                 <input
@@ -156,6 +165,9 @@ function MenuForm() {
                 className="w-full p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light"
                 required
               />
+              {error && (
+                <p className="text-red-500 text-center text-sm">{error}</p>
+              )}
               <div className="w-full flex justify-end ">
                 {/* Cancel Button */}
                 <Button
@@ -165,12 +177,12 @@ function MenuForm() {
                 />
 
                 {/* Save Button */}
-                <Button
-                  type="submit" // Submit the form on button click
-                  to="/Adminhome/MainDish"
-                  className="bg-transparent text-p-button3 px-5 py-1 border-none"
-                  text="Save"
-                />
+                <button
+                  type="submit"
+                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:bg-p-button hover:text-n-n7"
+                >
+                  Save
+                </button>
               </div>
             </form>
           </div>

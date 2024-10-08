@@ -1033,10 +1033,6 @@ p{
   cursor: pointer;
 }
 
-.resize-none{
-  resize: none;
-}
-
 .appearance-none{
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -1288,11 +1284,6 @@ p{
   border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
-.border-red-700{
-  --tw-border-opacity: 1;
-  border-color: rgb(185 28 28 / var(--tw-border-opacity));
-}
-
 .border-transparent{
   border-color: transparent;
 }
@@ -1466,11 +1457,6 @@ p{
 .px-0{
   padding-left: 0px;
   padding-right: 0px;
-}
-
-.px-10{
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
 }
 
 .px-12{
@@ -1890,9 +1876,9 @@ p{
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
-.hover\:text-n-n8:hover{
+.hover\:text-n-n7:hover{
   --tw-text-opacity: 1;
-  color: rgb(249 249 249 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:text-p-button:hover{
@@ -1912,11 +1898,6 @@ p{
 
 .hover\:text-white\/30:hover{
   color: rgb(255 255 255 / 0.3);
-}
-
-.hover\:text-n-n7:hover{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover{
@@ -2182,10 +2163,6 @@ p{
 
   .lg\:w-full{
     width: 100%;
-  }
-
-  .lg\:w-\[30\%\]{
-    width: 30%;
   }
 
   .lg\:flex-row{
