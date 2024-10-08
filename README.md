@@ -61,6 +61,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added a mobile first Beverage menu page for restaurant owners to display the Beverage menu items that will be saved in the firestore database.
 - Added a mobile first Special menu page for restaurant owners to display the Special menu items that will be saved in the firestore database.
 - Implemented menu data and image upload to Firebase storage
+- re-added the custom tailwind css rules to index.css
 
 ### Magali Lapu
 
