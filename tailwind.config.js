@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        eggshell: "#fffcf2",
-        notif: "#fbf5e9",
-        "notif-bord": "#f4e1c133",
-        accent: "#e2725b",
+        eggshell: "#FFFCF2",
+        nbord: "#f4e1c133",
+        notif:'#fbf5e9',
+        'terra-cotta': '#E2725B',
         p: {
           button: "#E2725B",
           button2: "#FFCC00",
@@ -36,9 +36,6 @@ export default {
       },
       backgroundImage: {
         backgroud: "url('./assets/background.png')",
-      },
-      colors: {
-        'terra-cotta': '#E2725B',
       },
       spacing: {
         '115': '115px',
