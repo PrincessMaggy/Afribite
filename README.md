@@ -42,6 +42,11 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 - Created a responsive NavBar component
 - Created Landing Page
+- Created a responsive Hero component
+- created the layouts folder
+- added the hero component to the Landing Page
+- created main layout file
+- added the mainlayout and the landing page to App.jsx
 
 ## Team 2 Contribution
 
@@ -93,6 +98,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - [Ndukuba Nneoma Chidinma] - Frontend Developer
 - [Ogwo Ijeoma Precious Chidinma] - Frontend Developer
 - [Magali Lapu] - Frontend Developer
+- [Rhoda Ojetola] - Frontend Developer
 
 ## Links
 
