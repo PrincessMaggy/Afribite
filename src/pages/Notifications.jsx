@@ -4,9 +4,9 @@ import OrderPopup from "../components/OrderPopup.jsx";
 
 function Notifications() {
   return (
-    <div className="bg-eggshell border-solid border-2 border-orange-500 flex flex-row w-full">
-      <div className="m-5">
-        <OrderNotification 
+    <div className="flex flex-row h-auto bg-slate-500 w-56">
+      <div>
+        <OrderNotification
             orderTime="10 mins" 
             customerName="Favour Chinedu"
             orderName="Jollof Rice"
