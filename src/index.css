@@ -9,4 +9,14 @@
   color-scheme: light;
 }
 
-
+@layer base {
+  body {
+    @apply text-n-n1 font-pop box-border m-0 p-0;
+  }
+  h2 {
+    @apply text-n-n1 font-pop font-semibold text-2xl lg:text-3xl;
+  }
+  p {
+    @apply text-n-n3 font-pop text-xs lg:text-sm;
+  }
+}
