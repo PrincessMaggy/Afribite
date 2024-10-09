@@ -1,9 +1,9 @@
-import NavBar from '../components/NavBar.jsx'
+import Hero from "../components/Hero";
 
 const LandingPage = () => {
   return (
     <section>
-        <NavBar />
+        <Hero />
     </section>
   )
 }
