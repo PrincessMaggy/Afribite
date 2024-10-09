@@ -40,7 +40,13 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 
 ### Rhoda Ojetola
 
-- added alt text to the banner image
+- Created a responsive NavBar component
+- Created Landing Page
+- Created a responsive Hero component
+- created the layouts folder
+- added the hero component to the Landing Page
+- created main layout file
+- added the mainlayout and the landing page to App.jsx
 
 ## Team 2 Contribution
 
@@ -59,6 +65,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added a mobile first Salad menu page for restaurant owners to display the Salad menu items that will be saved in the firestore database.
 - Added a mobile first Beverage menu page for restaurant owners to display the Beverage menu items that will be saved in the firestore database.
 - Added a mobile first Special menu page for restaurant owners to display the Special menu items that will be saved in the firestore database.
+- Implemented menu data and image upload to Firebase storage
+- Re-added the custom tailwind css rules to index.css
 
 ### Magali Lapu
 
@@ -92,6 +100,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - [Ndukuba Nneoma Chidinma] - Frontend Developer
 - [Ogwo Ijeoma Precious Chidinma] - Frontend Developer
 - [Magali Lapu] - Frontend Developer
+- [Rhoda Ojetola] - Frontend Developer
 
 ## Links
 

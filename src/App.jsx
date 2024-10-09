@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
 import CreateMenu from "./pages/CreateMenu";
 import Dashboard from "./pages/Dashboard";
 import Advert from "./pages/Advert";
@@ -21,12 +22,17 @@ import Salad from "./pages/Salad";
 import Special from "./pages/Special";
 import Dessert from "./pages/Dessert";
 import Beverage from "./pages/Beverage";
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<LandingPage />} /> 
+          {/* Other routes that needs the navbar can be nested here if needed */}
+        </Route>
         <Route path="/review" element={<Review />}></Route>
         <Route path="/rating" element={<Rating />}></Route>
         <Route path="/leave-a-review" element={<LeaveReview />}></Route>
