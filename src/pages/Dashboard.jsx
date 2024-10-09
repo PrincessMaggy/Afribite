@@ -6,6 +6,7 @@ import { IoIosArrowDropdown } from "react-icons/io";
 import RecentOrder from '../components/RecentOrder';
 import { Profile,dummyOrders,dishes } from '../components/data';
 import { useEffect, useState } from 'react';
+import ViewersChart from '../components/ViewersChart';
 
 const Dashboard = () => {
   const [myProfile, setMyProfile] = useState([])
@@ -19,11 +20,9 @@ const Dashboard = () => {
 
   useEffect(()=>{
     setMyProfile(Profile
-      .map((items)=>items)
       .filter((items)=>items.userid === 'user1'))
 
     setMyOrders(dummyOrders
-      .map((items)=>items)
       .filter((items)=>items.userid === 'user1'))
   },[])
 
@@ -67,6 +66,7 @@ const Dashboard = () => {
             </div>
         </div>
 
+        {/* Available dish and total orders */}
         <div className='grid grid-cols-2 gap-4 mt-4 '>
 
           <div className='relative bg-white rounded-lg p-4 '>
@@ -111,6 +111,23 @@ const Dashboard = () => {
           </div>
 
         </div>
+
+
+        <div className='grid grid-cols-2 gap-4 mt-4 '>
+
+          <div className="bg-white rounded-lg p-4">aaa</div>
+          <div className="bg-white rounded-lg p-4">bbb</div>
+
+        </div>
+
+        <div className='grid md:grid-cols-2 gap-4 mt-4 '>
+
+          <div className="bg-white rounded-lg p-4">aaa <ViewersChart/></div>
+          <div className="bg-white rounded-lg p-4">bbb</div>
+
+        </div>
+
+
       </div>
 
       {/* right side */}

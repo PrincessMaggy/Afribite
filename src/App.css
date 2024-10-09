@@ -927,6 +927,14 @@ p{
   height: 100vh;
 }
 
+.h-12{
+  height: 3rem;
+}
+
+.h-96{
+  height: 24rem;
+}
+
 .min-h-screen{
   min-height: 100vh;
 }
@@ -1002,6 +1010,30 @@ p{
 
 .w-full{
   width: 100%;
+}
+
+.w-7{
+  width: 1.75rem;
+}
+
+.w-96{
+  width: 24rem;
+}
+
+.w-12{
+  width: 3rem;
+}
+
+.w-32{
+  width: 8rem;
+}
+
+.w-3{
+  width: 0.75rem;
+}
+
+.w-48{
+  width: 12rem;
 }
 
 .max-w-md{
@@ -1225,6 +1257,10 @@ p{
 
 .border-\[2px\]{
   border-width: 2px;
+}
+
+.border-4{
+  border-width: 4px;
 }
 
 .border-t{
@@ -1948,6 +1984,11 @@ p{
     margin-top: 2rem;
   }
 
+  .sm\:w-fit{
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+
   .sm\:flex-row{
     flex-direction: row;
   }
@@ -2035,6 +2076,10 @@ p{
 
   .md\:w-auto{
     width: auto;
+  }
+
+  .md\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:space-x-4 > :not([hidden]) ~ :not([hidden]){
