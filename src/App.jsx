@@ -23,6 +23,8 @@ import Special from "./pages/Special";
 import Dessert from "./pages/Dessert";
 import Beverage from "./pages/Beverage";
 import LandingPage from './pages/LandingPage';
+
+
 import Profile from "./pages/Profile";
 
 function App() {
