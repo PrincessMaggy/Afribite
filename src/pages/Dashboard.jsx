@@ -7,6 +7,7 @@ import RecentOrder from '../components/RecentOrder';
 import { Profile,dummyOrders,dishes } from '../components/data';
 import { useEffect, useState } from 'react';
 import ViewersChart from '../components/ViewersChart';
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [myProfile, setMyProfile] = useState([])
@@ -38,7 +39,8 @@ const Dashboard = () => {
 
         {/* Profile icon */}
         <div className='flex gap-2'>
-          <img src={myProfile[0]?.profileImg} alt="" className="m-auto h-[50px] w-[50px] rounded-[100%] bg-[#E2725B]" />
+        <Link to='/Adminhome/Profile'><img src={myProfile[0]?.profileImg} alt="" className="m-auto h-[50px] w-[50px] rounded-[100%] bg-[#E2725B]" />
+        </Link>
           <div className="flex flex-col">
             <p className='text-base hidden md:block'>{myProfile[0]?.Username}</p>
             <p className='text-xs hidden md:block'>{myProfile[0]?.name}</p>

@@ -23,6 +23,7 @@ import Special from "./pages/Special";
 import Dessert from "./pages/Dessert";
 import Beverage from "./pages/Beverage";
 import LandingPage from './pages/LandingPage';
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
+                <Route path="/Profile" element={<Profile/>}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
                 <Route path="/Promotions" element={<Promotions />}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
