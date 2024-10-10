@@ -3,7 +3,7 @@ import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider ,OAuthProvider } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 const SignUpForm = () => {
@@ -21,13 +21,11 @@ const SignUpForm = () => {
 
     if (password !== confirmPassword) {
       setError("Passwords do not match. Please check and try again.");
-      setError("Passwords do not match. Please check and try again.");
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/Adminhome');
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
@@ -46,51 +44,12 @@ const SignUpForm = () => {
     }
   };
 
-
-  const handleAppleSignIn = async () => {
-    const provider = new OAuthProvider('apple.com');
-    try {
-      await signInWithPopup(auth, provider);
-      navigate('/Adminhome');
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/popup-closed-by-user':
-          setError("The sign-in window was closed. Please try again.");
-          break;
-        case 'auth/cancelled-popup-request':
-          setError("The sign-in request was cancelled. Please try again.");
-          break;
-        case 'auth/popup-blocked':
-          setError("The pop-up window was blocked by your browser. Please allow pop-ups for this site and try again.");
-          break;
-        case 'auth/account-exists-with-different-credential':
-          setError("An account already exists with the same email address but different sign-in credentials. Please sign in using the original method.");
-          break;
-        default:
-          setError("An error occurred during Apple sign-in. Please try again later.");
-      }
-    }
-  };
-
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
       navigate('/Adminhome');
     } catch (error) {
-      switch (error.code) {
-        case 'auth/popup-closed-by-user':
-          setError("The sign-in window was closed. Please try again.");
-          break;
-        case 'auth/cancelled-popup-request':
-          setError("The sign-in request was cancelled. Please try again.");
-          break;
-        case 'auth/popup-blocked':
-          setError("The pop-up window was blocked by your browser. Please allow pop-ups for this site and try again.");
-          break;
-        default:
-          setError("An error occurred during Google sign-in. Please try again later.");
-      }
       switch (error.code) {
         case 'auth/popup-closed-by-user':
           setError("The sign-in window was closed. Please try again.");
@@ -186,7 +145,6 @@ const SignUpForm = () => {
                 </div>
               </span>
               {error && <p className="text-red-500 text-center text-sm">{error}</p>}
-              {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
               <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded">
                 Sign up
@@ -201,7 +159,7 @@ const SignUpForm = () => {
 
             <div className="mt-4 w-full flex justify-center">
               <div className="flex space-x-4 w-40">
-                <button onClick={handleAppleSignIn} className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
+                <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
                 <button
