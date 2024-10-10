@@ -6,6 +6,8 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -18,15 +20,28 @@ const SignInForm = () => {
     e.preventDefault();
     setError('');
 
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate('/Adminhome'); 
       navigate('/Adminhome'); 
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
           setError("No account found with this email. Please check your email or sign up.");
+          setError("No account found with this email. Please check your email or sign up.");
           break;
         case 'auth/wrong-password':
+          setError("Incorrect password. Please try again or reset your password.");
+          break;
+        case 'auth/invalid-email':
+          setError("Invalid email format. Please enter a valid email address.");
+          break;
+        case 'auth/user-disabled':
+          setError("This account has been disabled. Please contact support.");
+          break;
+        case 'auth/too-many-requests':
+          setError("Too many failed attempts. Please try again later or reset your password.");
           setError("Incorrect password. Please try again or reset your password.");
           break;
         case 'auth/invalid-email':
@@ -83,7 +98,7 @@ const SignInForm = () => {
           setError("The sign-in request was cancelled. Please try again.");
           break;
         default:
-          setError("An error occurred during Apple sign-in. Please try again later.");
+          setError("An error occurred during Google sign-in. Please try again later.");
       }
     }
   };
@@ -163,6 +178,7 @@ const SignInForm = () => {
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
                 <button 
+                <button 
                   onClick={handleGoogleSignIn}
                   className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full flex items-center justify-center"
                 >
@@ -172,6 +188,7 @@ const SignInForm = () => {
             </div>
 
             <p className="mt-6 text-center text-gray-400">
+              New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> 
               New User? <Link to="/Sign-up" className="text-red-500 hover:underline">Sign up</Link> 
             </p>
           </div>

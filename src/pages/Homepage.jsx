@@ -11,10 +11,8 @@ function Homepage() {
           <Link to="/Adminhome/Dashboard">Admin Home page</Link>
         </p>
         <p className="rounded-md border w-fit">
-          {" "}
-          <Link to="/Sign-up">
-            <Button text="Sign up as Admin" />
-          </Link>
+          {/* Remove the wrapping <Link> and pass the 'to' prop directly */}
+          <Button text="Sign up as Admin" to="/Sign-up" />
         </p>
       </div>
     </>

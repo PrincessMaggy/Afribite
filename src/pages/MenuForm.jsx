@@ -1,26 +1,56 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
-import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  arrayUnion,
+  setDoc,
+  getDoc,
+} from "@firebase/firestore";
+import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
+import { ImageDb } from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 function MenuForm() {
-  // Initial image placeholder
-  const initialImage = "/src/assets/imagePlaceHolder.svg";
-
   // Form states
-  const [image, setImage] = useState(initialImage);
+  const [image, setImage] = useState("/src/assets/imagePlaceHolder.svg");
+  const [uploadImage, setUploadImage] = useState(null);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState(null);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
   const maxDishNamechar = 100; // Maximum name
 
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, get the user's UID
+        setUserId(user.uid);
+        console.log(user.uid);
+      } else {
+        // No user is signed in
+        setUserId(null);
+      }
+    });
+
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, []);
+
   // Handle image click
   const handleImageClick = () => {
-    fileInputRef.current.click(); // Trigger the file input
+    fileInputRef.current.click(); // Trigger the file input element to open the file picker dialog
   };
 
   // Handle image change
@@ -32,12 +62,75 @@ function MenuForm() {
         setImage(render.result); // Convert the image file to upload file
       };
       render.readAsDataURL(file); // Convert the file as data URL
+      setUploadImage(file); // Set the image file to upload
+    }
+  };
+
+  const db = getFirestore(); // Reference to the Firestore collection
+  const imageRef = ref(ImageDb, `menu/${uuidv4()}`); // Reference to the image storage
+  const metadata = {
+    contentType: "image/png",
+  };
+
+  // Add Form data Firestore database
+  const sendForm = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
+      const imageUrl = await getDownloadURL(imageRef);
+
+      const userRef = doc(db, "menu", userId);
+
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+
+      if (docSnapshot.exists()) {
+        await updateDoc(menuSubcollectionRef, {
+          menu: arrayUnion({
+            Img: imageUrl,
+            Name: dishName,
+            Price: price,
+            Category: category,
+            Desc: description,
+          }),
+        });
+      } else {
+        await setDoc(menuSubcollectionRef, {
+          menu: [
+            {
+              Img: imageUrl,
+              Name: dishName,
+              Price: price,
+              Category: category,
+              Desc: description,
+            },
+          ],
+        });
+      }
+      // await setDoc(userRef, {
+      //   category: {
+      //     Img: imageUrl,
+      //     Name: dishName,
+      //     Price: price,
+      //     Category: category,
+      //     Desc: description,
+      //   },
+      // });
+
+      alert("Sent Successfully!");
+      navigate("/Adminhome/MainDish");
+    } catch (error) {
+      alert("Form failed to be sent!");
+      setError(error.message);
     }
   };
 
   // Handle cancel button click (reset form fields)
   const handleCancel = () => {
-    setImage(initialImage); // Reset image to the initial placeholder
+    setImage("/src/assets/imagePlaceHolder.svg"); // Reset image to the initial placeholder
     setDishName(""); // Reset dish name input
     setPrice(""); // Reset price input
     setCategory(""); // Reset category input
@@ -46,7 +139,7 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-12 mx-auto  lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
         <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
           <MdDeleteOutline className="text-p-button text-2xl lg:text-4xl" />
         </div>
@@ -56,7 +149,9 @@ function MenuForm() {
             <input
               type="file"
               ref={fileInputRef}
-              onChange={handleImageChange}
+              onChange={(e) => {
+                handleImageChange(e);
+              }}
               className="hidden lg:hidden"
               accept="image/*" // Only allow image files
             />
@@ -70,86 +165,94 @@ function MenuForm() {
             />
           </div>
           <div className="lg:w-[70%]">
-            {/* Dish Name */}
-            <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
-              <input
-                type="text"
-                placeholder="Dish Name"
-                value={dishName}
-                onChange={(e) => setDishName(e.target.value)}
-                className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
-                maxLength={maxDishNamechar}
+            <form onSubmit={sendForm}>
+              {/* Dish Name */}
+              <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
+                <input
+                  type="text"
+                  placeholder="Dish Name"
+                  value={dishName}
+                  onChange={(e) => setDishName(e.target.value)}
+                  className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
+                  maxLength={maxDishNamechar}
+                  required
+                />
+                <span className="text-n-n3 text-sm lg:ml-10">
+                  {dishName.length}/{maxDishNamechar}
+                </span>
+              </div>
+
+              {/* Price */}
+              <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
+                <input
+                  type="number"
+                  placeholder="Price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
+                  required
+                />
+                <span className="text-n-n3 text-sm ml-6 lg:ml-16">$</span>
+              </div>
+
+              {/* Category */}
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full  h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3"
+                required
+              >
+                <option value="">Category</option>
+                <option value="Main Dish">Main Dish</option>
+                <option value="Appetizer">Appetizer</option>
+                <option value="Side">Side</option>
+                <option value="Soup">Soup</option>
+                <option value="Salad">Salad</option>
+                <option value="Special">Special</option>
+                <option value="Beverage">Beverage</option>
+                <option value="Dessert">Dessert</option>
+              </select>
+
+              {/* Description */}
+              <textarea
+                placeholder="Description"
+                value={description}
+                rows="4"
+                cols="5"
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light"
                 required
               />
-              <span className="text-n-n3 text-sm lg:ml-10">
-                {dishName.length}/{maxDishNamechar}
-              </span>
-            </div>
+              {error && (
+                <p className="text-red-500 text-center text-sm">{error}</p>
+              )}
+              <div className="w-full flex justify-end ">
+                {/* Cancel Button */}
+                <Button
+                  onClick={handleCancel} // Call the handleCancel function when clicked
+                  className="bg-transparent text-p-button3 px-5 py-1 border-none"
+                  text="Cancel"
+                />
 
-            {/* Price */}
-            <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
-              <input
-                type="number"
-                placeholder="Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
-                required
-              />
-              <span className="text-n-n3 text-sm ml-6 lg:ml-16">$</span>
-            </div>
-
-            {/* Category */}
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full  h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3"
-              required
-            >
-              <option value="">Category</option>
-              <option value="Main Dish">Main Dish</option>
-              <option value="Appetizer">Appetizer</option>
-              <option value="Side">Side</option>
-              <option value="Soup">Soup</option>
-              <option value="Salad">Salad</option>
-              <option value="Special">Special</option>
-              <option value="Beverage">Beverage</option>
-              <option value="Dessert">Dessert</option>
-            </select>
-
-            {/* Description */}
-            <textarea
-              placeholder="Description"
-              value={description}
-              rows="4"
-              cols="5"
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light"
-              required
-            />
+                {/* Save Button */}
+                <button
+                  type="submit"
+                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:bg-p-button hover:text-n-n7"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
-        </div>
-
-        <div className="w-full flex justify-end px-6">
-          {/* Cancel Button */}
-          <Button
-            onClick={handleCancel} // Call the handleCancel function when clicked
-            className="bg-transparent text-p-button3 px-5 py-1 border-none hover:bg-p-button hover:text-n-n7"
-            text="Cancel"
-          />
-
-          {/* Save Button */}
-          <Link
-            to="/"
-            className="bg-transparent text-p-button3 px-5 py-1 hover:text-n-n7 hover:bg-p-button rounded-md ml-2 lg:mr-3.5 text-xs lg:text-sm"
-          >
-            Save
-          </Link>
         </div>
 
         {/* Add new button */}
         <div className="w-full justify-start mt-12">
-          <Button text="Add new menu +" className="py-2 px-5 lg:px-10" />
+          <Button
+            text="Add new menu +"
+            className="py-2 px-5 lg:px-10"
+            to="/Adminhome/MenuForm"
+          />
         </div>
       </div>
     </div>
