@@ -52,7 +52,7 @@ const Navbar = () => {
       {/* Links (Desktop and Mobile) */}
       <div className="hidden md:flex md:ml-16">
         <div className="flex gap-5">
-          <NavLink to="/" className="">Home</NavLink>
+          <NavLink to="/home" className="">Home</NavLink>
           <details>
             <summary className="list-none">Menu</summary>
           </details>
