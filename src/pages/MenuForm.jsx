@@ -1,9 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import { MdDeleteOutline } from "react-icons/md";
-import { addDoc, collection } from "@firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  arrayUnion,
+  setDoc,
+  getDoc,
+} from "@firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
-import { db, ImageDb } from "../firebase";
+import { ImageDb } from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,10 +25,28 @@ function MenuForm() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [userId, setUserId] = useState(null);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
   const maxDishNamechar = 100; // Maximum name
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, get the user's UID
+        setUserId(user.uid);
+        console.log(user.uid);
+      } else {
+        // No user is signed in
+        setUserId(null);
+      }
+    });
+
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, []);
 
   // Handle image click
   const handleImageClick = () => {
@@ -40,7 +66,7 @@ function MenuForm() {
     }
   };
 
-  const dbref = collection(db, "menu"); // Reference to the Firestore collection
+  const db = getFirestore(); // Reference to the Firestore collection
   const imageRef = ref(ImageDb, `menu/${uuidv4()}`); // Reference to the image storage
   const metadata = {
     contentType: "image/png",
@@ -55,13 +81,45 @@ function MenuForm() {
       await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
       const imageUrl = await getDownloadURL(imageRef);
 
-      await addDoc(dbref, {
-        Img: imageUrl,
-        Name: dishName,
-        Price: price,
-        Category: category,
-        Desc: description,
-      });
+      const userRef = doc(db, "menu", userId);
+
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+
+      if (docSnapshot.exists()) {
+        await updateDoc(menuSubcollectionRef, {
+          menu: arrayUnion({
+            Img: imageUrl,
+            Name: dishName,
+            Price: price,
+            Category: category,
+            Desc: description,
+          }),
+        });
+      } else {
+        await setDoc(menuSubcollectionRef, {
+          menu: [
+            {
+              Img: imageUrl,
+              Name: dishName,
+              Price: price,
+              Category: category,
+              Desc: description,
+            },
+          ],
+        });
+      }
+      // await setDoc(userRef, {
+      //   category: {
+      //     Img: imageUrl,
+      //     Name: dishName,
+      //     Price: price,
+      //     Category: category,
+      //     Desc: description,
+      //   },
+      // });
+
       alert("Sent Successfully!");
       navigate("/Adminhome/MainDish");
     } catch (error) {

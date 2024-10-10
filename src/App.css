@@ -697,6 +697,22 @@ p{
   top: 2rem;
 }
 
+.right-11{
+  right: 2.75rem;
+}
+
+.top-0{
+  top: 0px;
+}
+
+.top-40{
+  top: 10rem;
+}
+
+.z-\[-1\]{
+  z-index: -1;
+}
+
 .col-span-3{
   grid-column: span 3 / span 3;
 }
@@ -948,6 +964,14 @@ p{
   height: 100vh;
 }
 
+.h-\[500\]{
+  height: 500;
+}
+
+.h-\[600px\]{
+  height: 600px;
+}
+
 .min-h-screen{
   min-height: 100vh;
 }
@@ -1041,6 +1065,22 @@ p{
   width: 100%;
 }
 
+.w-1\/2{
+  width: 50%;
+}
+
+.w-\[300px\]{
+  width: 300px;
+}
+
+.w-\[500\]{
+  width: 500;
+}
+
+.w-\[600px\]{
+  width: 600px;
+}
+
 .max-w-md{
   max-width: 28rem;
 }
@@ -1106,6 +1146,10 @@ p{
 
 .place-items-center{
   place-items: center;
+}
+
+.items-start{
+  align-items: flex-start;
 }
 
 .items-end{
@@ -1480,6 +1524,18 @@ p{
   background-size: cover;
 }
 
+.bg-contain{
+  background-size: contain;
+}
+
+.bg-right-top{
+  background-position: right top;
+}
+
+.bg-no-repeat{
+  background-repeat: no-repeat;
+}
+
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -1587,6 +1643,11 @@ p{
   padding-bottom: 21px;
 }
 
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .pl-10{
   padding-left: 2.5rem;
 }
@@ -1613,6 +1674,10 @@ p{
 
 .pt-6{
   padding-top: 1.5rem;
+}
+
+.pl-8{
+  padding-left: 2rem;
 }
 
 .text-center{
@@ -2167,6 +2232,10 @@ p{
     margin-top: 2.5rem;
   }
 
+  .lg\:mt-28{
+    margin-top: 7rem;
+  }
+
   .lg\:block{
     display: block;
   }
@@ -2218,6 +2287,14 @@ p{
 
   .lg\:w-full{
     width: 100%;
+  }
+
+  .lg\:w-\[440px\]{
+    width: 440px;
+  }
+
+  .lg\:w-\[503px\]{
+    width: 503px;
   }
 
   .lg\:flex-row{
@@ -2277,6 +2354,32 @@ p{
   }
 }
 
+@media (min-width: 1280px){
+  .xl\:mt-40{
+    margin-top: 10rem;
+  }
+
+  .xl\:flex{
+    display: flex;
+  }
+
+  .xl\:hidden{
+    display: none;
+  }
+
+  .xl\:h-\[600px\]{
+    height: 600px;
+  }
+
+  .xl\:w-\[600px\]{
+    width: 600px;
+  }
+
+  .xl\:pl-20{
+    padding-left: 5rem;
+  }
+}
+
 @media (min-width: 768px){
   .tablet\:flex{
     display: flex;
@@ -2298,5 +2401,14 @@ p{
 
   .laptop\:hidden{
     display: none;
+  }
+
+  .laptop\:px-20{
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .laptop\:pr-6{
+    padding-right: 1.5rem;
   }
 }
