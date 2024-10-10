@@ -69,6 +69,25 @@ const SignInForm = () => {
     }
   };
 
+  const handleAppleSignIn = async () => {
+    const provider = new OAuthProvider('apple.com');
+    try {
+      await signInWithPopup(auth, provider);
+      navigate('/Adminhome');
+    } catch (error) {
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          setError("The sign-in window was closed. Please try again.");
+          break;
+        case 'auth/cancelled-popup-request':
+          setError("The sign-in request was cancelled. Please try again.");
+          break;
+        default:
+          setError("An error occurred during Apple sign-in. Please try again later.");
+      }
+    }
+  };
+
   return (
     <div className="flex flex-row h-screen min-h-screen overflow-auto">
       <div className="hidden md:block h-full md:w-1/2 bg-cover" style={{ backgroundImage: "url('/Sign_background.jpg')" }}></div>
@@ -140,7 +159,7 @@ const SignInForm = () => {
 
             <div className="mt-4 w-full flex justify-center">
               <div className="flex space-x-4 w-40">
-                <button className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
+                <button  onClick={handleAppleSignIn}  className="border border-red-500 bg-transparent text-white w-16 h-16 hover:bg-neutral-50/10 rounded-full transition-all flex items-center justify-center">
                   <FaApple className="text-white hover:text-gray-500" size={24} />
                 </button>
                 <button 

@@ -5,7 +5,7 @@ import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { BiMenuAltLeft } from "react-icons/bi";
 import logo from "../assets/logo.png";
 import { FaRegWindowClose } from "react-icons/fa";
@@ -87,8 +87,11 @@ const AdminSidebar = () => {
             visible ? "flex-1" : ""
           } flex items-end justify-center row-span-2 gap-2 mb-8`}
         >
-          <MdLogout className="sm:text-2xl" />
-          Log out
+
+          <Link  to="/" className="flex items-end justify-center row-span-2 gap-2 mb-8">
+           <MdLogout className="sm:text-2xl" /> Log out
+          </Link> 
+          
         </div>
       </div>
     </>
