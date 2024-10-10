@@ -737,6 +737,10 @@ p{
   margin: auto;
 }
 
+.m-10{
+  margin: 2.5rem;
+}
+
 .mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -1178,6 +1182,10 @@ p{
 
 .justify-around{
   justify-content: space-around;
+}
+
+.justify-items-stretch{
+  justify-items: stretch;
 }
 
 .gap-0{
