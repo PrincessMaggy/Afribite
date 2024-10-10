@@ -32,7 +32,7 @@ const Dashboard = () => {
       <div className='flex w-full mb-8 items-center'>
         {/* Search */}
         <div className='relative flex flex-1 justify-center items-center ml-10'>
-          <CiSearch className='-m-10 text-2xl text-n-n3'/>
+          <CiSearch className='pl-10 text-2xl text-n-n3'/>
           <input type="text" className="w-3/4 bg-inherit border border-[#E2725B]/20 focus:outline-none focus:border-[#E2725B] px-12 p-3 rounded-3xl " placeholder='search'/>
         </div>
 
