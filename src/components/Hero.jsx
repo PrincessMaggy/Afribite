@@ -6,9 +6,9 @@ import bg2 from '../assets/images/bg2.png';
 const Hero = () => {
   return (
     <section className="h-full">
-      <div className="flex max-[640px]:flex-col lg:flex-row items-center">
+     <div className="flex max-[640px]:flex-col lg:flex-row items-center">
         {/* Left Side Content */}
-        <div className="lg:w-[503px] max-[640px]:text-center max-[640px]:items-center w-full flex flex-col justify-center items-start xl:pl-20 pl-8 mt-10 xl:mt-40">
+        <div className="lg:w-[503px] max-[640px]:text-center max-[640px]:items-center w-full flex flex-col justify-center items-start xl:pl-20 pl-4 pr-4 mt-10 xl:mt-40">
           <h1 className="text-terra-cotta text-3xl lg:text-4xl font-bold">
             Discover people & places through food
           </h1>
@@ -22,18 +22,35 @@ const Hero = () => {
 
         {/* Right Side Background Image */}
         <div
-          className="hidden xl:flex z-[-1] w-1/2 items-center bg-right-top bg-no-repeat bg-contain absolute top-0 right-0 h-full"
-          style={{ backgroundImage: `url(${bg})` }}
-        >
-          <div className="relative">
-            <img src={food} className="xl:h-[600px] xl:w-[600px] h-[600px] w-[600px]" alt="Food" />
-          </div>
-          <img src={bg2} className="h-[480px] w-[300px] absolute top-40 right-11 z-[-1]" alt="Background Design" />
-        </div>
-        <div className="xl:hidden max-[640px]:mt-7">
-            <img src={food} className="h-[500] w-[500]" alt="Food" />
-          </div>
-      </div>
+  className="hidden xl:flex z-[-1] w-1/2 items-center bg-right-top bg-no-repeat bg-contain fixed top-0 right-0 h-full"
+  style={{ backgroundImage: `url(${bg})` }}
+>
+  {/* Food Image Container */}
+  <div className="relative">
+    <img 
+      src={food} 
+      className="h-[600px] w-[600px] fixed top-20 right-24" 
+      alt="Food" 
+    />
+  </div>
+  
+  {/* Background Design */}
+  <img 
+    src={bg2} 
+    className="h-[480px] w-[300px] absolute top-40 right-11 z-[-1]" 
+    alt="Background Design" 
+  />
+</div>
+
+{/* Mobile Version */}
+<div className="xl:hidden max-[640px]:mt-7">
+  <img 
+    src={food} 
+    className="h-[500px] w-[500px]" 
+    alt="Food" 
+  />
+</div>
+</div>
      
     </section>
   );
