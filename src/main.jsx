@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import NavContextProvider from "./context/navbar.jsx";
+import DisplayContextProvider from "./context/display.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <NavContextProvider>
+    <DisplayContextProvider>
       <App />
-    </NavContextProvider>
+    </DisplayContextProvider>
   </StrictMode>
 );

@@ -116,9 +116,8 @@ const Advert = () => {
               </span>
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
-        <Button text="Post Ad" className="px-6" />
-        <button className="inline-block box-border border-2 pointer p-3 rounded-md text-n-n7 text-xs lg:text-sm font-pop bg-[#808000] hover:border-[#808000] hover:text-[#808000] hover:bg-white"
-        >Save as draft</button>
+        <Button text="Post Ad" className='bg-p-button3 hover:border-p-button3 hover:text-p-button3' />
+        <Button text='Save as draft' />
         <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
       </form>
