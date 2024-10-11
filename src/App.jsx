@@ -26,6 +26,9 @@ import LandingPage from './pages/LandingPage';
 import UserSignUp from './pages/UserSignUp';
 
 
+
+import Profile from "./pages/Profile";
+
 function App() {
   return (
     <BrowserRouter>
@@ -45,6 +48,7 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
+                <Route path="/Profile" element={<Profile/>}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
                 <Route path="/Promotions" element={<Promotions />}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
