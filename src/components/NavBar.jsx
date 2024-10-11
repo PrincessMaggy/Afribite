@@ -2,6 +2,7 @@ import logo from '../assets/images/logo.png'
 import search from '../assets/images/search.png'
 import arrow_down from '../assets/images/arrow_down.png'
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { IoSearch, IoClose } from 'react-icons/io5';
 
 const Navbar = () => {
@@ -51,7 +52,7 @@ const Navbar = () => {
       {/* Links (Desktop and Mobile) */}
       <div className="hidden md:flex md:ml-16">
         <div className="flex gap-5">
-          <a className="">Home</a>
+          <NavLink to="/home" className="">Home</NavLink>
           <details>
             <summary className="list-none">Menu</summary>
           </details>
@@ -64,11 +65,11 @@ const Navbar = () => {
       </div>
 
       {/* User Actions (Login and Cart) */}
-      <div className="hidden md:flex gap-5 items-center ms-10">
-        <button className="bg-terra-cotta text-center rounded-lg text-white w-28 h-10">
+      <div className="hidden md:flex md:items-center  gap-5  ms-10">
+        <NavLink to="/user-sign-up" className="bg-terra-cotta text-center justify-center flex items-center rounded-lg text-white w-[120px] h-10">
           Login/Sign Up
-        </button>
-        <a className="gap-2">Cart</a>
+        </NavLink>
+        <NavLink to="" className="gap-2">Cart</NavLink>
       </div>
 
       {/* Search Bar */}
@@ -97,7 +98,7 @@ const Navbar = () => {
   
 
       {/* Mobile Menu Links (Hidden by default) */}
-      <div className={`w-4/5 ${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden text-center`} id="mobile-nav">
+      <div className={`w-full ${isMobileMenuOpen ? 'absolute top-20 right-0 bg-white block' : 'hidden'} md:hidden text-center`} id="mobile-nav">
         <div className="flex flex-col mt-4">
           <a className="py-2">Home</a>
           <details>
@@ -108,9 +109,9 @@ const Navbar = () => {
           </details>
           <a className="py-2">Locations</a>
           <a className="py-2">About Us</a>
-          <button className="bg-terra-cotta text-center rounded-lg text-white w-full h-10 mt-4">
+          <NavLink to='/user-sign-up' className="bg-terra-cotta flex items-center justify-center text-center rounded-lg text-white w-full h-10 mt-4">
             Login/Sign Up
-          </button>
+          </NavLink>
           <a className="py-2 mt-2">Cart</a>
         </div>
       </div>

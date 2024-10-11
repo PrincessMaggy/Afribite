@@ -23,16 +23,22 @@ import Special from "./pages/Special";
 import Dessert from "./pages/Dessert";
 import Beverage from "./pages/Beverage";
 import LandingPage from './pages/LandingPage';
+import UserSignUp from './pages/UserSignUp';
+
+
+
+import Profile from "./pages/Profile";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage />}></Route>
+        <Route path="/home" element={<Homepage />}></Route>
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<LandingPage />} /> 
+          <Route path="/" element={<LandingPage />} /> 
           {/* Other routes that needs the navbar can be nested here if needed */}
         </Route>
+        <Route path="/user-sign-up" element={<UserSignUp />} />
         <Route path="/review" element={<Review />}></Route>
         <Route path="/rating" element={<Rating />}></Route>
         <Route path="/leave-a-review" element={<LeaveReview />}></Route>
@@ -42,6 +48,7 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
+                <Route path="/Profile" element={<Profile/>}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
                 <Route path="/Promotions" element={<Promotions />}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
