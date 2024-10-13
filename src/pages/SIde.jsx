@@ -27,7 +27,7 @@ function Side() {
         setUserId(uid);
         try {
           // Reference to the Appetizer subcollection
-          const menuSubcollectionRef = collection(db, "menu", uid, "side");
+          const menuSubcollectionRef = collection(db, "menu", uid, "Side");
           // Fetch all documents from the Appetizer subcollection
           const querySnapshot = await getDocs(menuSubcollectionRef);
           // Extract menus data from each document in the subcollection

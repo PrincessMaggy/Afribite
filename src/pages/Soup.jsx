@@ -25,7 +25,7 @@ function Soup() {
         setUserId(uid);
         try {
           // Reference to the Appetizer subcollection
-          const menuSubcollectionRef = collection(db, "menu", uid, "soup");
+          const menuSubcollectionRef = collection(db, "menu", uid, "Soup");
           // Fetch all documents from the Appetizer subcollection
           const querySnapshot = await getDocs(menuSubcollectionRef);
           // Extract menus data from each document in the subcollection
