@@ -69,6 +69,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Re-added the custom tailwind css rules to index.css
 - Added structure to store menu items under user-specific categories. This improves the overall user experience and ensures data integrity.
 - Added a mobile first edit page to encorage users to edit the menu items whenever they want to make changes to the menu.
+- Fetched Menu items from fireStore and added them to their category pages.
 
 ### Magali Lapu
 
