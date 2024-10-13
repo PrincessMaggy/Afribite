@@ -68,6 +68,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Implemented menu data and image upload to Firebase storage
 - Re-added the custom tailwind css rules to index.css
 - Added structure to store menu items under user-specific categories. This improves the overall user experience and ensures data integrity.
+- Added a mobile first edit page to encorage users to edit the menu items whenever they want to make changes to the menu.
+- Fetched Menu items from fireStore and added them to their category pages.
 
 ### Magali Lapu
 
@@ -90,7 +92,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created a profile page which included a display of resturant owners details and a for to edit details
 - created a profiledisplay component that displays user details on the dashboard and on profile page
 - Created a admin nav bar which displayed the hamburger menu on smaller screens and profile icon on every screen
-- Added Apex chart to the project to display data graphically on the dashboard 
+- Added Apex chart to the project to display data graphically on the dashboard
 
 ### Ogwo Ijeoma Precious Chidinma
 
