@@ -6,6 +6,43 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 function Soup() {
+  const [userId, setUserId] = useState(null);
+  const [soup, setSoup] = useState([]);
+  const [error, setError] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const db = getFirestore(); // Initialize Firestore
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUserId(uid);
+        try {
+          // Reference to the Appetizer subcollection
+          const menuSubcollectionRef = collection(db, "menu", uid, "Soup");
+          // Fetch all documents from the Appetizer subcollection
+          const querySnapshot = await getDocs(menuSubcollectionRef);
+          // Extract menus data from each document in the subcollection
+          const fetchedMenus = querySnapshot.docs
+            .map((doc) => doc.data().menu)
+            .flat();
+
+          setSoup(fetchedMenus);
+          setIsEmpty(fetchedMenus.length === 0); // Check if there are no menus in the subcollection
+
+          console.log("Fetched Soup: ", fetchedMenus);
+        } catch (error) {
+          console.error("Error fetching Soup: ", error);
+          setError(error.message);
+          setIsEmpty(true); // Set isEmpty to true if error occurred
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div>
       <div className="my-4 mx-auto py-6 lg:p-6 lg:mx-auto w-[90%] md:w-[30rem] lg:w-[48rem] bg-n-n6 rounded-sm grid place-items-center shadow-md">
