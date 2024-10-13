@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MdToggleOff, MdToggleOn } from "react-icons/md"; // Combined import
+import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Menu(items) {
   // Fix the useState destructuring
@@ -26,6 +28,9 @@ function Menu(items) {
           </span>
         </button>
       </div>
+      <Link to="/Adminhome/EditMenu">
+        <FaEdit className="text-p-button3 text-xl mb-2 hover:text-p-button3 hover:opacity-70" />
+      </Link>
     </div>
   );
 }

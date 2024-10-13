@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
-import { MdDeleteOutline } from "react-icons/md";
 import {
   getFirestore,
   doc,
@@ -17,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function MenuForm() {
   // Form states
-  const [image, setImage] = useState("/src/assets/imagePlaceHolder.svg");
+  const [image, setImage] = useState("/imagePlaceHolder.svg");
   const [uploadImage, setUploadImage] = useState(null);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
@@ -43,7 +42,6 @@ function MenuForm() {
         setUserId(null);
       }
     });
-
     // Cleanup the subscription on component unmount
     return () => unsubscribe();
   }, []);
@@ -121,7 +119,23 @@ function MenuForm() {
       // });
 
       alert("Sent Successfully!");
-      navigate("/Adminhome/MainDish");
+      if (category === "Main Dish") {
+        navigate("/Adminhome/MainDish");
+      } else if (category === "Appetizer") {
+        navigate("/Adminhome/Appetizer");
+      } else if (category === "Side") {
+        navigate("/Adminhome/Side");
+      } else if (category === "Soup") {
+        navigate("/Adminhome/Soup");
+      } else if (category === "Salad") {
+        navigate("/Adminhome/Salad");
+      } else if (category === "Special") {
+        navigate("/Adminhome/Special");
+      } else if (category === "Beverage") {
+        navigate("/Adminhome/Beverage");
+      } else if (category === "Dessert") {
+        navigate("/Adminhome/Dessert");
+      }
     } catch (error) {
       alert("Form failed to be sent!");
       setError(error.message);
@@ -139,10 +153,7 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
-        <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
-          <MdDeleteOutline className="text-p-button text-2xl lg:text-4xl" />
-        </div>
+      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -237,22 +248,13 @@ function MenuForm() {
                 {/* Save Button */}
                 <button
                   type="submit"
-                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:bg-p-button hover:text-n-n7"
+                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-none hover:border-p-button hover:bg-p-button hover:text-n-n7"
                 >
                   Save
                 </button>
               </div>
             </form>
           </div>
-        </div>
-
-        {/* Add new button */}
-        <div className="w-full justify-start mt-12">
-          <Button
-            text="Add new menu +"
-            className="py-2 px-5 lg:px-10"
-            to="/Adminhome/MenuForm"
-          />
         </div>
       </div>
     </div>
