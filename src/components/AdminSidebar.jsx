@@ -6,26 +6,19 @@ import { MdLogout } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
-import { BiMenuAltLeft } from "react-icons/bi";
 import logo from "../assets/logo.png";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useContext } from "react";
-import { NavContext } from "../context/navbar";
+import { displayContext } from "../context/display";
 
 const AdminSidebar = () => {
-  const { visible, setVisible } = useContext(NavContext);
+  const { visible, setVisible } = useContext(displayContext);
 
   return (
-    <>
-      <BiMenuAltLeft
-        onClick={() => setVisible(true)}
-        className="absolute text-5xl text-white top-8 md:top-4 lg:top-8 left-2 bg-[#E2725B]/70"
-      />
-
       <div
         className={`h-lvh bg-[#E2725B] ${
           visible ? "w-3/4 flex flex-col gap-10" : "hidden"
-        } text-white lg:grid grid-rows-5 p-10 relative`}
+        } text-white lg:grid grid-rows-5 p-10`}
       >
         <FaRegWindowClose
           onClick={() => setVisible(false)}
@@ -45,37 +38,37 @@ const AdminSidebar = () => {
 
         <div className="flex flex-col gap-3  lg:text-lg text-white/50 row-span-2 justify-end">
           <NavLink to="/Adminhome/Dashboard">
-            <div className="flex items-center gap-4  text-white font-bold">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4  text-white font-bold">
               <PiCirclesFourFill className="border rounded-full bg-white text-[#E2725B]" />{" "}
               Dashboard
             </div>
           </NavLink>
           <NavLink to="/Adminhome/Promotions">
-            <div className="flex items-center gap-4 ">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4 ">
               <BiCube />
               Promotions
             </div>
           </NavLink>
           <NavLink to="/Adminhome/Advert">
-            <div className="flex items-center gap-4 ">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4 ">
               <FiOctagon />
               Advertisement
             </div>
           </NavLink>
           <NavLink to="/Adminhome/CreateMenu">
-            <div className="flex items-center gap-4 ">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4 ">
               <HiOutlineSquaresPlus />
               Menu
             </div>
           </NavLink>
           <NavLink>
-            <div className="flex items-center gap-4 ">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4 ">
               <BsCart />
               Orders
             </div>
           </NavLink>
           <NavLink to="/Adminhome/Notifications">
-            <div className="flex items-center gap-4 ">
+            <div onClick={() => setVisible(false)} className="flex items-center gap-4 ">
               <FaRegBell />
               Notifications
             </div>
@@ -88,13 +81,12 @@ const AdminSidebar = () => {
           } flex items-end justify-center row-span-2 gap-2 mb-8`}
         >
 
-          <Link  to="/" className="flex items-end justify-center row-span-2 gap-2 mb-8">
+          <Link onClick={() => setVisible(false)}  to="/" className="flex items-end justify-center row-span-2 gap-2 mb-8">
            <MdLogout className="sm:text-2xl" /> Log out
           </Link> 
           
         </div>
       </div>
-    </>
   );
 };
 

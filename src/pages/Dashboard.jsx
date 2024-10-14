@@ -1,12 +1,12 @@
 import bannerImage from '../assets/image.png'
 import dishIcon from '../assets/dishicon.png'
 import vector from '../assets/Vector.png'
-import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDropdown } from "react-icons/io";
 import RecentOrder from '../components/RecentOrder';
 import { Profile, dummyOrders, dishes } from '../components/data';
 import { useEffect, useState } from 'react';
 import ViewersChart from '../components/ViewersChart';
+import ProfileDisplay from '../components/ProfileDisplay';
 import UserModal from '../components/UserModal';
 import UserProfile from '../components/UserProfile';
 
@@ -129,6 +129,10 @@ const Dashboard = () => {
         {/* right side */}
         <div className=" ml-6 hidden lg:block">
 
+        {/* profile info display */}
+        <div className="bg-white px-8 p-4">
+          <ProfileDisplay/>
+        </div>
           {/* profile info display */}
           <UserProfile />
 
