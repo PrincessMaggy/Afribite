@@ -175,17 +175,17 @@ const UserProfile = ({ className = '' }) => {
                         
                     </div>
 
-                    <div className="flex m-4 items-center justify-between">
+                    <div className="flex m-4 items-center gap-x-4 justify-between">
                         <button
                             type="submit"
-                            className="bg-[#E2725B] hover:bg-[#c35f4c] text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
+                            className="bg-[#E2725B] w-24 h-10 text-sm hover:bg-[#c35f4c] text-white font-bold  px-2 rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
                         >
-                            Save Changes
+                            Save 
                         </button>
                         <button
                             type="button"
                             onClick={() => setIsEditing(false)}
-                            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
+                            className="bg-gray-500 w-24 h-10 hover:bg-gray-600 text-white font-bold py-2 px-2 rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
                         >
                             Cancel
                         </button>
