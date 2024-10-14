@@ -133,7 +133,7 @@ const Dashboard = () => {
           <UserProfile />
 
           {/* recent orders */}
-          <div className="bg-white px-2 p-4 mt-4 flex flex-col gap-2">
+          <div className="bg-white px-2 p-4 mt-4 flex flex-col gap-2 rounded-md">
             <h1 className="text-center text-l font-medium my-4 ">Recent Order</h1>
             {recentOrders.map((items, index) =>
               <RecentOrder key={index} image={items.dishImg} dish={items.mealname} price={items.price} date={items.date} status={items.status} />
