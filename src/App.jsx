@@ -28,9 +28,11 @@ import UserSignUp from './pages/UserSignUp';
 
 
 import Profile from "./pages/Profile";
+import { AuthProvider } from "./context/AuthenticationContext";
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Homepage />}></Route>
@@ -74,6 +76,7 @@ function App() {
         <Route path="/Sign-in/" element={<SignInForm />}></Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

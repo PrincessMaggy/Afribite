@@ -3,8 +3,7 @@ import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { useAuth } from '../../context/AuthenticationContext';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +13,7 @@ const SignUpForm = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { signUp, signInWithGoogle } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const SignUpForm = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signUp(email, password);
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
@@ -45,9 +45,8 @@ const SignUpForm = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithGoogle();
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
