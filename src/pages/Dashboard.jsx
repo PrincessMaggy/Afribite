@@ -1,13 +1,12 @@
 import bannerImage from '../assets/image.png'
 import dishIcon from '../assets/dishicon.png'
 import vector from '../assets/Vector.png'
-import { CiSearch } from "react-icons/ci";
 import { IoIosArrowDropdown } from "react-icons/io";
 import RecentOrder from '../components/RecentOrder';
 import { Profile,dummyOrders,dishes } from '../components/data';
 import { useEffect, useState } from 'react';
 import ViewersChart from '../components/ViewersChart';
-import { Link } from "react-router-dom";
+import ProfileDisplay from '../components/ProfileDisplay';
 
 const Dashboard = () => {
   const [myProfile, setMyProfile] = useState([])
@@ -30,25 +29,6 @@ const Dashboard = () => {
 
   return (
     <div className="">
-      <div className='flex w-full mb-8 items-center'>
-        {/* Search */}
-        <div className='relative flex flex-1 justify-center items-center ml-10'>
-          <CiSearch className='pl-10 text-2xl text-n-n3'/>
-          <input type="text" className="w-3/4 bg-inherit border border-[#E2725B]/20 focus:outline-none focus:border-[#E2725B] px-12 p-3 rounded-3xl " placeholder='search'/>
-        </div>
-
-        {/* Profile icon */}
-        <div className='flex gap-2'>
-        <Link to='/Adminhome/Profile'><img src={myProfile[0]?.profileImg} alt="" className="m-auto h-[50px] w-[50px] rounded-[100%] bg-[#E2725B]" />
-        </Link>
-          <div className="flex flex-col">
-            <p className='text-base hidden md:block'>{myProfile[0]?.Username}</p>
-            <p className='text-xs hidden md:block'>{myProfile[0]?.name}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* dasboard main */}
       <div className="grid grid-cols-3">
 
         {/* left side */}
@@ -137,29 +117,7 @@ const Dashboard = () => {
 
         {/* profile info display */}
         <div className="bg-white px-8 p-4">
-          <h1 className="text-center text-2xl font-medium mb-4 ">My Profile</h1>
-          <div className="mb-8">
-          <img src={myProfile[0]?.profileImg} alt="" className="m-auto h-[100px] w-[100px] rounded-[100%] bg-[#E2725B]" />
-          <p className='text-center m-4'>{myProfile[0]?.name}</p>
-          </div>
-          <div className="flex flex-col gap-5 my-4">
-            <div className="">
-              <h2 className='font-medium text-lg'>Restaurant&#39;s Name</h2>
-              <p className='mt-2'>{myProfile[0]?.RestaurantName}</p>
-            </div>
-            <div>
-              <h2 className='font-medium text-lg'>Phone No</h2>
-              <p className='mt-2'>{myProfile[0]?.phoneNo}</p>
-            </div>
-            <div>
-              <h2 className='font-medium text-lg'>Email</h2>
-              <p className='mt-2'>{myProfile[0]?.email}</p>
-            </div>
-            <div>
-              <h2 className='font-medium text-lg'>Address</h2>
-              <p className='mt-2'>{myProfile[0]?.address}</p>
-            </div>
-          </div>
+          <ProfileDisplay/>
         </div>
 
         {/* recent orders */}

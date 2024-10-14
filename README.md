@@ -87,6 +87,10 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created nav Context
 - made side bar respnosive
 - made dasboard and advert page responsive
+- Created a profile page which included a display of resturant owners details and a for to edit details
+- created a profiledisplay component that displays user details on the dashboard and on profile page
+- Created a admin nav bar which displayed the hamburger menu on smaller screens and profile icon on every screen
+- Added Apex chart to the project to display data graphically on the dashboard 
 
 ### Ogwo Ijeoma Precious Chidinma
 
