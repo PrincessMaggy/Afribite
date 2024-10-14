@@ -97,7 +97,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created the sign in , sign up pages for the restaurant owners
 - Installed React icons and added icons to the Form
 - Created the Promotion page
-- add firebase authentification logic
+- added firebase authentification logic
+-added the profile structure and displayed it on the dashboard
 
 ## Contributors
 
