@@ -6,17 +6,19 @@ import { LuPoundSterling } from "react-icons/lu";
 import { ChoiceDate } from "../components/ui/DatePicker";
 import { Link} from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthenticationContext";
 
 
 
 const Advert = () => {
   const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
   const [imagePreview, setImagePreview] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const {user} = useAuth
+
+  
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -65,19 +67,24 @@ const Advert = () => {
       });
 
       console.log("Document written with ID: ", docRef.id);
+      const notify =()=> {
+        toast.success("Ad posted successfully!", {
+          position: "top-right",
+        })
+      }
+  
+      notify()
     
     
     } catch (error) {
       console.error("Error adding document: ", error);
+      const errorNotify =()=> {
+        toast.error("Error Creating ad!, try again later", {
+          position: "top-right",
+        })
+      } 
+      errorNotify() 
     }
-
-    const notify =()=> {
-      toast.success("Ad posted successfully!", {
-        position: "top-right",
-      })
-    }
-
-    notify()
     
     setAdForm(()=>(
       {
@@ -97,20 +104,6 @@ const Advert = () => {
 
   useEffect(()=>{
     console.log(adForm)
-    
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, get the user's UID
-        setUserId(user.uid);
-        console.log(user.uid);
-      } else {
-        // No user is signed in
-        setUserId(null);
-      }
-    });
-
-    return () => unsubscribe();
   },[adForm])
 
   return (

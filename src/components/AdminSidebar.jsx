@@ -10,9 +10,12 @@ import logo from "../assets/logo.png";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useContext } from "react";
 import { displayContext } from "../context/display";
+import { useAuth } from '../context/AuthenticationContext';
+
 
 const AdminSidebar = () => {
   const { visible, setVisible } = useContext(displayContext);
+  const { logOut } = useAuth();
 
   return (
       <div
@@ -81,8 +84,11 @@ const AdminSidebar = () => {
           } flex items-end justify-center row-span-2 gap-2 mb-8`}
         >
 
-          <Link onClick={() => setVisible(false)}  to="/" className="flex items-end justify-center row-span-2 gap-2 mb-8">
-           <MdLogout className="sm:text-2xl" /> Log out
+          <Link onClick={() => setVisible(false)}  to="/" >
+          <div onClick={logOut} className="flex items-end justify-center row-span-2 gap-2 mb-8">
+          <MdLogout className="sm:text-2xl" /> Log out
+          </div>
+           
           </Link> 
           
         </div>
