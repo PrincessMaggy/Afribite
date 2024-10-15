@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
-import { MdDeleteOutline } from "react-icons/md";
 import {
   getFirestore,
   doc,
@@ -14,10 +13,12 @@ import { ImageDb } from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MenuForm() {
   // Form states
-  const [image, setImage] = useState("/src/assets/imagePlaceHolder.svg");
+  const [image, setImage] = useState("/imagePlaceHolder.svg");
   const [uploadImage, setUploadImage] = useState(null);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
@@ -26,6 +27,7 @@ function MenuForm() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
@@ -43,7 +45,6 @@ function MenuForm() {
         setUserId(null);
       }
     });
-
     // Cleanup the subscription on component unmount
     return () => unsubscribe();
   }, []);
@@ -76,6 +77,7 @@ function MenuForm() {
   const sendForm = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
@@ -119,12 +121,37 @@ function MenuForm() {
       //     Desc: description,
       //   },
       // });
+      setLoading(false);
+      toast.success("Menu uploaded!", {
+        position: "top-center",
+      });
 
-      alert("Sent Successfully!");
-      navigate("/Adminhome/MainDish");
+      // Delay the navigation to allow the toast to show
+      setTimeout(() => {
+        // Redirect to the respective category page
+        if (category === "Main Dish") {
+          navigate("/Adminhome/MainDish");
+        } else if (category === "Appetizer") {
+          navigate("/Adminhome/Appetizer");
+        } else if (category === "Side") {
+          navigate("/Adminhome/Side");
+        } else if (category === "Soup") {
+          navigate("/Adminhome/Soup");
+        } else if (category === "Salad") {
+          navigate("/Adminhome/Salad");
+        } else if (category === "Special") {
+          navigate("/Adminhome/Special");
+        } else if (category === "Beverage") {
+          navigate("/Adminhome/Beverage");
+        } else if (category === "Dessert") {
+          navigate("/Adminhome/Dessert");
+        }
+      }, 3000);
     } catch (error) {
-      alert("Form failed to be sent!");
-      setError(error.message);
+      toast.error(error.message, {
+        position: "top-center",
+      });
+      setLoading(false);
     }
   };
 
@@ -139,10 +166,7 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
-        <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
-          <MdDeleteOutline className="text-p-button text-2xl lg:text-4xl" />
-        </div>
+      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -237,22 +261,40 @@ function MenuForm() {
                 {/* Save Button */}
                 <button
                   type="submit"
-                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:bg-p-button hover:text-n-n7"
+                  className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-none hover:border-p-button hover:bg-p-button hover:text-n-n7"
                 >
-                  Save
+                  {loading ? (
+                    <div className="flex items-center">
+                      <svg
+                        className="animate-spin h-5 w-5 mr-3 text-p-button3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        ></path>
+                      </svg>
+                      Loading...
+                    </div>
+                  ) : (
+                    "Save"
+                  )}
                 </button>
+                <ToastContainer />
               </div>
             </form>
           </div>
-        </div>
-
-        {/* Add new button */}
-        <div className="w-full justify-start mt-12">
-          <Button
-            text="Add new menu +"
-            className="py-2 px-5 lg:px-10"
-            to="/Adminhome/MenuForm"
-          />
         </div>
       </div>
     </div>
