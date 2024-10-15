@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import CreateMenu from "./pages/CreateMenu";
 import Dashboard from "./pages/Dashboard";
@@ -27,6 +27,7 @@ import UserSignUp from "./pages/UserSignUp";
 import EditMenu from "./pages/EditMenu";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthenticationContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route
           path="/Adminhome/*"
           element={
+            <ProtectedRoute>
             <Layout>
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
@@ -68,6 +70,7 @@ function App() {
                 <Route path="/EditMenu" element={<EditMenu />}></Route>
               </Routes>
             </Layout>
+            </ProtectedRoute>
           }
         ></Route>
 

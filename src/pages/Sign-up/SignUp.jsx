@@ -26,7 +26,7 @@ const SignUpForm = () => {
 
     try {
       await signUp(email, password);
-      navigate('/Adminhome');
+      navigate('/Adminhome/Dashboard');
     } catch (error) {
       switch (error.code) {
         case 'auth/email-already-in-use':
@@ -47,7 +47,7 @@ const SignUpForm = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      navigate('/Adminhome');
+      navigate('/Adminhome/Dashboard');
     } catch (error) {
       switch (error.code) {
         case 'auth/popup-closed-by-user':

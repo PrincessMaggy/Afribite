@@ -19,7 +19,7 @@ const SignInForm = () => {
 
     try {
       await signIn(email, password);
-      navigate('/Adminhome');
+      navigate('/Adminhome/Dashboard');
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
@@ -71,7 +71,7 @@ const SignInForm = () => {
   const handleAppleSignIn = async () => {
     try {
       await signInWithApple();
-      navigate('/Adminhome');
+      navigate('/Adminhome/Dashboard');
     } catch (error) {
       switch (error.code) {
         case 'auth/popup-closed-by-user':

@@ -9,6 +9,8 @@ const ProfileDisplay = () => {
     const {setShowProfile} = useContext(displayContext)
     const location = useLocation()
 
+  
+
     useEffect(()=>{
         setMyProfile(profile
           .filter((items)=>items.userid === 'user1'))
