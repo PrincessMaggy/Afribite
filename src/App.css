@@ -734,6 +734,10 @@ p{
   top: 2rem;
 }
 
+.right-\[-300px\]{
+  right: -300px;
+}
+
 .z-50{
   z-index: 50;
 }
@@ -912,6 +916,10 @@ p{
 
 .mt-9{
   margin-top: 2.25rem;
+}
+
+.ml-4{
+  margin-left: 1rem;
 }
 
 .box-border{
@@ -1442,6 +1450,10 @@ p{
 
 .border-t{
   border-top-width: 1px;
+}
+
+.border-b-2{
+  border-bottom-width: 2px;
 }
 
 .border-dashed{
