@@ -1,11 +1,9 @@
-"use client"
 import React, { useState } from 'react';
 import { MdMail, MdLock, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { FaApple } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { useAuth } from '../../context/AuthenticationContext';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -13,14 +11,15 @@ const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { signIn, signInWithGoogle, signInWithApple } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/Adminhome'); 
+      await signIn(email, password);
+      navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
@@ -44,10 +43,10 @@ const SignInForm = () => {
     }
   };
 
+
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithGoogle();
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
@@ -70,9 +69,8 @@ const SignInForm = () => {
   };
 
   const handleAppleSignIn = async () => {
-    const provider = new OAuthProvider('apple.com');
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithApple();
       navigate('/Adminhome');
     } catch (error) {
       switch (error.code) {
