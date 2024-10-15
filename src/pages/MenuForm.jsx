@@ -85,6 +85,8 @@ function MenuForm() {
 
       const userRef = doc(db, "menu", userId);
 
+      await setDoc(userRef, { updatedAt: new Date() });
+
       const menuSubcollectionRef = doc(userRef, category, "menus");
 
       const docSnapshot = await getDoc(menuSubcollectionRef);

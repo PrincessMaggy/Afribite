@@ -70,7 +70,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added structure to store menu items under user-specific categories. This improves the overall user experience and ensures data integrity.
 - Added a mobile first edit page to encourage users to edit the menu items whenever they want to make changes to the menu.
 - Fetched Menu items from fireStore and added them to their category pages.
-  \_ Added loading to save button and menu pages.
+- Added loading to save button and menu pages.
 - installed and used toastify to display success and error messages.
 
 ### Magali Lapu
