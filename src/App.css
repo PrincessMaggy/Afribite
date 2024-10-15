@@ -2095,6 +2095,7 @@ p{
 :root {
   --font-pop: "Poppins", sans-serif;
   color-scheme: light;
+  --toastify-color-success: #E2725B;
 }
 
 .placeholder\:p-1::-moz-placeholder{
@@ -2195,6 +2196,11 @@ p{
 
 .hover\:bg-transparent:hover{
   background-color: transparent;
+}
+
+.hover\:bg-white:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-yellow-300:hover{

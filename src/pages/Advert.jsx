@@ -4,10 +4,21 @@ import Button from "../components/button"
 import { FiImage } from "react-icons/fi";
 import { LuPoundSterling } from "react-icons/lu";
 import { ChoiceDate } from "../components/ui/DatePicker";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../context/AuthenticationContext";
+
+
 
 const Advert = () => {
-  const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:''})
+  const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
+  const [imagePreview, setImagePreview] = useState(null);
+  const {user} = useAuth
+
+  
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -17,6 +28,79 @@ const Advert = () => {
       }
     ))
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAdForm((prev)=>(
+        {...prev,
+          image: file
+        }
+      ))
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const db = getFirestore();
+      const storage = getStorage();
+
+      let imageUrl = null;
+      if (adForm.image) {
+        const storageRef = ref(storage, `adverts/${adForm.image.name}`);
+        await uploadBytes(storageRef, adForm.image);
+        imageUrl = await getDownloadURL(storageRef);
+      }
+
+      const docRef = await addDoc(collection(db, 'adverts'), {
+        title : adForm.Title,
+        description : adForm.Description,
+        image : imageUrl,
+        audience : adForm.audience,
+        budget: adForm.budget
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+      const notify =()=> {
+        toast.success("Ad posted successfully!", {
+          position: "top-right",
+        })
+      }
+  
+      notify()
+    
+    
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      const errorNotify =()=> {
+        toast.error("Error Creating ad!, try again later", {
+          position: "top-right",
+        })
+      } 
+      errorNotify() 
+    }
+    
+    setAdForm(()=>(
+      {
+        Title: '',
+        Description: '', 
+        image:'', 
+        budget:'', 
+        audience:'' }
+    )
+    )
+
+    setImagePreview(null)
+
+  };
+
+
 
   useEffect(()=>{
     console.log(adForm)
@@ -29,14 +113,17 @@ const Advert = () => {
         text={"Boost Your Brand Visibility and Drive Sales with Advertisements"}
       />
 
+      <ToastContainer />
+
       {/* Ad form */}
-      <form action="" className="mt-6 sm:mt-8 w-full">
+      <form action="" className="mt-6 sm:mt-8 w-full" onSubmit={handleSubmit} >
         <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-start">
           Create Ad
         </h1>
 
             <p className="mt-4 font-semibold text-[#E2725B]">Ad title</p>
             <input
+            required
             name="Title"
             value={adForm.Title}
             onChange={handleChange}
@@ -45,6 +132,7 @@ const Advert = () => {
 
             <p className="mt-4 font-semibold text-[#E2725B] ">Description</p>
             <textarea
+            required
             placeholder="Write a detailed description about your Ad" 
             name="Description"
             value={adForm.Description}
@@ -55,7 +143,11 @@ const Advert = () => {
 
         <p className="mt-4 font-semibold text-[#E2725B] ">Upload image</p>
         <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
-          <FiImage className="text-5xl text-n-n3" />
+        {imagePreview ? (
+              <img src={imagePreview} alt="Preview" className="w-32 h-32 object-cover" />
+            ) : (
+              <FiImage className="text-5xl text-n-n3" />
+            )}
           <p className="">
             Upload an image for your restaurant banner (GIF,JPG or PNG){" "}
           </p>
@@ -66,10 +158,12 @@ const Advert = () => {
             Browse
           </label>
           <input
+            required
             id="file"
             type="file"
             accept="image/png, image/gif, image/jpeg"
             className="hidden"
+            onChange={handleImageChange}
           />
         </div>
 
@@ -79,11 +173,11 @@ const Advert = () => {
 
           <div className="mt-2">
           <div className="flex gap-2 ">
-          <input type="radio" className="" /> <p className="text-[#E2725B]">Everyone</p>
+          <input name="audience" type="radio" value='everybody' className="" onChange={handleChange} /> <p className="text-[#E2725B]">Everyone</p>
           </div>
           
           <div className="flex gap-2">
-          <input type="radio" className="" /> <p className="text-[#E2725B]">Newcomers</p>
+          <input  name="audience" type="radio" value='newcomers' className="" onChange={handleChange} /> <p className="text-[#E2725B]">Newcomers</p>
           </div>
           </div>
             
@@ -94,6 +188,7 @@ const Advert = () => {
             <div className='relative flex '>
               <LuPoundSterling className="absolute left-2 top-3.5 text-n-n3" />
               <input
+              required
               name="budget"
               value={adForm.budget}
               onChange={handleChange}
@@ -116,7 +211,9 @@ const Advert = () => {
               </span>
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
-        <Button text="Post Ad" className='bg-p-button3 hover:border-p-button3 hover:text-p-button3' />
+        <button type="submit" className="p-3 border-2 text-xs lg:text-sm text-white bg-p-button3 rounded-md transition-colors hover:border-p-button3 hover:text-p-button3 hover:bg-white ">
+            Post Ad
+          </button>
         <Button text='Save as draft' />
         <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
