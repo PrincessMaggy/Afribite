@@ -45,14 +45,6 @@ const AdminSidebar = () => {
           setMenu(true); // Document doesn't exist
         }
 
-        // Check if the document exists
-        // if (userSnap.exists()) {
-        //   console.log("Document exists");
-        //   setMenu(false); // Menu exists
-        // } else {
-        //   console.log("Document does not exist");
-        //   setMenu(true); // Document doesn't exist
-        // }
       } catch (error) {
         console.error("Error checking user document:", error);
       }
