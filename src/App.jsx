@@ -22,11 +22,9 @@ import Salad from "./pages/Salad";
 import Special from "./pages/Special";
 import Dessert from "./pages/Dessert";
 import Beverage from "./pages/Beverage";
-import LandingPage from './pages/LandingPage';
-import UserSignUp from './pages/UserSignUp';
-
-
-
+import LandingPage from "./pages/LandingPage";
+import UserSignUp from "./pages/UserSignUp";
+import EditMenu from "./pages/EditMenu";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthenticationContext";
 
@@ -37,7 +35,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Homepage />}></Route>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<LandingPage />} /> 
+          <Route path="/" element={<LandingPage />} />
           {/* Other routes that needs the navbar can be nested here if needed */}
         </Route>
         <Route path="/user-sign-up" element={<UserSignUp />} />
@@ -50,7 +48,7 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/Dashboard" element={<Dashboard />}></Route>
-                <Route path="/Profile" element={<Profile/>}></Route>
+                <Route path="/Profile" element={<Profile />}></Route>
                 <Route path="/Advert" element={<Advert />}></Route>
                 <Route path="/Promotions" element={<Promotions />}></Route>
                 <Route path="/CreateMenu" element={<CreateMenu />}></Route>
@@ -67,6 +65,7 @@ function App() {
                 <Route path="/Special" element={<Special />}></Route>
                 <Route path="/Beverage" element={<Beverage />}></Route>
                 <Route path="/Dessert" element={<Dessert />}></Route>
+                <Route path="/EditMenu" element={<EditMenu />}></Route>
               </Routes>
             </Layout>
           }
