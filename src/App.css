@@ -992,6 +992,10 @@ p{
   height: 1.5rem;
 }
 
+.h-8{
+  height: 2rem;
+}
+
 .h-\[100px\]{
   height: 100px;
 }
@@ -1280,6 +1284,10 @@ p{
   gap: 2.5rem;
 }
 
+.gap-12{
+  gap: 3rem;
+}
+
 .gap-2{
   gap: 0.5rem;
 }
@@ -1426,6 +1434,10 @@ p{
 
 .border-\[2px\]{
   border-width: 2px;
+}
+
+.border-b-4{
+  border-bottom-width: 4px;
 }
 
 .border-t{
