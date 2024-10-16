@@ -7,14 +7,20 @@ import { CiSearch } from "react-icons/ci";
 
 
 
-const OrderNotification = ({orderStatus, orderTime, customerName, orderName, orderQuantity, orderPrice}) => {
+const OrderNotification = ({orderStatus, orderTime, adminName, customerName, orderName, orderQuantity, orderPrice, deliveryTime}) => {
     const [popupOpen, setPopupOpen] = useState(false)
 
     const toggleOrderPopup = () => {
         setPopupOpen(!popupOpen);
       };
+
+    const updateOrderStatus = (newStatus) => {
+        console.log('Updating order status to: ${newStatus}');
+
+    };
     
     return(
+        <div className='w-full flex'>
         <div className="flex flex-row justify-between items-center w-full rounded-md border border-n-n3 py-2 px-6 bg-notif hover:border-terra-cotta">
             <img src={ActiveIcon} className='size-2.5'/>
             <p>{orderStatus}{orderTime}</p>
@@ -25,6 +31,7 @@ const OrderNotification = ({orderStatus, orderTime, customerName, orderName, ord
                 className="bg-p-button3 hover:border-p-button3 hover:text-p-button3 hover:bg-n-n7"
                 onClick={toggleOrderPopup}
             />
+        </div>
             {popupOpen && (
                 <div className="ml-4">
                     <OrderPopup
@@ -33,6 +40,11 @@ const OrderNotification = ({orderStatus, orderTime, customerName, orderName, ord
                         orderName={orderName}
                         orderQuantity={orderQuantity}
                         orderPrice={orderPrice}
+                        popupOpen={popupOpen}
+                        toggleOrderPopup={toggleOrderPopup}
+                        orderStatus={orderStatus}
+                        updateOrderStatus={updateOrderStatus}
+                        deliveryTime={deliveryTime}
                     />
                 </div>
             )}
