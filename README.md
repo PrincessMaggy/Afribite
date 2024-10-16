@@ -65,13 +65,16 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added a mobile first Salad menu page for restaurant owners to display the Salad menu items that will be saved in the firestore database.
 - Added a mobile first Beverage menu page for restaurant owners to display the Beverage menu items that will be saved in the firestore database.
 - Added a mobile first Special menu page for restaurant owners to display the Special menu items that will be saved in the firestore database.
-- Implemented menu data and image upload to Firebase storage
-- Re-added the custom tailwind css rules to index.css
+- Implemented menu data and image upload to Firebase storage.
+- Re-added the custom tailwind css rules to index.css.
 - Added structure to store menu items under user-specific categories. This improves the overall user experience and ensures data integrity.
 - Added a mobile first edit page to encourage users to edit the menu items whenever they want to make changes to the menu.
 - Fetched Menu items from fireStore and added them to their category pages.
-  \_ Added loading to save button and menu pages.
+- Added loading to save button and menu pages.
 - installed and used toastify to display success and error messages.
+- Update menu navigation to handle menu navigation state (This way existing users will be directed to the main dish page while new users will be directed to the create menu page).
+- Created menu edit page to enable users make changes or edit to their menu items and save updated menu to firestore.
+- Added delete popup diagram to edit menu page, to enable users to delete menu items
 
 ### Magali Lapu
 
@@ -110,8 +113,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Installed React icons and added icons to the Form
 - Created the Promotion page
 - added firebase authentification logic
-- added storage for promotion page 
--added the profile structure and displayed it on the dashboard
+- added storage for promotion page
+  -added the profile structure and displayed it on the dashboard
 
 ## Contributors
 

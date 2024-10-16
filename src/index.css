@@ -7,7 +7,7 @@
 :root {
   --font-pop: "Poppins", sans-serif;
   color-scheme: light;
-  --toastify-color-success: #E2725B;
+  --toastify-color-success: #e2725b;
 }
 
 @layer base {
@@ -21,3 +21,20 @@
     @apply text-n-n3 font-pop text-xs lg:text-sm;
   }
 }
+
+/* width */
+/*
+::-webkit-scrollbar {
+  width: 5px;
+}*/
+
+/* Handle */
+/*::-webkit-scrollbar-thumb {
+  background: #e2725b;
+  border-radius: 5px;
+}*/
+
+/* Handle on hover */
+/*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}*/

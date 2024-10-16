@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import Button from "./button";
 
 const OrderPopup = ({adminName, customerName, orderName, orderQuantity, orderPrice}) => {

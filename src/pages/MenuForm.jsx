@@ -85,6 +85,8 @@ function MenuForm() {
 
       const userRef = doc(db, "menu", userId);
 
+      await setDoc(userRef, { updatedAt: new Date() });
+
       const menuSubcollectionRef = doc(userRef, category, "menus");
 
       const docSnapshot = await getDoc(menuSubcollectionRef);
@@ -166,7 +168,7 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6 rounded-lg grid place-items-center shadow-md">
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -177,7 +179,7 @@ function MenuForm() {
                 handleImageChange(e);
               }}
               className="hidden lg:hidden"
-              accept="image/*" // Only allow image files
+              accept="image/png, image/jpeg, image/jpg" // Only allow image files
             />
 
             {/* Clickable Image */}
@@ -223,7 +225,7 @@ function MenuForm() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full  h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3"
+                className="w-full h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3 "
                 required
               >
                 <option value="">Category</option>

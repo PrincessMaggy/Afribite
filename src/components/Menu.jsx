@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { MdToggleOff, MdToggleOn } from "react-icons/md"; // Combined import
 import { FaEdit } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Menu(items) {
   // Fix the useState destructuring
 
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="border-2 border-p-button px-6 pt-6 rounded-lg flex-initial w-[12.5rem] cursor-pointer">
       <img src={items.image} alt="image" className="w-full h-32 rounded-md" />
       <p className="mt-1.5 text-center">{items.dishName}</p>
       <div className="flex justify-around items-center my-1.5 ">
-        <p>{items.price}</p>
+        <p>{`$${items.price}`}</p>
         <button
           onClick={() => setToggle(!toggle)}
           className="flex items-center space-x-2"
@@ -28,9 +29,23 @@ function Menu(items) {
           </span>
         </button>
       </div>
-      <Link to="/Adminhome/EditMenu">
-        <FaEdit className="text-p-button3 text-xl mb-2 hover:text-p-button3 hover:opacity-70" />
-      </Link>
+
+      <FaEdit
+        type="button"
+        onClick={() => {
+          navigate("/Adminhome/EditMenu", {
+            state: {
+              img: items.image,
+              dish: items.dishName,
+              prc: items.price,
+              index: items.index,
+              desc: items.description,
+              cat: items.category,
+            },
+          });
+        }}
+        className="text-p-button3 text-xl mb-2 hover:text-p-button3 hover:opacity-70"
+      />
     </div>
   );
 }

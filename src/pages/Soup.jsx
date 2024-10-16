@@ -66,7 +66,10 @@ function Soup() {
                     key={index}
                     image={menu.Img} // Replace with actual image field if available
                     dishName={menu.Name} // Assuming name is the dish name
-                    price={`$${menu.Price}`} // Assuming price is available
+                    price={menu.Price} // Assuming price is available
+                    index={index}
+                    description={menu.Desc}
+                    category={menu.Category}
                   />
                 ))}
               </div>
@@ -99,7 +102,7 @@ function Soup() {
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>
