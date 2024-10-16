@@ -1,59 +1,69 @@
 import React, {useState} from 'react';
 import OrderNotification from './OrderNotification';
 
-const OrderTabs = () => {
+const OrderTabs = ({orders}) => {
     const [activeTab, setActiveTab] = useState(0);
 
     const tabs = [
         {
             title: 'New',
-            content:[
+            content: orders.filter(order => order.orderStatus.toLowerCase() === 'new').map(order => (
                 <OrderNotification
-                    key="1"
-                    id="1"
+                    key={order.id} // Use the document ID
                     adminName="Emmanuella"
-                    orderStatus="New"
-                    orderTime="10mins" 
-                    customerName="Favour Chinedu"
-                    orderName="Jollof Rice"
-                    orderQuantity="2"
-                    orderPrice="20"
-                />,
-            ],
+                    orderStatus={order.orderStatus}
+                    orderTime={order.orderTime}
+                    customerName={order.customerName}
+                    orderName={order.orderName}
+                    orderQuantity={order.orderQuantity}
+                    orderPrice={order.orderPrice}
+                    deliveryTime={order.deliveryTime}
+                />
+
+
+
+            ) ),
+            
         },
         {
             title: 'Finished',
-            content:[
-                <OrderNotification
-                    key="2"
-                    id="2"
-                    adminName="Emmanuella"
-                    orderStatus="Finished"
-                    orderTime="30mins"
-                    customerName="Ade Oluwa"
-                    orderName="Suya"
-                    orderQuantity="1"
-                    orderPrice="15"
-                />,
-            ],
+            content: orders
+                .filter(order => order.orderStatus.toLowerCase() === 'finished')
+                .map(order => (
+                    <OrderNotification
+                        key={order.id}
+                        adminName="Emmanuella"
+                        orderStatus={order.orderStatus}
+                        orderTime={order.orderTime}
+                        customerName={order.customerName}
+                        orderName={order.orderName}
+                        orderQuantity={order.orderQuantity}
+                        orderPrice={order.orderPrice}
+                        deliveryTime={order.deliveryTime}
+                    />
+                )),
         },
         {
             title: 'Delivered',
-            content:[
-                <OrderNotification
-                    key="3"
-                    id="3"
-                    adminName="Emmanuella"
-                    orderStatus="Delivered"
-                    orderTime="45mins"
-                    customerName="Amaka Nwoke"
-                    orderName="Egusi Soup"
-                    orderQuantity="3"
-                    orderPrice="25"
-                />,
-            ],
+            content: orders
+                .filter(order => order.orderStatus.toLowerCase() === 'delivered')
+                .map(order => (
+                    <OrderNotification
+                        key={order.id}
+                        adminName="Emmanuella"
+                        orderStatus={order.orderStatus}
+                        orderTime={order.orderTime}
+                        customerName={order.customerName}
+                        orderName={order.orderName}
+                        orderQuantity={order.orderQuantity}
+                        orderPrice={order.orderPrice}
+                        deliveryTime={order.deliveryTime}
+                    />
+                )),
         },
     ];
+
+    console.log("Orders in Tabs:", orders);
 
     return (
         <div className='flex flex-col gap-12 h-full w-full rounded-lg'>
@@ -71,6 +81,11 @@ const OrderTabs = () => {
             </div>
             <div className='flex flex-row'>
                 {tabs[activeTab].content.map((item) => item)}
+                <OrderNotification
+                    key={orders.id}
+                    adminName="Emmanuella"
+                    orderStatus={orders.orderStatus}
+                />
             </div>
         </div>
     );
