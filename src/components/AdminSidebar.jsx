@@ -14,11 +14,15 @@ import { useAuth } from "../context/AuthenticationContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminSidebar = () => {
   const { visible, setVisible } = useContext(displayContext);
   const [menuEmpty, setMenu] = useState(true);
   const { logOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const db = getFirestore();
@@ -44,7 +48,6 @@ const AdminSidebar = () => {
           console.log("Document does not exist");
           setMenu(true); // Document doesn't exist
         }
-
       } catch (error) {
         console.error("Error checking user document:", error);
       }
@@ -61,6 +64,21 @@ const AdminSidebar = () => {
     // Cleanup the subscription on component unmount
     return () => unsubscribe();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      toast.success("Logout successful!", {
+        position: "top-center",
+      });
+      navigate("/");
+    } catch (e) {
+      console.error("Error logging out:", e);
+      toast.error("Error logging out!", {
+        position: "top-center",
+      });
+    }
+  };
 
   return (
     <div
@@ -79,7 +97,8 @@ const AdminSidebar = () => {
           className={`${
             visible ? "hidden" : ""
           } font-extrabold text-2xl lg:text-4xl text-white text-center`}
-        >AfriBite
+        >
+          AfriBite
         </p>
       </div>
 
@@ -148,12 +167,12 @@ const AdminSidebar = () => {
         } flex items-end justify-center row-span-2 gap-2 mb-8`}
       >
         <Link
-          onClick={() => setVisible(false)}
-          to="/"
+          onClick={handleLogout}
           className="flex items-end justify-center row-span-2 gap-2 mb-8"
         >
           <MdLogout className="sm:text-2xl" /> Log out
         </Link>
+        <ToastContainer />
       </div>
     </div>
   );
