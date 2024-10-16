@@ -1,7 +1,4 @@
 import Menu from "../components/Menu";
-{
-  /*import pap from "../assets/pap.svg";*/
-}
 import Button from "../components/button";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -72,7 +69,7 @@ function Special() {
                     price={menu.Price} // Assuming price is available
                     index={index}
                     description={menu.Desc}
-                    category={menu.Category} 
+                    category={menu.Category}
                   />
                 ))}
               </div>
@@ -101,11 +98,11 @@ function Special() {
             </Link>
           </div>
         </div>
-        <div className=" flex px-2 pt-6">
+        <div className="flex px-2 pt-6">
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>

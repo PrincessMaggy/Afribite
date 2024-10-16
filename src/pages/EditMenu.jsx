@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 
 function EditMenu() {
   // States for both current and original values
-
   const location = useLocation();
   const { img, dish, prc, cat, desc } = location.state || {}; // Retrieve the passed data
 
@@ -33,7 +32,9 @@ function EditMenu() {
   const [category, setCategory] = useState(cat || "");
   const [description, setDescription] = useState(desc || "");
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
@@ -95,7 +96,7 @@ function EditMenu() {
         if (docSnapshot.exists()) {
           const menuData = docSnapshot.data();
           const updatedMenuArray = menuData.menu.map((item) => {
-            // Step 3: Replace the existing menu item with updated data
+            // Replace the existing menu item with updated data
             if (item.Name === dish) {
               // Assuming dishName is unique here; change as per your identifier
               return {
@@ -109,14 +110,14 @@ function EditMenu() {
             return item; // Leave other menu items unchanged
           });
 
-          // Step 4: Update the Firestore document with the modified array
+          // Update the Firestore document with the modified array
           await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
         }
       } else {
         if (docSnapshot.exists()) {
           const menuData = docSnapshot.data();
           const updatedMenuArray = menuData.menu.map((item) => {
-            // Step 3: Replace the existing menu item with updated data
+            // Replace the existing menu item with updated data
             if (item.Name === dish) {
               // Assuming dishName is unique here; change as per your identifier
               return {
@@ -130,7 +131,7 @@ function EditMenu() {
             return item; // Leave other menu items unchanged
           });
 
-          // Step 4: Update the Firestore document with the modified array
+          // Update the Firestore document with the modified array
           await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
         }
       }
@@ -165,27 +166,6 @@ function EditMenu() {
       });
       setLoading(false);
     }
-
-    // const docRef = doc(db, category, "menus");
-    // try {
-    //   await updateDoc(docRef, {
-    //     name: dishName,
-    //     price: parseFloat(price),
-    //     type: category,
-    //     description,
-    //   });
-    //   // Update originalData after successful save
-    //   setOriginalData({
-    //     dishName,
-    //     price,
-    //     category,
-    //     description,
-    //   });
-    //   alert("Item updated successfully!");
-    // } catch (error) {
-    //   console.error("Error updating document: ", error);
-    //   alert("Failed to update item");
-    // }
   };
 
   // Handle Cancel action to revert changes
@@ -195,29 +175,135 @@ function EditMenu() {
     setCategory(originalData.category);
     setDescription(originalData.description);
   };
+  const deletePopup = () => {
+    setOpen(!open);
+  };
 
   // Handle Delete action to remove item from Firestore
   const handleDelete = async () => {
-    const docRef = doc(db, category, "menus");
+    setDeleteLoading(true);
+    const userRef = doc(db, "menu", userId);
     try {
-      await deleteDoc(docRef);
-      alert("Item deleted successfully!");
-      // Optional: Redirect or update UI after deletion
+      // Fetch the current document data
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+
+      if (docSnapshot.exists()) {
+        const menuData = docSnapshot.data();
+
+        // Debug - Log the existing menu array
+        console.log("Current Menu Array: ", menuData.menu);
+
+        // Filter out the item to be deleted (by unique identifier like Name or id)
+        const updatedMenuArray = menuData.menu.filter(
+          (item) => item.Name !== dish
+        );
+
+        // Debug - Log the updated menu array after filtering
+        console.log("Updated Menu Array After Deletion: ", updatedMenuArray);
+
+        // Update the Firestore document with the filtered array
+        await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        toast.success("Item deleted successfully!", {
+          position: "top-center",
+        });
+      }
+      setDeleteLoading(false);
+      setTimeout(() => {
+        // Redirect to the respective category page
+        if (category === "Main Dish") {
+          navigate("/Adminhome/MainDish");
+        } else if (category === "Appetizer") {
+          navigate("/Adminhome/Appetizer");
+        } else if (category === "Side") {
+          navigate("/Adminhome/Side");
+        } else if (category === "Soup") {
+          navigate("/Adminhome/Soup");
+        } else if (category === "Salad") {
+          navigate("/Adminhome/Salad");
+        } else if (category === "Special") {
+          navigate("/Adminhome/Special");
+        } else if (category === "Beverage") {
+          navigate("/Adminhome/Beverage");
+        } else if (category === "Dessert") {
+          navigate("/Adminhome/Dessert");
+        }
+      }, 2000);
     } catch (error) {
-      console.error("Error deleting document: ", error);
-      alert("Failed to delete item");
+      toast.error(error.message, {
+        position: "top-center",
+      });
+      setDeleteLoading(false);
     }
   };
 
   return (
     <div>
-      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6 rounded-lg grid place-items-center shadow-md">
         <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
           <MdDeleteOutline
             className="text-p-button text-2xl lg:text-4xl"
-            onClick={handleDelete}
+            onClick={deletePopup}
           />
+          <div>
+            {/* Popup dialog */}
+            {open && (
+              <div className="fixed inset-0 bg-n-n1 bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-p-button5 rounded-lg shadow-lg max-w-md w-[90%] lg:w-full">
+                  <h2 className="bg-p-button6 text-2xl font-semibold mb-4 rounded-t-lg text-center py-4">
+                    Confirm Delete
+                  </h2>
+                  <p className="px-4 text-center">
+                    Are you sure you want to delete this item?
+                  </p>
+                  <p className="px-4 mt-2 text-center">
+                    This menu item inside this category will be deleted.
+                  </p>
+                  <div className="flex justify-center my-6">
+                    <Button
+                      text="No"
+                      onClick={deletePopup}
+                      className="py-2 px-12"
+                    />
+                    <button
+                      onClick={handleDelete}
+                      className="bg-p-button py-2 px-5 ml-2 rounded-md text-n-n7 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:text-p-button hover:bg-transparent"
+                    >
+                      {deleteLoading ? (
+                        <div className="flex items-center">
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-p-button3"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            ></path>
+                          </svg>
+                          Loading...
+                        </div>
+                      ) : (
+                        "Yes, delete"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -228,7 +314,7 @@ function EditMenu() {
                 handleImageChange(e);
               }}
               className="hidden lg:hidden"
-              accept="image/*" // Only allow image files
+              accept="image/png, image/jpeg, image/jpg" // Only allow image files
             />
 
             {/* Clickable Image */}

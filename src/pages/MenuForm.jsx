@@ -168,7 +168,7 @@ function MenuForm() {
 
   return (
     <div className="">
-      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto py-10 lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6 rounded-lg grid place-items-center shadow-md">
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -179,7 +179,7 @@ function MenuForm() {
                 handleImageChange(e);
               }}
               className="hidden lg:hidden"
-              accept="image/*" // Only allow image files
+              accept="image/png, image/jpeg, image/jpg" // Only allow image files
             />
 
             {/* Clickable Image */}

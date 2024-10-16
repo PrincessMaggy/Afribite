@@ -1,7 +1,4 @@
 import Menu from "../components/Menu";
-{
-  /*import cake from "../assets/cake.svg";*/
-}
 import Button from "../components/button";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -99,7 +96,7 @@ function Dessert() {
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>

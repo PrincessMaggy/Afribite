@@ -102,7 +102,7 @@ function Soup() {
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>

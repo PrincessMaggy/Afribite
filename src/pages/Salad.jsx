@@ -1,7 +1,4 @@
 import Menu from "../components/Menu";
-{
-  /*import chickenSalad from "../assets/chickenSalad.svg";*/
-}
 import Button from "../components/button";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -105,7 +102,7 @@ function Salad() {
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>

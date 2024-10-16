@@ -14,6 +14,8 @@ export default {
           button2: "#FFCC00",
           button3: "#808000",
           button4: "#D6D602",
+          button5: "#F4E1C1",
+          button6: "#FFCC00",
         },
         n: {
           n1: "#333333",
