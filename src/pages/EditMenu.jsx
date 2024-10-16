@@ -1,27 +1,60 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import { MdDeleteOutline } from "react-icons/md";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase"; // Import Firestore configuration
+import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ImageDb } from "../firebase";
+import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 function EditMenu() {
   // States for both current and original values
-  const [originalData, setOriginalData] = useState({
+  const location = useLocation();
+  const { img, dish, prc, cat, desc } = location.state || {}; // Retrieve the passed data
+
+  const [originalData] = useState({
     dishName: "",
     price: "",
     category: "",
     description: "",
   });
+  const navigate = useNavigate();
   // Form states
-  const [image, setImage] = useState(""); // Image state
-  const [dishName, setDishName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(img || ""); // Image state
+  const [uploadImage, setUploadImage] = useState(null);
+  const [dishName, setDishName] = useState(dish || "");
+  const [price, setPrice] = useState(prc || "");
+  const [category, setCategory] = useState(cat || "");
+  const [description, setDescription] = useState(desc || "");
+  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
   const maxDishNamechar = 100; // Maximum name
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, get the user's UID
+        setUserId(user.uid);
+        console.log(user.uid);
+      } else {
+        // No user is signed in
+        setUserId(null);
+      }
+    });
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, []);
 
   // Handle image click
   const handleImageClick = () => {
@@ -37,30 +70,101 @@ function EditMenu() {
         setImage(render.result); // Convert the image file to upload file
       };
       render.readAsDataURL(file); // Convert the file as data URL
+      setUploadImage(file); // Set the image file to upload
     }
   };
 
+  const imageRef = ref(ImageDb, `menu/${uuidv4()}`); // Reference to the image storage
+  const metadata = {
+    contentType: "image/png",
+  };
+
   // Handle Save action to update Firestore
-  const handleSave = async () => {
-    const docRef = doc(db, category, "menus");
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      await updateDoc(docRef, {
-        name: dishName,
-        price: parseFloat(price),
-        type: category,
-        description,
+      const userRef = doc(db, "menu", userId);
+      await setDoc(userRef, { updatedAt: new Date() });
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+      if (uploadImage !== null) {
+        await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
+        const imageUrl = await getDownloadURL(imageRef);
+
+        if (docSnapshot.exists()) {
+          const menuData = docSnapshot.data();
+          const updatedMenuArray = menuData.menu.map((item) => {
+            // Replace the existing menu item with updated data
+            if (item.Name === dish) {
+              // Assuming dishName is unique here; change as per your identifier
+              return {
+                Img: imageUrl, // Replace with new image URL
+                Name: dishName, // Edited or existing name
+                Price: price, // Edited or existing price
+                Category: category,
+                Desc: description, // Edited or existing description
+              };
+            }
+            return item; // Leave other menu items unchanged
+          });
+
+          // Update the Firestore document with the modified array
+          await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        }
+      } else {
+        if (docSnapshot.exists()) {
+          const menuData = docSnapshot.data();
+          const updatedMenuArray = menuData.menu.map((item) => {
+            // Replace the existing menu item with updated data
+            if (item.Name === dish) {
+              // Assuming dishName is unique here; change as per your identifier
+              return {
+                Img: img, // Replace with new image URL
+                Name: dishName, // Edited or existing name
+                Price: price, // Edited or existing price
+                Category: category,
+                Desc: description, // Edited or existing description
+              };
+            }
+            return item; // Leave other menu items unchanged
+          });
+
+          // Update the Firestore document with the modified array
+          await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        }
+      }
+      toast.success("Menu updated successfully!", {
+        position: "top-center",
       });
-      // Update originalData after successful save
-      setOriginalData({
-        dishName,
-        price,
-        category,
-        description,
-      });
-      alert("Item updated successfully!");
+      setLoading(false);
+
+      setTimeout(() => {
+        // Redirect to the respective category page
+        if (category === "Main Dish") {
+          navigate("/Adminhome/MainDish");
+        } else if (category === "Appetizer") {
+          navigate("/Adminhome/Appetizer");
+        } else if (category === "Side") {
+          navigate("/Adminhome/Side");
+        } else if (category === "Soup") {
+          navigate("/Adminhome/Soup");
+        } else if (category === "Salad") {
+          navigate("/Adminhome/Salad");
+        } else if (category === "Special") {
+          navigate("/Adminhome/Special");
+        } else if (category === "Beverage") {
+          navigate("/Adminhome/Beverage");
+        } else if (category === "Dessert") {
+          navigate("/Adminhome/Dessert");
+        }
+      }, 3000);
     } catch (error) {
-      console.error("Error updating document: ", error);
-      alert("Failed to update item");
+      toast.error(error.message, {
+        position: "top-center",
+      });
+      setLoading(false);
     }
   };
 
@@ -71,29 +175,135 @@ function EditMenu() {
     setCategory(originalData.category);
     setDescription(originalData.description);
   };
+  const deletePopup = () => {
+    setOpen(!open);
+  };
 
   // Handle Delete action to remove item from Firestore
   const handleDelete = async () => {
-    const docRef = doc(db, category, "menus");
+    setDeleteLoading(true);
+    const userRef = doc(db, "menu", userId);
     try {
-      await deleteDoc(docRef);
-      alert("Item deleted successfully!");
-      // Optional: Redirect or update UI after deletion
+      // Fetch the current document data
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+
+      if (docSnapshot.exists()) {
+        const menuData = docSnapshot.data();
+
+        // Debug - Log the existing menu array
+        console.log("Current Menu Array: ", menuData.menu);
+
+        // Filter out the item to be deleted (by unique identifier like Name or id)
+        const updatedMenuArray = menuData.menu.filter(
+          (item) => item.Name !== dish
+        );
+
+        // Debug - Log the updated menu array after filtering
+        console.log("Updated Menu Array After Deletion: ", updatedMenuArray);
+
+        // Update the Firestore document with the filtered array
+        await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        toast.success("Item deleted successfully!", {
+          position: "top-center",
+        });
+      }
+      setDeleteLoading(false);
+      setTimeout(() => {
+        // Redirect to the respective category page
+        if (category === "Main Dish") {
+          navigate("/Adminhome/MainDish");
+        } else if (category === "Appetizer") {
+          navigate("/Adminhome/Appetizer");
+        } else if (category === "Side") {
+          navigate("/Adminhome/Side");
+        } else if (category === "Soup") {
+          navigate("/Adminhome/Soup");
+        } else if (category === "Salad") {
+          navigate("/Adminhome/Salad");
+        } else if (category === "Special") {
+          navigate("/Adminhome/Special");
+        } else if (category === "Beverage") {
+          navigate("/Adminhome/Beverage");
+        } else if (category === "Dessert") {
+          navigate("/Adminhome/Dessert");
+        }
+      }, 2000);
     } catch (error) {
-      console.error("Error deleting document: ", error);
-      alert("Failed to delete item");
+      toast.error(error.message, {
+        position: "top-center",
+      });
+      setDeleteLoading(false);
     }
   };
 
   return (
     <div>
-      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6  rounded-sm grid place-items-center shadow-md">
+      <div className="my-12 mx-auto lg:mx-auto w-[90%] lg:w-[48rem] bg-n-n6 rounded-lg grid place-items-center shadow-md">
         <div className="w-full flex justify-end mt-6 mb-3 lg:mt-10 px-4 lg:px-10">
           <MdDeleteOutline
             className="text-p-button text-2xl lg:text-4xl"
-            onClick={handleDelete}
+            onClick={deletePopup}
           />
+          <div>
+            {/* Popup dialog */}
+            {open && (
+              <div className="fixed inset-0 bg-n-n1 bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-p-button5 rounded-lg shadow-lg max-w-md w-[90%] lg:w-full">
+                  <h2 className="bg-p-button6 text-2xl font-semibold mb-4 rounded-t-lg text-center py-4">
+                    Confirm Delete
+                  </h2>
+                  <p className="px-4 text-center">
+                    Are you sure you want to delete this item?
+                  </p>
+                  <p className="px-4 mt-2 text-center">
+                    This menu item inside this category will be deleted.
+                  </p>
+                  <div className="flex justify-center my-6">
+                    <Button
+                      text="No"
+                      onClick={deletePopup}
+                      className="py-2 px-12"
+                    />
+                    <button
+                      onClick={handleDelete}
+                      className="bg-p-button py-2 px-5 ml-2 rounded-md text-n-n7 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:text-p-button hover:bg-transparent"
+                    >
+                      {deleteLoading ? (
+                        <div className="flex items-center">
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-p-button3"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            ></path>
+                          </svg>
+                          Loading...
+                        </div>
+                      ) : (
+                        "Yes, delete"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+
         <div className="flex flex-col justify-between items-center lg:flex-row gap-8 px-4 lg:px-10">
           <div className="lg:ml-12 Lg:w-[30%]">
             {/* Hidden File Input */}
@@ -104,7 +314,7 @@ function EditMenu() {
                 handleImageChange(e);
               }}
               className="hidden lg:hidden"
-              accept="image/*" // Only allow image files
+              accept="image/png, image/jpeg, image/jpg" // Only allow image files
             />
 
             {/* Clickable Image */}
@@ -116,7 +326,7 @@ function EditMenu() {
             />
           </div>
           <div className="lg:w-[70%]">
-            <form>
+            <form onSubmit={handleSave}>
               {/* Dish Name */}
               <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
                 <input
@@ -151,6 +361,7 @@ function EditMenu() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full  h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3"
+                disabled
                 required
               >
                 <option value="">Category</option>
@@ -189,10 +400,37 @@ function EditMenu() {
                 <button
                   type="submit"
                   className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-none hover:border-p-button hover:bg-p-button hover:text-n-n7"
-                  onClick={handleSave}
                 >
-                  Save
+                  {loading ? (
+                    <div className="flex items-center">
+                      <svg
+                        className="animate-spin h-5 w-5 mr-3 text-p-button3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        ></path>
+                      </svg>
+                      Loading...
+                    </div>
+                  ) : (
+                    "Save"
+                  )}
                 </button>
+
+                <ToastContainer />
               </div>
             </form>
           </div>
