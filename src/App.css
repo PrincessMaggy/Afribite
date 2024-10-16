@@ -644,6 +644,10 @@ p{
   visibility: visible;
 }
 
+.static{
+  position: static;
+}
+
 .fixed{
   position: fixed;
 }
@@ -992,6 +996,10 @@ p{
   height: 1.5rem;
 }
 
+.h-80{
+  height: 20rem;
+}
+
 .h-\[100px\]{
   height: 100px;
 }
@@ -1016,6 +1024,11 @@ p{
   height: auto;
 }
 
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .h-full{
   height: 100%;
 }
@@ -1026,6 +1039,18 @@ p{
 
 .h-screen{
   height: 100vh;
+}
+
+.h-3{
+  height: 0.75rem;
+}
+
+.h-96{
+  height: 24rem;
+}
+
+.h-60{
+  height: 15rem;
 }
 
 .max-h-\[90vh\]{
@@ -1146,6 +1171,14 @@ p{
 }
 
 .w-full{
+  width: 100%;
+}
+
+.w-\[\]{
+  width: ;
+}
+
+.w-\[100\%\]{
   width: 100%;
 }
 
@@ -2376,6 +2409,10 @@ p{
 
   .md\:h-full{
     height: 100%;
+  }
+
+  .md\:h-80{
+    height: 20rem;
   }
 
   .md\:w-1\/2{
