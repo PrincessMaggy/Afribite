@@ -734,6 +734,10 @@ p{
   top: 2rem;
 }
 
+.right-\[-300px\]{
+  right: -300px;
+}
+
 .z-50{
   z-index: 50;
 }
@@ -919,6 +923,10 @@ p{
   margin-top: 2.25rem;
 }
 
+.ml-4{
+  margin-left: 1rem;
+}
+
 .box-border{
   box-sizing: border-box;
 }
@@ -995,6 +1003,10 @@ p{
 
 .h-6{
   height: 1.5rem;
+}
+
+.h-8{
+  height: 2rem;
 }
 
 .h-\[100px\]{
@@ -1285,6 +1297,10 @@ p{
   gap: 2.5rem;
 }
 
+.gap-12{
+  gap: 3rem;
+}
+
 .gap-2{
   gap: 0.5rem;
 }
@@ -1438,8 +1454,16 @@ p{
   border-width: 2px;
 }
 
+.border-b-4{
+  border-bottom-width: 4px;
+}
+
 .border-t{
   border-top-width: 1px;
+}
+
+.border-b-2{
+  border-bottom-width: 2px;
 }
 
 .border-dashed{
