@@ -77,7 +77,7 @@ const Navbar = () => {
           <details>
             <summary className="list-none">Menu</summary>
           </details>
-          <NavLink to={user !== null ? "/AdminHome/Dashboard" : "/Sign-up"}>
+          <NavLink to={user !== null ? "/Adminhome/Dashboard" : "/Sign-up"}>
             <summary className="list-none">Admin</summary>
           </NavLink>
           <a>Locations</a>
@@ -146,9 +146,11 @@ const Navbar = () => {
           <details>
             <summary className="py-2 list-none">Menu</summary>
           </details>
-          <details>
+
+          <NavLink to={user !== null ? "/Adminhome/Dashboard" : "/Sign-up"}>
             <summary className="py-2 list-none">Admin</summary>
-          </details>
+          </NavLink>
+          
           <a className="py-2">Locations</a>
           <a className="py-2">About Us</a>
           <NavLink

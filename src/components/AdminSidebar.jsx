@@ -67,11 +67,14 @@ const AdminSidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await logOut();
+      setTimeout(() => {
+        logOut();
+        navigate("/"); 
+      }, 2000);
       toast.success("Logout successful!", {
         position: "top-center",
       });
-      navigate("/");
+     
     } catch (e) {
       console.error("Error logging out:", e);
       toast.error("Error logging out!", {
