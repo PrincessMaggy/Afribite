@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import { MdDeleteOutline } from "react-icons/md";
-import { doc, updateDoc, deleteDoc, setDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase"; // Import Firestore configuration
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";

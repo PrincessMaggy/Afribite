@@ -74,6 +74,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - installed and used toastify to display success and error messages.
 - Update menu navigation to handle menu navigation state (This way existing users will be directed to the main dish page while new users will be directed to the create menu page).
 - Created menu edit page to enable users make changes or edit to their menu items and save updated menu to firestore.
+- Added delete popup diagram to edit menu page, to enable users to delete menu items
 
 ### Magali Lapu
 
