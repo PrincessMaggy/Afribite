@@ -28,10 +28,12 @@ import EditMenu from "./pages/EditMenu";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthenticationContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProfileContextProvider from "./context/ProfileContext";
 
 function App() {
   return (
     <AuthProvider>
+      <ProfileContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Homepage />}></Route>
@@ -78,6 +80,7 @@ function App() {
         <Route path="/Sign-in/" element={<SignInForm />}></Route>
       </Routes>
     </BrowserRouter>
+    </ProfileContextProvider>
     </AuthProvider>
   );
 }

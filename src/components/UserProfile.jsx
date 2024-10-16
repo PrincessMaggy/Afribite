@@ -30,8 +30,6 @@ const UserProfile = ({ className = '' }) => {
         if (userDoc.exists()) {
             setProfile(prevProfile => ({
                 ...userDoc.data(),
-                email: user.email || prevProfile.email,
-                profileImage: user.photoURL || prevProfile.profileImage
             }));
         } else {
 

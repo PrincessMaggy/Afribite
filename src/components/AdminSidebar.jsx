@@ -79,15 +79,7 @@ const AdminSidebar = () => {
           className={`${
             visible ? "hidden" : ""
           } font-extrabold text-2xl lg:text-4xl text-white text-center`}
-        >
-          <Link onClick={() => setVisible(false)} to="/">
-            <div
-              onClick={logOut}
-              className="flex items-end justify-center row-span-2 gap-2 mb-8"
-            >
-              <MdLogout className="sm:text-2xl" /> Log out
-            </div>
-          </Link>
+        >AfriBite
         </p>
       </div>
 

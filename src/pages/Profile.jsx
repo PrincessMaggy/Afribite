@@ -2,10 +2,45 @@ import { useContext,  useState } from "react";
 import { FiImage } from "react-icons/fi";
 import { displayContext } from "../context/display";
 import ProfileDisplay from "../components/ProfileDisplay";
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { useAuth } from '../context/AuthenticationContext';
+import  { useEffect } from 'react';
+import { profileContext } from "../context/ProfileContext";
+
+
 
 const Profile = () => {
-    const [profileForm, setProfileForm] = useState({name: '', restuarantName: '', email: '', phoneNo:'', address:''})
+    const [profileForm, setProfileForm] = useState({name: '', restuarantName: '', email: '', phoneNo:'', address:'', profileImage: null})
+    const [imagePreview, setImagePreview] = useState(null);
     const {showProfile, setShowProfile} = useContext(displayContext)
+    const { user } = useAuth();
+    const {fetchUserProfile} = useContext(profileContext)
+
+
+    const fetchUserData = async () => {
+      const db = getFirestore();
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+          setProfileForm(prevProfile => ({
+              ...userDoc.data()
+          }));
+      } else {
+          setProfileForm(prevProfile => ({
+              ...prevProfile,
+              email: user.email || '',
+              profileImage: user.photoURL || null
+          }));
+      }
+  };
+
+      useEffect(() => {
+        if (user) {
+            fetchUserData();
+        }
+
+      console.log(profileForm)
+    }, []);
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -16,6 +51,33 @@ const Profile = () => {
     ))
   }
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      
+      reader.readAsDataURL(file);
+        const storage = getStorage();
+        const storageRef = ref(storage, `profileImages/${user.uid}`);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        setProfileForm(prevProfile => ({
+            ...prevProfile,
+            profileImage: downloadURL
+        }));
+    }
+};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const db = getFirestore();
+    await setDoc(doc(db, 'users', user.uid), profileForm);
+    fetchUserProfile()
+};
+
 
   return (
     <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
@@ -25,7 +87,7 @@ const Profile = () => {
       </div>
 
       {/* Edit Profile form */}
-      <form action="" className={`sm:mt-8 w-full`}>
+      <form onSubmit={handleSubmit} action="" className={`sm:mt-8 w-full`}>
           <div className={`${ showProfile ? 'hidden' : ''} my-4`}>
           <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-center">
           Edit Profile
@@ -33,8 +95,12 @@ const Profile = () => {
 
            <p className="mt-4 font-semibold text-[#E2725B] ">Add Profile Picture</p>
            <div className="flex items-end mt-2 ">
-              <div className="w-36 h-36 flex items-center p-4 bg-white justify-center border-2 rounded-full">
-                  <FiImage className="text-5xl text-n-n3" />
+              <div className={`w-36 h-36 flex items-center ${imagePreview ? '' : 'p-4'}  bg-white justify-center border-2 rounded-full overflow-hidden `}>
+              {imagePreview ? (
+              <img src={imagePreview} alt="Preview" className="w-fit h-fit rounded-full m-auto " />
+            ) : (
+              <FiImage className="text-5xl text-n-n3" />
+            )}
               </div>
 
              
@@ -49,6 +115,7 @@ const Profile = () => {
                 type="file"
                 accept="image/png, image/gif, image/jpeg"
                 className="hidden"
+                onChange={handleImageChange}
               />
            </div>
             
@@ -98,7 +165,7 @@ const Profile = () => {
             className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] placeholder:text-[#E2725B]/40 placeholder:p-1"></input>
 
         <div className="flex justify-end items-center mt-4 gap-5">
-        <p onClick={() => setShowProfile(true)} className="text-[#808000] hover:text-[#3d3d16] font-semibold">Save</p>
+        <button type="submit"><p onClick={() => setShowProfile(true)} className="text-[#808000] hover:text-[#3d3d16] font-semibold">Save</p></button>
         <p onClick={() => setShowProfile(true)} className="text-[#E2725B] hover:text-[#ae4c38] font-semibold">Cancel</p>
         </div>
           </div>

@@ -734,10 +734,6 @@ p{
   top: 2rem;
 }
 
-.right-\[-300px\]{
-  right: -300px;
-}
-
 .z-50{
   z-index: 50;
 }
@@ -855,6 +851,10 @@ p{
   margin-left: 0.5rem;
 }
 
+.ml-4{
+  margin-left: 1rem;
+}
+
 .ml-5{
   margin-left: 1.25rem;
 }
@@ -921,10 +921,6 @@ p{
 
 .mt-9{
   margin-top: 2.25rem;
-}
-
-.ml-4{
-  margin-left: 1rem;
 }
 
 .box-border{
@@ -1005,8 +1001,16 @@ p{
   height: 1.5rem;
 }
 
+.h-60{
+  height: 15rem;
+}
+
 .h-8{
   height: 2rem;
+}
+
+.h-80{
+  height: 20rem;
 }
 
 .h-\[100px\]{
@@ -1031,6 +1035,11 @@ p{
 
 .h-auto{
   height: auto;
+}
+
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .h-full{
@@ -1139,10 +1148,6 @@ p{
 
 .w-\[600px\]{
   width: 600px;
-}
-
-.w-\[736px\]{
-  width: 736px;
 }
 
 .w-\[80\%\]{
@@ -1454,16 +1459,12 @@ p{
   border-width: 2px;
 }
 
-.border-b-4{
-  border-bottom-width: 4px;
+.border-b-2{
+  border-bottom-width: 2px;
 }
 
 .border-t{
   border-top-width: 1px;
-}
-
-.border-b-2{
-  border-bottom-width: 2px;
 }
 
 .border-dashed{
@@ -2457,6 +2458,10 @@ p{
 
   .md\:hidden{
     display: none;
+  }
+
+  .md\:h-80{
+    height: 20rem;
   }
 
   .md\:h-full{

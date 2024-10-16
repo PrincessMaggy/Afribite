@@ -94,14 +94,18 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created nav Context
 - made side bar respnosive
 - made dasboard and advert page responsive
-- Created a profile page which included a display of resturant owners details and a for to edit details
+- Created a profile page which included a display of resturant owners details and a form to edit details
 - created a profiledisplay component that displays user details on the dashboard and on profile page
 - Created a admin nav bar which displayed the hamburger menu on smaller screens and profile icon on every screen
-- Added Apex chart to the project to display data graphically on the dashboard
-- Added react toastify for alert popups
+- Added Rechart to the project to display data graphically on the dashboard
+- Added react toastify for alert popups on advert page and changed the color of the success alert to the webpages primary color
 - created ProtectedRoute component which restricts some pages unless a user is logged in
 - Added an onclick function to the logout button to implement logout function
 - Corrected the path on the signup and sign in page to direct users to the dashboard
+- Added function to submit ad to firebase
+- Created profile Context which makes user profile accessible throughout the app
+- Added function to fetch and edit user Profile on profile page from firebase
+- Created CustomerChart, PointChart and ViewerChart component to display data graphically
 
 ### Ogwo Ijeoma Precious Chidinma
 
