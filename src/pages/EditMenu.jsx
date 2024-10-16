@@ -1,27 +1,59 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "../components/button";
 import { MdDeleteOutline } from "react-icons/md";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase"; // Import Firestore configuration
+import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ImageDb } from "../firebase";
+import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 function EditMenu() {
   // States for both current and original values
-  const [originalData, setOriginalData] = useState({
+
+  const location = useLocation();
+  const { img, dish, prc, cat, desc } = location.state || {}; // Retrieve the passed data
+
+  const [originalData] = useState({
     dishName: "",
     price: "",
     category: "",
     description: "",
   });
+  const navigate = useNavigate();
   // Form states
-  const [image, setImage] = useState(""); // Image state
-  const [dishName, setDishName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(img || ""); // Image state
+  const [uploadImage, setUploadImage] = useState(null);
+  const [dishName, setDishName] = useState(dish || "");
+  const [price, setPrice] = useState(prc || "");
+  const [category, setCategory] = useState(cat || "");
+  const [description, setDescription] = useState(desc || "");
+  const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const fileInputRef = useRef(null); // Reference to the file input instance of the current state change event
 
   const maxDishNamechar = 100; // Maximum name
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, get the user's UID
+        setUserId(user.uid);
+        console.log(user.uid);
+      } else {
+        // No user is signed in
+        setUserId(null);
+      }
+    });
+    // Cleanup the subscription on component unmount
+    return () => unsubscribe();
+  }, []);
 
   // Handle image click
   const handleImageClick = () => {
@@ -37,31 +69,123 @@ function EditMenu() {
         setImage(render.result); // Convert the image file to upload file
       };
       render.readAsDataURL(file); // Convert the file as data URL
+      setUploadImage(file); // Set the image file to upload
     }
   };
 
+  const imageRef = ref(ImageDb, `menu/${uuidv4()}`); // Reference to the image storage
+  const metadata = {
+    contentType: "image/png",
+  };
+
   // Handle Save action to update Firestore
-  const handleSave = async () => {
-    const docRef = doc(db, category, "menus");
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
-      await updateDoc(docRef, {
-        name: dishName,
-        price: parseFloat(price),
-        type: category,
-        description,
+      const userRef = doc(db, "menu", userId);
+      await setDoc(userRef, { updatedAt: new Date() });
+      const menuSubcollectionRef = doc(userRef, category, "menus");
+
+      const docSnapshot = await getDoc(menuSubcollectionRef);
+      if (uploadImage !== null) {
+        await uploadBytes(imageRef, uploadImage, metadata); // Upload the image to the storage
+        const imageUrl = await getDownloadURL(imageRef);
+
+        if (docSnapshot.exists()) {
+          const menuData = docSnapshot.data();
+          const updatedMenuArray = menuData.menu.map((item) => {
+            // Step 3: Replace the existing menu item with updated data
+            if (item.Name === dish) {
+              // Assuming dishName is unique here; change as per your identifier
+              return {
+                Img: imageUrl, // Replace with new image URL
+                Name: dishName, // Edited or existing name
+                Price: price, // Edited or existing price
+                Category: category,
+                Desc: description, // Edited or existing description
+              };
+            }
+            return item; // Leave other menu items unchanged
+          });
+
+          // Step 4: Update the Firestore document with the modified array
+          await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        }
+      } else {
+        if (docSnapshot.exists()) {
+          const menuData = docSnapshot.data();
+          const updatedMenuArray = menuData.menu.map((item) => {
+            // Step 3: Replace the existing menu item with updated data
+            if (item.Name === dish) {
+              // Assuming dishName is unique here; change as per your identifier
+              return {
+                Img: img, // Replace with new image URL
+                Name: dishName, // Edited or existing name
+                Price: price, // Edited or existing price
+                Category: category,
+                Desc: description, // Edited or existing description
+              };
+            }
+            return item; // Leave other menu items unchanged
+          });
+
+          // Step 4: Update the Firestore document with the modified array
+          await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
+        }
+      }
+      toast.success("Menu updated successfully!", {
+        position: "top-center",
       });
-      // Update originalData after successful save
-      setOriginalData({
-        dishName,
-        price,
-        category,
-        description,
-      });
-      alert("Item updated successfully!");
+      setLoading(false);
+
+      setTimeout(() => {
+        // Redirect to the respective category page
+        if (category === "Main Dish") {
+          navigate("/Adminhome/MainDish");
+        } else if (category === "Appetizer") {
+          navigate("/Adminhome/Appetizer");
+        } else if (category === "Side") {
+          navigate("/Adminhome/Side");
+        } else if (category === "Soup") {
+          navigate("/Adminhome/Soup");
+        } else if (category === "Salad") {
+          navigate("/Adminhome/Salad");
+        } else if (category === "Special") {
+          navigate("/Adminhome/Special");
+        } else if (category === "Beverage") {
+          navigate("/Adminhome/Beverage");
+        } else if (category === "Dessert") {
+          navigate("/Adminhome/Dessert");
+        }
+      }, 3000);
     } catch (error) {
-      console.error("Error updating document: ", error);
-      alert("Failed to update item");
+      toast.error(error.message, {
+        position: "top-center",
+      });
+      setLoading(false);
     }
+
+    // const docRef = doc(db, category, "menus");
+    // try {
+    //   await updateDoc(docRef, {
+    //     name: dishName,
+    //     price: parseFloat(price),
+    //     type: category,
+    //     description,
+    //   });
+    //   // Update originalData after successful save
+    //   setOriginalData({
+    //     dishName,
+    //     price,
+    //     category,
+    //     description,
+    //   });
+    //   alert("Item updated successfully!");
+    // } catch (error) {
+    //   console.error("Error updating document: ", error);
+    //   alert("Failed to update item");
+    // }
   };
 
   // Handle Cancel action to revert changes
@@ -116,7 +240,7 @@ function EditMenu() {
             />
           </div>
           <div className="lg:w-[70%]">
-            <form>
+            <form onSubmit={handleSave}>
               {/* Dish Name */}
               <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
                 <input
@@ -151,6 +275,7 @@ function EditMenu() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full  h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3"
+                disabled
                 required
               >
                 <option value="">Category</option>
@@ -189,10 +314,37 @@ function EditMenu() {
                 <button
                   type="submit"
                   className="`bg-transparent px-5 py-1 rounded-md text-p-button3 text-xs lg:text-sm font-pop border-none hover:border-p-button hover:bg-p-button hover:text-n-n7"
-                  onClick={handleSave}
                 >
-                  Save
+                  {loading ? (
+                    <div className="flex items-center">
+                      <svg
+                        className="animate-spin h-5 w-5 mr-3 text-p-button3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        ></path>
+                      </svg>
+                      Loading...
+                    </div>
+                  ) : (
+                    "Save"
+                  )}
                 </button>
+
+                <ToastContainer />
               </div>
             </form>
           </div>

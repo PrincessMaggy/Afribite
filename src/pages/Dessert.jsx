@@ -68,7 +68,10 @@ function Dessert() {
                     key={index}
                     image={menu.Img} // Replace with actual image field if available
                     dishName={menu.Name} // Assuming name is the dish name
-                    price={`$${menu.Price}`} // Assuming price is available
+                    price={menu.Price} // Assuming price is available
+                    index={index}
+                    description={menu.Desc}
+                    category={menu.Category}
                   />
                 ))}
               </div>
