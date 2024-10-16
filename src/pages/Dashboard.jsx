@@ -3,13 +3,16 @@ import dishIcon from '../assets/dishicon.png'
 import vector from '../assets/Vector.png'
 import { IoIosArrowDropdown } from "react-icons/io";
 import RecentOrder from '../components/RecentOrder';
-import { Profile,dummyOrders,dishes } from '../components/data';
-import { useEffect, useState } from 'react';
+import { dummyOrders,dishes } from '../components/data';
+import { useContext, useEffect, useState } from 'react';
 import ViewersChart from '../components/ViewersChart';
 import ProfileDisplay from '../components/ProfileDisplay';
+import { profileContext } from '../context/ProfileContext';
+import PointChart from '../components/PointChart';
+import CustomerChart from '../components/CustomerChart';
 
 const Dashboard = () => {
-  const [myProfile, setMyProfile] = useState([])
+  const {myProfile} = useContext(profileContext)
   const [myOrders, setMyOrders] = useState([])
 
   const totalOrders = myOrders.length
@@ -19,8 +22,6 @@ const Dashboard = () => {
   const totalDishes = dishes.length
 
   useEffect(()=>{
-    setMyProfile(Profile
-      .filter((items)=>items.userid === 'user1'))
 
     setMyOrders(dummyOrders
       .filter((items)=>items.userid === 'user1'))
@@ -39,7 +40,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-2">
               <div className='flex flex-col m-auto gap-1 lg:gap-5 p-4 '>
                   <h1 className='text-black text-xl md:text-2xl text-center'>
-                      Hi, {myProfile[0]?.RestaurantName}
+                      Hi, {myProfile?.restuarantName}
                   </h1>
                   <p className='text-sm md:text-base lg:text-lg text-black text-center'>Welcome to <span className='text-[#E2725B]'>AfriBite</span></p>
 
@@ -95,17 +96,17 @@ const Dashboard = () => {
         </div>
 
 
-        <div className='grid grid-cols-2 gap-4 mt-4 '>
+        <div className='grid md:grid-cols-2 gap-4 mt-4 '>
 
-          <div className="bg-white rounded-lg p-4">aaa</div>
-          <div className="bg-white rounded-lg p-4">bbb</div>
+          <div className="bg-white rounded-lg p-4"></div>
+          <div className="bg-white rounded-lg p-4 h-36"><PointChart/></div>
 
         </div>
 
         <div className='grid md:grid-cols-2 gap-4 mt-4 '>
 
-          <div className="bg-white rounded-lg p-4">aaa <ViewersChart/></div>
-          <div className="bg-white rounded-lg p-4">bbb</div>
+          <div className="bg-white rounded-lg p-4 h-80"> <ViewersChart/></div>
+          <div className="bg-white rounded-lg p-4 h-60 md:h-80"><CustomerChart/></div>
 
         </div>
 
