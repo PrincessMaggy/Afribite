@@ -81,6 +81,13 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 ### Magali Lapu
 
 - Built orders notifications system for Afribite.
+- Created tab filtering for order notifications
+- Created order notification tile components
+- Created order details popup  component
+- Created order search  component
+- Integrated firebase data
+
+
 
 ## Team 5 Contribution
 
