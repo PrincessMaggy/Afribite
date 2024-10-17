@@ -17,7 +17,7 @@ const Advert = () => {
   const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
   const [imagePreview, setImagePreview] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(startDate);
   const {user} = useAuth()
   const [userAdData, setUserAdData] = useState([]);  // State to store user data
   const [loading, setLoading] = useState(true); 
@@ -131,7 +131,6 @@ const Advert = () => {
     }
   };
 
-  console.log(userAdData)
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -140,7 +139,12 @@ const Advert = () => {
 
   useEffect(()=>{
     fetchUserData();
-  },[])
+    setEndDate(
+      startDate
+    )
+  },[startDate])
+
+  console.log('startDate: ', startDate,'-----------', 'endDate: ', endDate)
 
   return (
     <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
@@ -243,7 +247,7 @@ const Advert = () => {
 
               <span className="md:inline-block hidden">
                    <h3 className="text-[#E2725B] font-semibold ">End date</h3>
-                   <ChoiceDate required value={endDate} onChange={setEndDate}/>
+                   <ChoiceDate required value={endDate} onChange={setEndDate} minDate={startDate}/>
               </span>
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
