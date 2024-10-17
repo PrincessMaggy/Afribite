@@ -111,10 +111,11 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - created ProtectedRoute component which restricts some pages unless a user is logged in
 - Added an onclick function to the logout button to implement logout function
 - Corrected the path on the signup and sign in page to direct users to the dashboard
-- Added function to submit ad to firebase
+- Added function to submit ad to firebase and also display previous created ads
 - Created profile Context which makes user profile accessible throughout the app
 - Added function to fetch and edit user Profile on profile page from firebase
 - Created CustomerChart, PointChart and ViewerChart component to display data graphically
+- Added date range to the choicedate component for choosing date
 
 ### Ogwo Ijeoma Precious Chidinma
 

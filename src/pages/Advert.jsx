@@ -5,7 +5,7 @@ import { FiImage } from "react-icons/fi";
 import { LuPoundSterling } from "react-icons/lu";
 import { ChoiceDate } from "../components/ui/DatePicker";
 import { Link} from "react-router-dom";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,12 @@ import { useAuth } from "../context/AuthenticationContext";
 const Advert = () => {
   const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
   const [imagePreview, setImagePreview] = useState(null);
-  const {user} = useAuth
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(startDate);
+  const {user} = useAuth()
+  const [userAdData, setUserAdData] = useState([]);  // State to store user data
+  const [loading, setLoading] = useState(true); 
+  const [showAds, setShowAds] = useState(false);
 
   
 
@@ -58,15 +63,18 @@ const Advert = () => {
         imageUrl = await getDownloadURL(storageRef);
       }
 
-      const docRef = await addDoc(collection(db, 'adverts'), {
+      const userSubcollectionRef = collection(db, "adverts", user.uid, "advertData");
+
+       await addDoc(userSubcollectionRef,{
         title : adForm.Title,
         description : adForm.Description,
         image : imageUrl,
         audience : adForm.audience,
-        budget: adForm.budget
-      });
-
-      console.log("Document written with ID: ", docRef.id);
+        budget: adForm.budget,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      } )
+      
       const notify =()=> {
         toast.success("Ad posted successfully!", {
           position: "top-right",
@@ -74,7 +82,6 @@ const Advert = () => {
       }
   
       notify()
-    
     
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -85,7 +92,7 @@ const Advert = () => {
       } 
       errorNotify() 
     }
-    
+  
     setAdForm(()=>(
       {
         Title: '',
@@ -95,16 +102,49 @@ const Advert = () => {
         audience:'' }
     )
     )
-
     setImagePreview(null)
-
+    setStartDate(new Date())
+    setEndDate(new Date())
   };
 
 
+  const fetchUserData = async () => {
+    try {
+      if (user) {
+        const db = getFirestore();
+        // Reference the "advertData" subcollection under the user's document
+        const userSubcollectionRef = collection(db, 'adverts', user.uid, 'advertData');
+        
+        // Fetch all documents from the subcollection
+        const querySnapshot = await getDocs(userSubcollectionRef);
+        
+        // Extract data from each document
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Update state with the fetched data
+        setUserAdData(data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching user data: ", error);
+      setLoading(false);
+    }
+  };
+
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
+  };
 
   useEffect(()=>{
-    console.log(adForm)
-  },[adForm])
+    fetchUserData();
+    setEndDate(
+      startDate
+    )
+  },[startDate])
+
+  console.log('startDate: ', startDate,'-----------', 'endDate: ', endDate)
 
   return (
     <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
@@ -202,12 +242,12 @@ const Advert = () => {
         <div className="flex justify-between text-sm md:text-base mt-4  ">
               <span>
                  <h3 className="text-[#E2725B] font-semibold">Start date</h3>
-                 <ChoiceDate />
+                 <ChoiceDate required value={startDate} onChange={setStartDate} />
               </span>
 
               <span className="md:inline-block hidden">
                    <h3 className="text-[#E2725B] font-semibold ">End date</h3>
-                   <ChoiceDate/>
+                   <ChoiceDate required value={endDate} onChange={setEndDate} minDate={startDate}/>
               </span>
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
@@ -218,6 +258,46 @@ const Advert = () => {
         <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
       </form>
+
+      <div className="mt-8">
+        <button
+          onClick={() => setShowAds(!showAds)}
+          className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors"
+        >
+          {showAds ? "Hide Created Ads" : "Show Created Ads"}
+        </button>
+
+        {showAds && (
+          <div className="mt-4 p-4 border-2 border-[#E2725B] rounded-lg">
+            <h3 className="text-xl font-semibold text-[#E2725B] mb-4">Ads created</h3> 
+            {userAdData.length === 0 ? (
+            <p>No data available</p>
+          ) : (
+            userAdData.map((ad) => (
+              <div key={ad.id} className="mb-4 p-2 bg-white/10 rounded flex">
+                <div className="w-1/4 mr-4">
+                  {ad.imageUrl ? (
+                    <img src={ad.imageUrl} alt={ad.title} className="w-full h-auto object-cover rounded" />
+                  ) : (
+                    <div className="w-full h-32 bg-gray-200 flex items-center justify-center rounded">
+                      <FiImage className="text-gray-400 text-4xl" />
+                    </div>
+                  )}
+                </div>
+                <div className="w-3/4">
+                <h4 className="font-semibold"> <span className="text-[#E2725B] "> TITLE: </span>  {ad.title}</h4>
+                  <p> <span className="text-[#E2725B]"> Description: </span>  {ad.description}</p>
+                  <p> <span className="text-[#E2725B]"> Audience:  </span> {ad.audience}</p>
+                  <p> <span className="text-[#E2725B]"> Budget:  </span> {ad.budget}</p>
+                  <p> <span className="text-[#E2725B]"> Start Date:  </span> {formatDate(ad.startDate)}</p>
+                  <p> <span className="text-[#E2725B]"> End Date:  </span> {formatDate(ad.endDate)}</p>
+                  {/* <p className="text-sm  text-gray-500"> <span className=" text-[#E2725B] ">Created:</span> {userAdData.createdAt.toLocaleString()}</p> */}
+                </div>
+              </div>
+            )))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import { MdDateRange } from "react-icons/md";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const ChoiceDate = ({ value, onChange }) => {
+export const ChoiceDate = ({ value, onChange,minDate }) => {
   const datePickerRef = useRef(null);
 
   const handleDivClick = () => {
@@ -26,6 +26,7 @@ export const ChoiceDate = ({ value, onChange }) => {
             className="px-0 text-sm md:text-base bg-transparent w-full border-none border-transparent focus:outline-none"
             selected={value}
             onChange={(date) => onChange(date)}
+            minDate={minDate}
           />
         </div>
       </div>
