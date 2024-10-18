@@ -7,7 +7,7 @@
 :root {
   --font-pop: "Poppins", sans-serif;
   color-scheme: light;
-  --toastify-color-success: #e2725b;
+  /* --toastify-color-success: #808000; */
 }
 
 @layer base {
@@ -20,7 +20,12 @@
   p {
     @apply text-n-n3 font-pop text-xs lg:text-sm;
   }
+  a.active > div {
+    @apply  text-white font-bold 
+  }
 }
+
+
 
 /* width */
 /*

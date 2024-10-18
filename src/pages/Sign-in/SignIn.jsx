@@ -47,7 +47,7 @@ const SignInForm = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      navigate('/Adminhome');
+      navigate('/Adminhome/Dashboard');
     } catch (error) {
       switch (error.code) {
         case 'auth/popup-closed-by-user':
