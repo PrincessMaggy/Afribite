@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Banner from "../components/Banner"
-import Button from "../components/button"
 import { FiImage } from "react-icons/fi";
 import { LuPoundSterling } from "react-icons/lu";
 import { ChoiceDate } from "../components/ui/DatePicker";
@@ -10,17 +9,25 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../context/AuthenticationContext";
+import { profileContext } from "../context/ProfileContext";
+import LoadingButton from "../components/LoadingButton";
 
 
 
 const Advert = () => {
-  const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
-  const [imagePreview, setImagePreview] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(startDate);
+  const{
+    adForm, 
+    setAdForm, 
+    adStartDate, 
+    adEndDate, 
+    setAdStartDate, 
+    setAdEndDate, 
+    adImagePreview, 
+    setAdImagePreview,
+  } = useContext(profileContext)
   const {user} = useAuth()
   const [userAdData, setUserAdData] = useState([]);  // State to store user data
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(false); 
   const [showAds, setShowAds] = useState(false);
 
   
@@ -44,7 +51,7 @@ const Advert = () => {
       ))
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result);
+        setAdImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -53,6 +60,7 @@ const Advert = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const db = getFirestore();
       const storage = getStorage();
 
@@ -71,9 +79,11 @@ const Advert = () => {
         image : imageUrl,
         audience : adForm.audience,
         budget: adForm.budget,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
+        startDate: adStartDate.toISOString(),
+        endDate: adEndDate.toISOString(),
       } )
+
+      setLoading(false)
       
       const notify =()=> {
         toast.success("Ad posted successfully!", {
@@ -84,6 +94,7 @@ const Advert = () => {
       notify()
     
     } catch (error) {
+      setLoading(false)
       console.error("Error adding document: ", error);
       const errorNotify =()=> {
         toast.error("Error Creating ad!, try again later", {
@@ -102,9 +113,9 @@ const Advert = () => {
         audience:'' }
     )
     )
-    setImagePreview(null)
-    setStartDate(new Date())
-    setEndDate(new Date())
+    setAdImagePreview(null)
+    setAdStartDate(new Date())
+    setAdEndDate(new Date())
   };
 
 
@@ -123,7 +134,7 @@ const Advert = () => {
         
         // Update state with the fetched data
         setUserAdData(data);
-        setLoading(false);
+        ;
       }
     } catch (error) {
       console.error("Error fetching user data: ", error);
@@ -137,12 +148,29 @@ const Advert = () => {
     return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
   };
 
+  const clearForm = () =>{
+
+    setAdForm(()=>(
+      {
+        Title: '',
+        Description: '', 
+        image:'', 
+        budget:'', 
+        audience:'' }
+    )
+    )
+    setAdImagePreview(null)
+    setAdStartDate(new Date())
+    setAdEndDate(new Date())
+
+  }
+
   useEffect(()=>{
     fetchUserData();
-    setEndDate(
-      startDate
+    setAdEndDate(
+      adStartDate
     )
-  },[startDate])
+  },[adStartDate])
 
 
   return (
@@ -155,7 +183,7 @@ const Advert = () => {
       <ToastContainer />
 
       {/* Ad form */}
-      <form action="" className="mt-6 sm:mt-8 w-full" onSubmit={handleSubmit} >
+      <form action="" className="mt-6 sm:mt-8 w-full text-n-n3" onSubmit={handleSubmit} >
         <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-start">
           Create Ad
         </h1>
@@ -182,41 +210,35 @@ const Advert = () => {
 
         <p className="mt-4 font-semibold text-[#E2725B] ">Upload image</p>
         <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
-        {imagePreview ? (
-              <img src={imagePreview} alt="Preview" className="w-32 h-32 object-cover" />
+        {adImagePreview ? (
+              <img src={adImagePreview} alt="Preview" className="w-32 h-32 object-cover" />
             ) : (
               <FiImage className="text-5xl text-n-n3" />
             )}
           <p className="">
             Upload an image for your restaurant banner (GIF,JPG or PNG){" "}
           </p>
-          <label
-            htmlFor="file"
-            className="inline-block box-border border-2 pointer bg-p-button p-3 rounded-md text-n-n7 text-xs lg:text-sm font-pop hover:text-p-button hover:bg-n-n7 "
-          >
-            Browse
-          </label>
           <input
             required
             id="file"
             type="file"
             accept="image/png, image/gif, image/jpeg"
-            className="hidden"
+            className=" min-w-0 max-w-32 text-white file:hidden text-xs lg:text-sm border-2 bg-p-button p-3 rounded-md font-pop hover:border-p-button hover:text-p-button hover:bg-n-n7"
             onChange={handleImageChange}
           />
         </div>
 
-        <div className="flex justify-between text-sm md:text-base mt-4 px-3 ">
+        <div className="flex flex-col md:flex-row justify-between text-sm md:text-base md:mt-4 md:px-3 ">
           <div>
           <p className="mt-4 font-semibold text-[#E2725B]">Audience</p>
 
           <div className="mt-2">
           <div className="flex gap-2 ">
-          <input name="audience" type="radio" value='everybody' className="" onChange={handleChange} /> <p className="text-[#E2725B]">Everyone</p>
+          <input required name="audience" type="radio" value='everybody' checked={adForm.audience === 'everybody'} onChange={handleChange} /> <p className="text-[#E2725B]">Everyone</p>
           </div>
           
           <div className="flex gap-2">
-          <input  name="audience" type="radio" value='newcomers' className="" onChange={handleChange} /> <p className="text-[#E2725B]">Newcomers</p>
+          <input required  name="audience" type="radio" value='newcomers' checked={adForm.audience === 'newcomers'} onChange={handleChange} /> <p className="text-[#E2725B]">Newcomers</p>
           </div>
           </div>
             
@@ -238,30 +260,32 @@ const Advert = () => {
         </div>
 
 
-        <div className="flex justify-between text-sm md:text-base mt-4  ">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between text-sm md:text-base mt-4  ">
               <span>
                  <h3 className="text-[#E2725B] font-semibold">Start date</h3>
-                 <ChoiceDate required value={startDate} onChange={setStartDate} />
+                 <ChoiceDate value={adStartDate} onChange={setAdStartDate} />
               </span>
 
-              <span className="md:inline-block hidden">
+              <span >
                    <h3 className="text-[#E2725B] font-semibold ">End date</h3>
-                   <ChoiceDate required value={endDate} onChange={setEndDate} minDate={startDate}/>
+                   <ChoiceDate value={adEndDate} onChange={setAdEndDate} minDate={adStartDate}/>
               </span>
         </div>        
         <div className="flex justify-end items-center mt-4 gap-5">
-        <button type="submit" className="p-3 border-2 text-xs lg:text-sm text-white bg-p-button3 rounded-md transition-colors hover:border-p-button3 hover:text-p-button3 hover:bg-white ">
+      {loading ? (<LoadingButton/>): (<button type="submit" className="p-3 border-2 text-xs lg:text-sm text-white bg-p-button3 rounded-md transition-colors hover:border-p-button3 hover:text-p-button3 hover:bg-white ">
             Post Ad
+          </button>)}
+          <button onClick={clearForm} type="button" className="p-3 border-2 text-xs lg:text-sm text-white bg-[#E2725B] rounded-md transition-colors hover:border-[#E2725B] hover:text-[#E2725B] hover:bg-white ">
+            Clear form
           </button>
-        <Button text='Save as draft' />
-        <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] font-semibold">Cancel</p></Link>
+        <Link to='/Adminhome/Dashboard'><p  className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
       </form>
 
       <div className="mt-8">
         <button
           onClick={() => setShowAds(!showAds)}
-          className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors"
+          className="text-xs lg:text-sm p-3 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors"
         >
           {showAds ? "Hide Created Ads" : "Show Created Ads"}
         </button>

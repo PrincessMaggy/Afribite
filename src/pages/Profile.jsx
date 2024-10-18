@@ -7,6 +7,9 @@ import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthenticationContext';
 import  { useEffect } from 'react';
 import { profileContext } from "../context/ProfileContext";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import LoadingButton from "../components/LoadingButton";
 
 
 
@@ -16,6 +19,7 @@ const Profile = () => {
     const {showProfile, setShowProfile} = useContext(displayContext)
     const { user } = useAuth();
     const {fetchUserProfile} = useContext(profileContext)
+    const [loading, setLoading] = useState(false); 
 
 
     const fetchUserData = async () => {
@@ -73,9 +77,32 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const db = getFirestore();
-    await setDoc(doc(db, 'users', user.uid), profileForm);
-    fetchUserProfile()
+    try {
+      setLoading(true)
+      const db = getFirestore();
+      await setDoc(doc(db, 'users', user.uid), profileForm);
+      fetchUserProfile()
+      setLoading(false)
+       
+      const notify =()=> {
+        toast.success("Profile Update successful!", {
+          position: "top-right",
+        })
+      }
+  
+      notify() 
+    } 
+    catch (error) {
+      setLoading(false)
+      console.error("Error updating: ", error);
+      const errorNotify =()=> {
+        toast.error("Error Updating profile!, try again later", {
+          position: "top-right",
+        })
+      } 
+      errorNotify() 
+    }
+
 };
 
 
@@ -86,8 +113,10 @@ const Profile = () => {
         <ProfileDisplay/>
       </div>
 
+      <ToastContainer />
+
       {/* Edit Profile form */}
-      <form onSubmit={handleSubmit} action="" className={`sm:mt-8 w-full`}>
+      <form onSubmit={handleSubmit} action="" className={`sm:mt-8 w-full text-n-n3 `}>
           <div className={`${ showProfile ? 'hidden' : ''} my-4`}>
           <h1 className="font-semibold sm:text-2xl text-[#E2725B] text-center">
           Edit Profile
@@ -165,7 +194,8 @@ const Profile = () => {
             className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] placeholder:text-[#E2725B]/40 placeholder:p-1"></input>
 
         <div className="flex justify-end items-center mt-4 gap-5">
-        <button type="submit"><p onClick={() => setShowProfile(true)} className="text-[#808000] hover:text-[#3d3d16] font-semibold">Save</p></button>
+        {loading ? (<LoadingButton/>):
+        (<button type="submit" className="p-3 border-2 text-xs lg:text-sm text-white bg-p-button3 rounded-md transition-colors hover:border-p-button3 hover:text-p-button3 hover:bg-white">Save</button>)}
         <p onClick={() => setShowProfile(true)} className="text-[#E2725B] hover:text-[#ae4c38] font-semibold">Cancel</p>
         </div>
           </div>
