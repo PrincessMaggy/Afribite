@@ -1,13 +1,30 @@
-import React from "react";
-import OrderNotification from "../components/OrderNotification.jsx";
-import OrderPopup from "../components/OrderPopup.jsx";
+import React, { useState, useEffect } from "react";
+import { getFirestore, collection, getDocs} from "@firebase/firestore";
 import OrderSearch from "../components/OrderSearch.jsx";
-import { CiSearch } from "react-icons/ci";
-
+import OrderTabs from "../components/OrderTabs.jsx";
 
 function Notifications() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrderData = async () => {
+      const db = getFirestore();
+      const ordersRef = collection(db, 'orders');
+      const ordersSnapshot = await getDocs(ordersRef);
+      const ordersList = ordersSnapshot.docs.map((doc) => ({
+        id:doc.id,
+        ...doc.data(),
+      }));
+
+      console.log("Fetched Orders:", ordersList); // Add this line
+      setOrders(ordersList);
+    };
+    getOrderData();
+
+  },[]);
+
   return (
-    <div className="bg-eggshell rounded-lg p-4 flex flex-col w-full">
+    <div className="bg-eggshell rounded-lg p-4 flex flex-col w-full h-full gap-8">
       {/* title and search */}
       <div className="flex flex-row">
         <div className="flex justify-between w-full">
@@ -17,22 +34,7 @@ function Notifications() {
       </div>
       {/* notification tile & view order popup */}
       <div className="w-full">
-        <OrderNotification 
-            id="1"
-            orderStatus="New"
-            orderTime="10mins" 
-            customerName="Favour Chinedu"
-            orderName="Jollof Rice"
-            orderQuantity="2"
-            orderPrice="20"
-        />
-        <OrderPopup
-            adminName="Maryam"
-            customerName="Favour Chinedu"
-            orderName="Jollof Rice"
-            orderQuantity={2}
-            orderPrice={20.50}
-        />
+        <OrderTabs orders={orders}/>
       </div>
     </div>
   );

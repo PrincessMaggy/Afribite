@@ -1,19 +1,19 @@
 import { Link, useLocation } from "react-router-dom"
-import { Profile} from '../components/data';
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { displayContext } from "../context/display";
 import { BiMenuAltLeft } from "react-icons/bi";
+import { profileContext } from "../context/ProfileContext";
+import profileImg from '../assets/profile.png'
 
 
 const AdminNav = ({className}) => {
-    const [myProfile, setMyProfile] = useState([])
+    const {myProfile} = useContext(profileContext)
     const { setVisible } = useContext(displayContext);
     const location = useLocation()
 
     useEffect(()=>{
-        setMyProfile(Profile
-          .filter((items)=>items.userid === 'user1'))
+      
       },[])
 
   return (
@@ -24,11 +24,11 @@ const AdminNav = ({className}) => {
       />
 
       <div className={`flex gap-2 ${location.pathname === '/Adminhome/Profile' ? 'hidden' : ''}` }>
-        <Link to='/Adminhome/Profile'><img src={myProfile[0]?.profileImg} alt="" className="m-auto h-[50px] w-[50px] rounded-[100%] bg-[#E2725B]" />
+        <Link to='/Adminhome/Profile'><img src={myProfile?.profileImage ? myProfile?.profileImage : profileImg} alt="" className="m-auto h-[50px] w-[50px] rounded-[100%] bg-[#E2725B]" />
         </Link>
           <div className="flex flex-col">
-            <p className='text-base hidden md:block'>{myProfile[0]?.Username}</p>
-            <p className='text-xs hidden md:block'>{myProfile[0]?.name}</p>
+            <p className='text-base hidden md:block'>{myProfile?.restuarantName}</p>
+            <p className='text-xs hidden md:block'>{myProfile?.name}</p>
           </div>
         </div>
     </div>

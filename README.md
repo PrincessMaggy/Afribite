@@ -65,17 +65,29 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added a mobile first Salad menu page for restaurant owners to display the Salad menu items that will be saved in the firestore database.
 - Added a mobile first Beverage menu page for restaurant owners to display the Beverage menu items that will be saved in the firestore database.
 - Added a mobile first Special menu page for restaurant owners to display the Special menu items that will be saved in the firestore database.
-- Implemented menu data and image upload to Firebase storage
-- Re-added the custom tailwind css rules to index.css
+- Implemented menu data and image upload to Firebase storage.
+- Re-added the custom tailwind css rules to index.css.
 - Added structure to store menu items under user-specific categories. This improves the overall user experience and ensures data integrity.
 - Added a mobile first edit page to encourage users to edit the menu items whenever they want to make changes to the menu.
 - Fetched Menu items from fireStore and added them to their category pages.
-  \_ Added loading to save button and menu pages.
+- Added loading to save button and menu pages.
 - installed and used toastify to display success and error messages.
+- Update menu navigation to handle menu navigation state (This way existing users will be directed to the main dish page while new users will be directed to the create menu page).
+- Created menu edit page to enable users make changes or edit to their menu items and save updated menu to firestore.
+- Added delete popup diagram to edit menu page, to enable users to delete menu items
+- connect landing Page to admin page (if user exist they are directed to the admin dashboard, else they are directed to the signup page)
+- handle admin logout (to log out admin user from admin dashboard)
 
 ### Magali Lapu
 
 - Built orders notifications system for Afribite.
+- Created tab filtering for order notifications
+- Created order notification tile components
+- Created order details popup  component
+- Created order search  component
+- Integrated firebase data
+
+
 
 ## Team 5 Contribution
 
@@ -91,14 +103,19 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Created nav Context
 - made side bar respnosive
 - made dasboard and advert page responsive
-- Created a profile page which included a display of resturant owners details and a for to edit details
+- Created a profile page which included a display of resturant owners details and a form to edit details
 - created a profiledisplay component that displays user details on the dashboard and on profile page
 - Created a admin nav bar which displayed the hamburger menu on smaller screens and profile icon on every screen
-- Added Apex chart to the project to display data graphically on the dashboard
-- Added react toastify for alert popups
+- Added Rechart to the project to display data graphically on the dashboard
+- Added react toastify for alert popups on advert page and changed the color of the success alert to the webpages primary color
 - created ProtectedRoute component which restricts some pages unless a user is logged in
 - Added an onclick function to the logout button to implement logout function
-- Corrected the path on the signup and sign in page to direct users to the dashboard 
+- Corrected the path on the signup and sign in page to direct users to the dashboard
+- Added function to submit ad to firebase and also display previous created ads
+- Created profile Context which makes user profile accessible throughout the app
+- Added function to fetch and edit user Profile on profile page from firebase
+- Created CustomerChart, PointChart and ViewerChart component to display data graphically
+- Added date range to the choicedate component for choosing date
 
 ### Ogwo Ijeoma Precious Chidinma
 
@@ -106,8 +123,8 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Installed React icons and added icons to the Form
 - Created the Promotion page
 - added firebase authentification logic
-- added storage for promotion page 
--added the profile structure and displayed it on the dashboard
+- added storage for promotion page
+  -added the profile structure and displayed it on the dashboard
 
 ## Contributors
 

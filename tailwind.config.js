@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{html,js,jsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{html,js,jsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -14,6 +18,8 @@ export default {
           button2: "#FFCC00",
           button3: "#808000",
           button4: "#D6D602",
+          button5: "#F4E1C1",
+          button6: "#FFCC00",
         },
         n: {
           n1: "#333333",
@@ -57,9 +63,6 @@ export default {
         },
       },
     },
-    plugins: [
-      //...
-      require("tailwind-scrollbar"),
-    ],
+    plugins: [],
   },
 };

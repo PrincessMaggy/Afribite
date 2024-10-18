@@ -21,25 +21,22 @@ const UserProfile = ({ className = '', onProfileFetch }) => {
     if (user) fetchUserProfile();
   }, [user]);
 
-  const fetchUserProfile = async () => {
-    const db = getFirestore();
-    const userDoc = await getDoc(doc(db, 'users', user.uid));
-    if (userDoc.exists()) {
-      const userProfile = {
-        ...userDoc.data(),
-        email: user.email || '',
-        profileImage: user.photoURL || null
-      };
-      setProfile(userProfile);
-      onProfileFetch(userProfile.restaurantName);
-    } else {
-      setProfile(prevProfile => ({
-        ...prevProfile,
-        email: user.email || '',
-        profileImage: user.photoURL || null
-      }));
-    }
-  };
+    const fetchUserProfile = async () => {
+        const db = getFirestore();
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+            setProfile(prevProfile => ({
+                ...userDoc.data(),
+            }));
+        } else {
+
+            setProfile(prevProfile => ({
+                ...prevProfile,
+                email: user.email || '',
+                profileImage: user.photoURL || null
+            }));
+        }
+    };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -1,12 +1,30 @@
-import logo from '../assets/images/logo.png'
-import search from '../assets/images/search.png'
-import arrow_down from '../assets/images/arrow_down.png'
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { IoSearch, IoClose } from 'react-icons/io5';
+import logo from "../assets/images/logo.png";
+import search from "../assets/images/search.png";
+import arrow_down from "../assets/images/arrow_down.png";
+import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { IoSearch, IoClose } from "react-icons/io5";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const auth = getAuth();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, get the user's UID
+        setUser(user);
+        console.log(user.uid);
+      } else {
+        // No user is signed in
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  });
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -18,11 +36,10 @@ const Navbar = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
-
   return (
     <nav className="py-8 px-6 bg-transparent laptop:px-20 laptop:pr-6 tablet:p-6 flex items-center justify-between flex-wrap font-pop">
       {/* Logo */}
-      
+
       <div className="flex w-36 gap-3.5 items-center">
         <img src={logo} alt="Afribite Logo" />
         <p className="text-terra-cotta text-2xl font-extrabold">AFRIBITE</p>
@@ -30,7 +47,10 @@ const Navbar = () => {
 
       {/* Hamburger Menu (Mobile) */}
       <div className="block md:hidden">
-        <button onClick={toggleMobileMenu} className="text-terra-cotta focus:outline-none">
+        <button
+          onClick={toggleMobileMenu}
+          className="text-terra-cotta focus:outline-none"
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -46,19 +66,20 @@ const Navbar = () => {
             ></path>
           </svg>
         </button>
-        
       </div>
 
       {/* Links (Desktop and Mobile) */}
       <div className="hidden md:flex md:ml-16">
         <div className="flex gap-5">
-          <NavLink to="/home" className="">Home</NavLink>
+          <NavLink to="/" className="">
+            Home
+          </NavLink>
           <details>
             <summary className="list-none">Menu</summary>
           </details>
-          <details>
-            <summary className="list-none">Special</summary>
-          </details>
+          <NavLink to={user !== null ? "/Adminhome/Dashboard" : "/Sign-up"}>
+            <summary className="list-none">Admin</summary>
+          </NavLink>
           <a>Locations</a>
           <a>About Us</a>
         </div>
@@ -66,15 +87,24 @@ const Navbar = () => {
 
       {/* User Actions (Login and Cart) */}
       <div className="hidden md:flex md:items-center  gap-5  ms-10">
-        <NavLink to="/user-sign-up" className="bg-terra-cotta text-center justify-center flex items-center rounded-lg text-white w-[120px] h-10">
+        <NavLink
+          to="/user-sign-up"
+          className="bg-terra-cotta text-center justify-center flex items-center rounded-lg text-white w-[120px] h-10"
+        >
           Login/Sign Up
         </NavLink>
-        <NavLink to="" className="gap-2">Cart</NavLink>
+        <NavLink to="" className="gap-2">
+          Cart
+        </NavLink>
       </div>
 
       {/* Search Bar */}
       {/* <div className="relative hidden lg:hidden md:flex ms-11"> */}
-      <div className={`relative hidden ${isSearchOpen ? 'tablet:flex': 'tablet:hidden'} laptop:flex items-center ms-11`}>
+      <div
+        className={`relative hidden ${
+          isSearchOpen ? "tablet:flex" : "tablet:hidden"
+        } laptop:flex items-center ms-11`}
+      >
         <div className="absolute inset-y-0 left-0 flex justify-center items-center pl-3.5 pointer-events-none">
           <img src={search} alt="" />
         </div>
@@ -90,26 +120,43 @@ const Navbar = () => {
       </div>
       <div className="laptop:hidden tablet:flex hidden items-center cursor-pointer">
         {isSearchOpen ? (
-          <IoClose className="text-terra-cotta" size={24} onClick={toggleSearchBar} />
+          <IoClose
+            className="text-terra-cotta"
+            size={24}
+            onClick={toggleSearchBar}
+          />
         ) : (
-          <IoSearch className="text-terra-cotta" size={24} onClick={toggleSearchBar} />
+          <IoSearch
+            className="text-terra-cotta"
+            size={24}
+            onClick={toggleSearchBar}
+          />
         )}
       </div>
-  
 
       {/* Mobile Menu Links (Hidden by default) */}
-      <div className={`w-full ${isMobileMenuOpen ? 'absolute top-20 right-0 bg-white block' : 'hidden'} md:hidden text-center`} id="mobile-nav">
+      <div
+        className={`w-full ${
+          isMobileMenuOpen ? "absolute top-20 right-0 bg-white block" : "hidden"
+        } md:hidden text-center`}
+        id="mobile-nav"
+      >
         <div className="flex flex-col mt-4">
           <a className="py-2">Home</a>
           <details>
             <summary className="py-2 list-none">Menu</summary>
           </details>
-          <details>
-            <summary className="py-2 list-none">Special</summary>
-          </details>
+
+          <NavLink to={user !== null ? "/Adminhome/Dashboard" : "/Sign-up"}>
+            <summary className="py-2 list-none">Admin</summary>
+          </NavLink>
+          
           <a className="py-2">Locations</a>
           <a className="py-2">About Us</a>
-          <NavLink to='/user-sign-up' className="bg-terra-cotta flex items-center justify-center text-center rounded-lg text-white w-full h-10 mt-4">
+          <NavLink
+            to="/user-sign-up"
+            className="bg-terra-cotta flex items-center justify-center text-center rounded-lg text-white w-full h-10 mt-4"
+          >
             Login/Sign Up
           </NavLink>
           <a className="py-2 mt-2">Cart</a>

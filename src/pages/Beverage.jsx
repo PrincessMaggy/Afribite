@@ -1,7 +1,4 @@
 import Menu from "../components/Menu";
-{
-  /*import chapman from "../assets/chapman.svg";*/
-}
 import Button from "../components/button";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -69,7 +66,10 @@ function Beverage() {
                     key={index}
                     image={menu.Img} // Replace with actual image field if available
                     dishName={menu.Name} // Assuming name is the dish name
-                    price={`$${menu.Price}`} // Assuming price is available
+                    price={menu.Price} // Assuming price is available
+                    index={index}
+                    description={menu.Desc}
+                    category={menu.Category}
                   />
                 ))}
               </div>
@@ -102,7 +102,7 @@ function Beverage() {
           <Button
             text="Create +"
             to="/Adminhome/MenuForm"
-            className="mr-2 py-3 px-5 lg:px-14"
+            className="py-3 px-5 lg:px-14"
           />
         </div>
       </div>
