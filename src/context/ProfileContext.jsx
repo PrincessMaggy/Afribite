@@ -9,6 +9,10 @@ export const profileContext = createContext()
 const ProfileContextProvider = (props) => {
     const [myProfile, setMyProfile] = useState({})
     const [loading, setLoading] = useState(true);
+    const [adForm, setAdForm] = useState({Title: '', Description: '', image:'', budget:'', audience:'' })
+    const [adStartDate, setAdStartDate] = useState(new Date());
+    const [adEndDate, setAdEndDate] = useState(adStartDate);
+    const [adImagePreview, setAdImagePreview] = useState(null);
     const { user } = useAuth();
 
 
@@ -41,8 +45,17 @@ const ProfileContextProvider = (props) => {
     }
 }, [user]);
 
-    const value ={
-     myProfile,loading, fetchUserProfile
+    const value = {
+     myProfile,loading, 
+     fetchUserProfile, 
+     adForm, 
+     setAdForm, 
+     adEndDate, 
+     setAdEndDate, 
+     adStartDate, 
+     setAdStartDate,
+     adImagePreview, 
+     setAdImagePreview
     }
     return(
         <profileContext.Provider value={value}>
