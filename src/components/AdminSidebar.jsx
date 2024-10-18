@@ -4,8 +4,7 @@ import { FiOctagon } from "react-icons/fi";
 import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { MdLogout } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
-import { BsCart } from "react-icons/bs";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useContext } from "react";
@@ -23,6 +22,7 @@ const AdminSidebar = () => {
   const [menuEmpty, setMenu] = useState(true);
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation()
 
   useEffect(() => {
     const db = getFirestore();
@@ -109,9 +109,9 @@ const AdminSidebar = () => {
         <NavLink to="/Adminhome/Dashboard">
           <div
             onClick={() => setVisible(false)}
-            className="flex items-center gap-4  text-white font-bold"
+            className="flex items-center gap-4"
           >
-            <PiCirclesFourFill className="border rounded-full bg-white text-[#E2725B]" />{" "}
+            <PiCirclesFourFill className={`${location.pathname === '/Adminhome/Dashboard'? 'bg-white' : 'bg-white/50'} rounded-full  text-[#E2725B]`} />{" "}
             Dashboard
           </div>
         </NavLink>
@@ -144,15 +144,7 @@ const AdminSidebar = () => {
             Menu
           </div>
         </NavLink>
-        <NavLink>
-          <div
-            onClick={() => setVisible(false)}
-            className="flex items-center gap-4 "
-          >
-            <BsCart />
-            Orders
-          </div>
-        </NavLink>
+  
         <NavLink to="/Adminhome/Notifications">
           <div
             onClick={() => setVisible(false)}
