@@ -144,7 +144,6 @@ const Advert = () => {
     )
   },[startDate])
 
-  console.log('startDate: ', startDate,'-----------', 'endDate: ', endDate)
 
   return (
     <div className="w-[90%] m-auto p-6 lg:px-32 lg:py-16 bg-n-n6 rounded-lg shadow-md overflow-hidden">
