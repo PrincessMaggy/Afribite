@@ -1,8 +1,7 @@
 import Menu from "../components/Menu";
-import Button from "../components/button";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -13,6 +12,7 @@ function Appetizer() {
   const [appetizer, setAppetizer] = useState([]);
   const [error, setError] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -45,6 +45,15 @@ function Appetizer() {
     });
     return () => unsubscribe();
   }, []);
+
+  const handleCreateMenu = () => {
+    const category = "Appetizer";
+    // navigate("/Adminhome/CategoryMenuForm");
+    navigate("/Adminhome/CategoryMenuForm", {
+      state: { cat: category },
+    });
+    console.log("create menu");
+  };
 
   return (
     <div>
@@ -99,11 +108,12 @@ function Appetizer() {
           </div>
         </div>
         <div className=" flex px-2 pt-6 ">
-          <Button
-            text="Create +"
-            to="/Adminhome/MenuForm"
-            className="py-3 px-5 lg:px-14"
-          />
+          <button
+            onClick={handleCreateMenu}
+            className="bg-p-button p-3 rounded-md text-n-n7 text-xs lg:text-sm font-pop border-2 hover:border-p-button hover:text-p-button hover:bg-transparent py-3 px-5 lg:px-14"
+          >
+            Create +
+          </button>
         </div>
       </div>
     </div>
