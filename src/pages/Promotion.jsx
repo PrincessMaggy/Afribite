@@ -271,7 +271,7 @@ const Promotions = () => {
           </Link>
 
           <button type="submit" className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors">
-            Upload
+            Create Promotion
           </button>
         </div>
       </form>
