@@ -116,6 +116,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - Added function to fetch and edit user Profile on profile page from firebase
 - Created CustomerChart, PointChart and ViewerChart component to display data graphically
 - Added date range to the choicedate component for choosing date
+- Created progress bar for adss and promotion on dashboard
 
 ### Ogwo Ijeoma Precious Chidinma
 
