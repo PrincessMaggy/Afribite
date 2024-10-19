@@ -42,8 +42,6 @@ const Profile = () => {
         if (user) {
             fetchUserData();
         }
-
-      console.log(profileForm)
     }, []);
 
   const handleChange = (e) => {
@@ -91,6 +89,7 @@ const Profile = () => {
       }
   
       notify() 
+   
     } 
     catch (error) {
       setLoading(false)

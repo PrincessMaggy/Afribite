@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../context/AuthenticationContext";
 import { profileContext } from "../context/ProfileContext";
 import LoadingButton from "../components/LoadingButton";
-
+import { v4 as uuidv4 } from "uuid";
 
 
 const Advert = () => {
@@ -24,9 +24,10 @@ const Advert = () => {
     setAdEndDate, 
     adImagePreview, 
     setAdImagePreview,
+    userAdData, 
+    fetchUserAdData
   } = useContext(profileContext)
   const {user} = useAuth()
-  const [userAdData, setUserAdData] = useState([]);  // State to store user data
   const [loading, setLoading] = useState(false); 
   const [showAds, setShowAds] = useState(false);
 
@@ -66,7 +67,7 @@ const Advert = () => {
 
       let imageUrl = null;
       if (adForm.image) {
-        const storageRef = ref(storage, `adverts/${adForm.image.name}`);
+        const storageRef = ref(storage, `adverts/${adForm.image.name + uuidv4()}`);
         await uploadBytes(storageRef, adForm.image);
         imageUrl = await getDownloadURL(storageRef);
       }
@@ -119,30 +120,6 @@ const Advert = () => {
   };
 
 
-  const fetchUserData = async () => {
-    try {
-      if (user) {
-        const db = getFirestore();
-        // Reference the "advertData" subcollection under the user's document
-        const userSubcollectionRef = collection(db, 'adverts', user.uid, 'advertData');
-        
-        // Fetch all documents from the subcollection
-        const querySnapshot = await getDocs(userSubcollectionRef);
-        
-        // Extract data from each document
-        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        
-        // Update state with the fetched data
-        setUserAdData(data);
-        ;
-      }
-    } catch (error) {
-      console.error("Error fetching user data: ", error);
-      setLoading(false);
-    }
-  };
-
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
@@ -166,10 +143,11 @@ const Advert = () => {
   }
 
   useEffect(()=>{
-    fetchUserData();
+    fetchUserAdData();
     setAdEndDate(
       adStartDate
     )
+    console.log(userAdData)
   },[adStartDate])
 
 
@@ -209,7 +187,7 @@ const Advert = () => {
             className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] placeholder:text-[#E2725B]/40 placeholder:p-1"></textarea>
 
         <p className="mt-4 font-semibold text-[#E2725B] ">Upload image</p>
-        <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
+        <div className="flex flex-col md:flex-row gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
         {adImagePreview ? (
               <img src={adImagePreview} alt="Preview" className="w-32 h-32 object-cover" />
             ) : (
@@ -278,7 +256,7 @@ const Advert = () => {
           <button onClick={clearForm} type="button" className="p-3 border-2 text-xs lg:text-sm text-white bg-[#E2725B] rounded-md transition-colors hover:border-[#E2725B] hover:text-[#E2725B] hover:bg-white ">
             Clear form
           </button>
-        <Link to='/Adminhome/Dashboard'><p  className="text-[#E2725B] font-semibold">Cancel</p></Link>
+        <Link to='/Adminhome/Dashboard'><p onClick={clearForm} className="text-[#E2725B] font-semibold">Cancel</p></Link>
         </div>
       </form>
 
@@ -299,8 +277,8 @@ const Advert = () => {
             userAdData.map((ad) => (
               <div key={ad.id} className="mb-4 p-2 bg-white/10 rounded flex">
                 <div className="w-1/4 mr-4">
-                  {ad.imageUrl ? (
-                    <img src={ad.imageUrl} alt={ad.title} className="w-full h-auto object-cover rounded" />
+                  {ad.image ? (
+                    <img src={ad.image} alt={ad.title} className="w-full h-auto object-cover rounded" />
                   ) : (
                     <div className="w-full h-32 bg-gray-200 flex items-center justify-center rounded">
                       <FiImage className="text-gray-400 text-4xl" />

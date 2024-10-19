@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuth } from '../context/AuthenticationContext';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
 
 
 
@@ -13,6 +13,7 @@ const ProfileContextProvider = (props) => {
     const [adStartDate, setAdStartDate] = useState(new Date());
     const [adEndDate, setAdEndDate] = useState(adStartDate);
     const [adImagePreview, setAdImagePreview] = useState(null);
+    const [userAdData, setUserAdData] = useState([]);  // State to store user data
     const { user } = useAuth();
 
 
@@ -23,11 +24,8 @@ const ProfileContextProvider = (props) => {
             setMyProfile(prevProfile => ({
               ...prevProfile,
                 ...userDoc.data(),
-                email: user.email || prevProfile.email,
-                profileImage: user.photoURL || prevProfile.profileImage
             }));
         } else {
-  
             setMyProfile(prevProfile => ({
                 ...prevProfile,
                 email: user.email || '',
@@ -38,10 +36,36 @@ const ProfileContextProvider = (props) => {
         
     };
 
+    const fetchUserAdData = async () => {
+        try {
+          if (user) {
+            const db = getFirestore();
+            // Reference the "advertData" subcollection under the user's document
+            const userSubcollectionRef = collection(db, 'adverts', user.uid, 'advertData');
+            
+            // Fetch all documents from the subcollection
+            const querySnapshot = await getDocs(userSubcollectionRef);
+            
+            // Extract data from each document
+            const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            
+            // Update state with the fetched data
+            setUserAdData(data);
+            ;
+          }
+        } catch (error) {
+          console.error("Error fetching user data: ", error);
+          setLoading(false);
+        }
+    
+        console.log(userAdData)
+      };
+
   useEffect(() => {
 
     if (user) {
         fetchUserProfile();
+        fetchUserAdData()
     }
 }, [user]);
 
@@ -55,7 +79,10 @@ const ProfileContextProvider = (props) => {
      adStartDate, 
      setAdStartDate,
      adImagePreview, 
-     setAdImagePreview
+     setAdImagePreview,
+     userAdData, 
+     setUserAdData,
+     fetchUserAdData
     }
     return(
         <profileContext.Provider value={value}>
