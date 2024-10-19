@@ -102,7 +102,7 @@ function EditMenu() {
               return {
                 Img: imageUrl, // Replace with new image URL
                 Name: dishName, // Edited or existing name
-                Price: price, // Edited or existing price
+                Price: removeCommas(price), // Edited or existing price
                 Category: category,
                 Desc: description, // Edited or existing description
               };
@@ -123,7 +123,7 @@ function EditMenu() {
               return {
                 Img: img, // Replace with new image URL
                 Name: dishName, // Edited or existing name
-                Price: price, // Edited or existing price
+                Price: removeCommas(price), // Edited or existing price
                 Category: category,
                 Desc: description, // Edited or existing description
               };
@@ -135,6 +135,9 @@ function EditMenu() {
           await updateDoc(menuSubcollectionRef, { menu: updatedMenuArray });
         }
       }
+
+      handleCancel();
+
       toast.success("Menu updated successfully!", {
         position: "top-center",
       });
@@ -168,11 +171,34 @@ function EditMenu() {
     }
   };
 
+  const formatNumber = (num) => {
+    // Remove all commas and non-numeric characters first
+    let number = num.replace(/,/g, "");
+    // Return formatted number with commas
+    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // Handle input change
+  const handleNumChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*$/.test(inputValue.replace(/,/g, ""))) {
+      const inputValue = e.target.value;
+      // Only allow numbers and commas
+      const formattedValue = formatNumber(inputValue);
+      setPrice(formattedValue);
+    }
+  };
+
+  // Remove commas before form submission
+  const removeCommas = (num) => {
+    return num.replace(/,/g, "");
+  };
+
   // Handle Cancel action to revert changes
   const handleCancel = () => {
     setDishName(originalData.dishName);
     setPrice(originalData.price);
-    setCategory(originalData.category);
+    setImage("/imagePlaceHolder.svg");
     setDescription(originalData.description);
   };
   const deletePopup = () => {
@@ -346,10 +372,10 @@ function EditMenu() {
               {/* Price */}
               <div className="inline-block w-full lg:mr-4 mb-4 border border-n-n3 rounded-md focus:ring-0">
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Price"
                   value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={handleNumChange}
                   className="w-[80%] lg:w-[80%] h-11 p-3 bg-transparent outline-none text-sm font-light"
                   required
                 />
