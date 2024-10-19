@@ -342,7 +342,7 @@ const Promotions = () => {
     ) : (
       <button
         type="submit"
-        className="p-3 border-2 text-xs lg:text-sm text-white bg-[#E2725B] rounded-md transition-colors hover:border-[#E2725B] hover:text-[#E2725B] hover:bg-white"
+        className="p-3 border-2 text-xs lg:text-sm text-white bg-p-button3 rounded-md transition-colors hover:border-p-button3 hover:text-p-button3 hover:bg-white"
       >
         Create
       </button>
