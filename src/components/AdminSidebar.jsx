@@ -67,14 +67,21 @@ const AdminSidebar = () => {
 
   const handleLogout = async () => {
     try {
-      setTimeout(() => {
-        logOut();
-        navigate("/"); 
-      }, 2000);
-      toast.success("Logout successful!", {
-        position: "top-center",
-      });
-     
+      await logOut();
+      // toast.success("Logout successful!", {
+      //   position: "top-center",
+      // });
+      // setTimeout(() => {
+      //   // Redirect to the respective category page
+      //   navigate("/");
+      // }, 2000);
+      navigate("/");
+      // setTimeout(() => {
+      //   // Redirect to the respective category page
+      //   toast.success("Logout successful!", {
+      //     position: "top-center",
+      //   });
+      // }, 3000);
     } catch (e) {
       console.error("Error logging out:", e);
       toast.error("Error logging out!", {

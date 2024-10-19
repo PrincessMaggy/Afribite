@@ -64,6 +64,7 @@ const Promotions = () => {
     []
   );
 
+  
   const throttledErrorToast = useCallback(
     throttle((message) => toast.error(message), 5000),
     []
