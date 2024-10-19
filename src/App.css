@@ -1060,6 +1060,11 @@ a.active > div{
   max-height: 90vh;
 }
 
+.max-h-max{
+  max-height: -moz-max-content;
+  max-height: max-content;
+}
+
 .min-h-screen{
   min-height: 100vh;
 }
@@ -1185,6 +1190,14 @@ a.active > div{
   max-width: 28rem;
 }
 
+.max-w-screen-lg{
+  max-width: 1024px;
+}
+
+.max-w-screen-md{
+  max-width: 768px;
+}
+
 .flex-1{
   flex: 1 1 0%;
 }
@@ -1240,6 +1253,10 @@ a.active > div{
           appearance: none;
 }
 
+.grid-flow-row{
+  grid-auto-flow: row;
+}
+
 .grid-cols-2{
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1248,8 +1265,40 @@ a.active > div{
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.grid-cols-1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-5{
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-8{
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.grid-cols-7{
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.grid-cols-\[auto\2c auto\2c auto\2c 1fr\2c auto\2c auto\]{
+  grid-template-columns: auto auto auto 1fr auto auto;
+}
+
+.grid-cols-\[auto\2c auto\2c auto\2c 1fr\2c auto\2c auto\2c auto\]{
+  grid-template-columns: auto auto auto 1fr auto auto auto;
+}
+
 .grid-rows-5{
   grid-template-rows: repeat(5, minmax(0, 1fr));
+}
+
+.grid-rows-1{
+  grid-template-rows: repeat(1, minmax(0, 1fr));
 }
 
 .flex-row{
@@ -1397,6 +1446,12 @@ a.active > div{
 
 .overflow-y-scroll{
   overflow-y: scroll;
+}
+
+.truncate{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rounded{
@@ -1997,6 +2052,10 @@ a.active > div{
 
 .font-semibold{
   font-weight: 600;
+}
+
+.capitalize{
+  text-transform: capitalize;
 }
 
 .leading-5{
