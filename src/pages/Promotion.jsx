@@ -320,34 +320,48 @@ const Promotions = () => {
           }))} 
         />
 
-        <div className="flex items-center md:space-x-4 justify-between">
-          <Button text='Clear form' className='w-auto' onClick={clearForm} />
+        <div className="flex flex-col md:flex-row justify-between items-center mt-4 gap-5">
+  {/* Terms and Conditions Section */}
+  <span className="flex items-center text-xs md:text-sm">
+    <input
+      type="checkbox"
+      id="promotionTerms"
+      className="mr-2"
+      checked={termsAccepted}
+      onChange={(e) => setTermsAccepted(e.target.checked)}
+    />
+    <label htmlFor="promotionTerms" className="text-white">
+      Read <span className="text-[#E2725B] font-semibold">Terms and Conditions</span>
+    </label>
+  </span>
 
-          <span className="flex w-24 md:w-auto text-sm md:text-base">
-            <input
-              type="checkbox"
-              id="promotionTerms"
-              className="mr-2"
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-            />
-            <label htmlFor="promotionTerms" className="text-white">
-              Read <span className="text-[#E2725B] font-semibold">Terms and Conditions</span>
-            </label>
-          </span>
-        </div>
+  {/* Buttons Section */}
+  <div className="flex justify-end items-center gap-5">
+    {loading ? (
+      <LoadingButton />
+    ) : (
+      <button
+        type="submit"
+        className="p-3 border-2 text-xs lg:text-sm text-white bg-[#E2725B] rounded-md transition-colors hover:border-[#E2725B] hover:text-[#E2725B] hover:bg-white"
+      >
+        Create
+      </button>
+    )}
+    
+    <button
+      onClick={clearForm}
+      type="button"
+      className="p-3 border-2 text-xs lg:text-sm text-white bg-[#E2725B] rounded-md transition-colors hover:border-[#E2725B] hover:text-[#E2725B] hover:bg-white"
+    >
+      Clear form
+    </button>
 
-        <div className="pt-4 mt-2 flex justify-between">
-          <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] border-[#E2725B] border p-3 ml-1 rounded font-semibold">Cancel</p></Link>
+    <Link to="/Adminhome/Dashboard">
+      <p className="text-[#E2725B] font-semibold">Cancel</p>
+    </Link>
+  </div>
+</div>
 
-          {loading ? (
-            <LoadingButton />
-          ) : (
-            <button type="submit" className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors">
-              Create
-            </button>
-          )}
-        </div>
       </form>
 
       {/* Display promotions */}
