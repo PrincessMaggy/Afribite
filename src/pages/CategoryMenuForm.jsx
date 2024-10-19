@@ -11,18 +11,22 @@ import {
 import { uploadBytes, getDownloadURL, ref } from "@firebase/storage";
 import { ImageDb } from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MenuForm() {
+function CategoryMenuForm() {
+  // States for both current and original values
+  const location = useLocation();
+  const cat = location.state?.cat;
+
   // Form states
   const [image, setImage] = useState("/imagePlaceHolder.svg");
   const [uploadImage, setUploadImage] = useState(null);
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(cat || "");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -188,7 +192,7 @@ function MenuForm() {
     setImage("/imagePlaceHolder.svg"); // Reset image to the initial placeholder
     setDishName(""); // Reset dish name input
     setPrice(""); // Reset price input
-    setCategory(""); // Reset category input
+    // setCategory(""); // Reset category input
     setDescription(""); // Reset description input
   };
 
@@ -252,6 +256,7 @@ function MenuForm() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full h-11 p-3 bg-transparent rounded-md mb-4 border border-n-n3 outline-none focus:ring-0 text-sm font-light text-n-n3 "
+                disabled
                 required
               >
                 <option value="">Category</option>
@@ -329,4 +334,4 @@ function MenuForm() {
   );
 }
 
-export default MenuForm;
+export default CategoryMenuForm;
