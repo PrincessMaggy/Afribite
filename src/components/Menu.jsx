@@ -9,12 +9,20 @@ function Menu(items) {
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
 
+  const formatCurrency = (num) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0, // Change this if you want decimals
+    }).format(num);
+  };
+
   return (
     <div className="border-2 border-p-button px-6 pt-6 rounded-lg flex-initial w-[12.5rem] cursor-pointer">
       <img src={items.image} alt="image" className="w-full h-32 rounded-md" />
       <p className="mt-1.5 text-center">{items.dishName}</p>
       <div className="flex justify-around items-center my-1.5 ">
-        <p>{`$${items.price}`}</p>
+        <p>{formatCurrency(items.price)}</p>
         <button
           onClick={() => setToggle(!toggle)}
           className="flex items-center space-x-2"
