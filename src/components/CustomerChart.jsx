@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const data = [
     { name: 'Online', value: 400 },
@@ -24,6 +24,8 @@ const CustomerChart = () => {
         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
       ))}
     </Pie>
+
+    <Legend/>
     </PieChart>
       
     </ResponsiveContainer>

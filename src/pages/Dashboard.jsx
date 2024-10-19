@@ -10,10 +10,13 @@ import ProfileDisplay from '../components/ProfileDisplay';
 import { profileContext } from '../context/ProfileContext';
 import PointChart from '../components/PointChart';
 import CustomerChart from '../components/CustomerChart';
+import ProgressBar from '../components/ProgressBar';
 
 const Dashboard = () => {
-  const {myProfile} = useContext(profileContext)
+  const {myProfile, userAdData, promotions, setPromotions} = useContext(profileContext)
   const [myOrders, setMyOrders] = useState([])
+
+
 
   const totalOrders = myOrders.length
 
@@ -22,7 +25,6 @@ const Dashboard = () => {
   const totalDishes = dishes.length
 
   useEffect(()=>{
-
     setMyOrders(dummyOrders
       .filter((items)=>items.userid === 'user1'))
   },[])
@@ -98,15 +100,49 @@ const Dashboard = () => {
 
         <div className='grid md:grid-cols-2 gap-4 mt-4 '>
 
-          <div className="bg-white rounded-lg p-4"></div>
-          <div className="bg-white rounded-lg p-4 h-36"><PointChart/></div>
+          <div className="bg-white rounded-lg p-8 flex flex-col gap-5 md:gap-0 justify-around">
+            <h2 className='font-medium text-lg'>Total Summary</h2>
+
+            <div className="">
+              <div className="flex justify-between">
+                <p>Promotions</p>
+                <p>{promotions.length}/100</p>
+              </div>
+              <ProgressBar value={promotions.length} color={'p-button'} max='100'/> 
+            </div>
+
+            <div className="">
+              <div className="flex justify-between">
+                <p>Advertisment</p>
+                <p>{userAdData.length}/100</p>
+              </div>
+              <ProgressBar value={userAdData.length} color={'p-button3'} max='100'/> 
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg p-4  flex flex-col">
+            <h2 className="font-medium text-lg">Performance</h2>
+
+            <div className="h-36"><PointChart/></div>
+
+            <p className='text-center'>Earn more points and boost your restaurant’s visibility</p>
+          </div>
 
         </div>
 
         <div className='grid md:grid-cols-2 gap-4 mt-4 '>
 
-          <div className="bg-white rounded-lg p-4 h-80"> <ViewersChart/></div>
-          <div className="bg-white rounded-lg p-4 h-60 md:h-80"><CustomerChart/></div>
+          <div className="bg-white rounded-lg p-4">
+          <h2 className="font-medium text-lg">Views</h2>
+            <div className='h-52'> <ViewersChart/></div>
+          </div>
+
+          <div className="bg-white rounded-lg p-4">
+            <div className="w-full">
+            <h2 className="font-medium text-lg">Your Customers</h2>
+            <div className="h-52"><CustomerChart/></div>
+            </div>
+          </div>
 
         </div>
 
@@ -114,7 +150,7 @@ const Dashboard = () => {
       </div>
 
       {/* right side */}
-      <div className=" ml-6 hidden lg:block">
+      <div className=" ml-6 hidden lg:flex flex-col justify-between">
 
         {/* profile info display */}
         <div className="bg-white px-8 p-4">

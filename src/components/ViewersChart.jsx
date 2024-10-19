@@ -14,37 +14,37 @@ const viewrsData = [
   {
     name: 'Mon',
     viewed: 4000,
-    profit: 2400,
+    reacted: 2400,
   },
   {
     name: 'Tue',
     viewed: 3000,
-    profit: 1398,
+    reacted: 1398,
   },
   {
     name: 'Wed',
     viewed: 9800,
-    profit: 2000,
+    reacted: 2000,
   },
   {
     name: 'Thur',
     viewed: 3908,
-    profit: 2780,
+    reacted: 2780,
   },
   {
     name: 'Fri',
     viewed: 4800,
-    profit: 1890,
+    reacted: 1890,
   },
   {
     name: 'Sat',
     viewed: 3800,
-    profit: 2390,
+    reacted: 2390,
   },
   {
     name: 'Sun',
     viewed: 3800,
-    profit: 2390,
+    reacted: 2390,
   },
 ];
 
@@ -63,7 +63,7 @@ const BarChartComponent = () => {
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Bar dataKey="viewed" fill="#E2725B" />
-        <Bar dataKey="profit" fill="#808000" />
+        <Bar dataKey="reacted" fill="#808000" />
       </BarChart>
     </ResponsiveContainer>
   );
