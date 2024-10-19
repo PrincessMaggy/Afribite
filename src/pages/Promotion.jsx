@@ -268,78 +268,65 @@ const Promotions = () => {
             onChange={handleChange}
             className="w-full p-2 border-2 bg-inherit border-[#E2725B]/20 rounded-lg focus:outline-none focus:border-[#E2725B]"
             required
-          ></textarea>
+          />
         </div>
 
-        {/* Image upload */}
-        <div>
-          <p className="mb-2 font-semibold text-[#E2725B]">Upload image</p>
-          <div className="flex gap-4 items-center p-4 bg-white justify-center border-2 border-dashed">
-            {adForm.promotions?.imagePreview ? (
-              <img src={adForm.promotions.imagePreview} alt="Preview" className="w-32 h-32 object-cover" />
-            ) : (
-              <FiImage className="text-5xl text-n-n3" />
-            )}
-            <p className="text-center sm:text-left">Upload an image for your restaurant banner (GIF, JPG or PNG)</p>
+        <Category name="category" handleChange={handleChange} value={adForm.promotions?.category || ''} />
 
-            <input              required
-            id="file"
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            className=" min-w-0 max-w-32 text-white file:hidden text-xs lg:text-sm border-2 bg-p-button p-3 rounded-md font-pop hover:border-p-button hover:text-p-button hover:bg-n-n7" onChange={handleImageChange} />
-          </div>
-        </div>
-
-        {/* Date selection */}
-      <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between text-sm md:text-base mt-4">
-        <span>
-          <h3 className="text-[#E2725B] font-semibold">Choose a Start date</h3>
-          <ChoiceDate 
-            value={adForm.promotions?.startDate ? new Date(adForm.promotions.startDate) : new Date()} 
-            onChange={(date) => handleDateChange(date, 'startDate')}
-            minDate={new Date()}
-          />
-        </span>
-
-        <span className="md:inline-block">
-          <h3 className="text-[#E2725B] font-semibold">Choose an End date</h3>
-          <ChoiceDate 
-            value={adForm.promotions?.endDate ? new Date(adForm.promotions.endDate) : new Date()} 
-            onChange={(date) => handleDateChange(date, 'endDate')}
-            minDate={adForm.promotions?.startDate ? new Date(adForm.promotions.startDate) : new Date()}
-          />
-        </span>
-      </div>
-
-        {/* Category selection */}
-        <Category 
-          value={adForm.promotions?.category || ''} 
-          onChange={(value) => setAdForm(prev => ({ 
-            ...prev, 
-            promotions: { ...prev.promotions, category: value } 
-          }))} 
+        <ChoiceDate
+          startDate={new Date(adForm.promotions?.startDate)}
+          endDate={new Date(adForm.promotions?.endDate)}
+          handleDateChange={handleDateChange}
         />
 
-        <div className="flex items-center md:space-x-4 justify-between">
-          <Button text='Clear form' className='w-auto' onClick={clearForm} />
-
-          <span className="flex w-24 md:w-auto text-sm md:text-base">
-            <input
-              type="checkbox"
-              id="promotionTerms"
-              className="mr-2"
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-            />
-            <label htmlFor="promotionTerms" className="text-white">
-              Read <span className="text-[#E2725B] font-semibold">Terms and Conditions</span>
+        {/* Image Upload */}
+        <div>
+          <label className="block mb-2 font-semibold text-[#E2725B]">Upload Image</label>
+          <div className="w-full bg-white border-2 border-[#E2725B]/20 flex justify-between items-center p-2 rounded-md">
+            <label
+              htmlFor="uploadImage"
+              className="flex items-center cursor-pointer space-x-1"
+            >
+              <FiImage className="w-6 h-6 text-[#E2725B]" />
+              <span className="text-[#E2725B] text-sm">Upload</span>
             </label>
-          </span>
+            <input
+              id="uploadImage"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+            <span className="text-sm text-gray-500">
+              {adForm.promotions?.image ? adForm.promotions.image.name : 'No file chosen'}
+            </span>
+          </div>
+
+          {adForm.promotions?.imagePreview && (
+            <div className="mt-2">
+              <img src={adForm.promotions.imagePreview} alt="Preview" className="max-w-xs rounded-md" />
+            </div>
+          )}
         </div>
 
-        <div className="pt-4 mt-2 flex justify-between">
-          <Link to='/Adminhome/Dashboard'><p className="text-[#E2725B] border-[#E2725B] border p-3 ml-1 rounded font-semibold">Cancel</p></Link>
+        {/* Terms acceptance */}
+        <div>
+          <label htmlFor="acceptTerms" className="inline-flex items-center">
+            <input
+              type="checkbox"
+              id="acceptTerms"
+              checked={termsAccepted}
+              onChange={() => setTermsAccepted(!termsAccepted)}
+              className="form-checkbox h-5 w-5 text-[#E2725B] rounded"
+              required
+            />
+            <span className="ml-2 text-[#E2725B] font-medium">I accept the terms and conditions</span>
+          </label>
+        </div>
 
+        {/* Buttons */}
+        <div className="pt-4 mt-2 flex justify-end space-x-4">
+          {/* Create button */}
           {loading ? (
             <LoadingButton />
           ) : (
@@ -347,54 +334,37 @@ const Promotions = () => {
               Create
             </button>
           )}
+
+          {/* Clear form button */}
+          <Button text="Clear form" className="w-auto" onClick={clearForm} />
+
+          {/* Cancel button */}
+          <Link to="/Adminhome/Dashboard">
+            <p className="text-[#E2725B] border-[#E2725B] border p-3 ml-1 rounded font-semibold">Cancel</p>
+          </Link>
         </div>
       </form>
 
       {/* Display promotions */}
-      <div className="mt-8">
-        <button
-          onClick={() => setShowPromotions(!showPromotions)}
-          className="px-4 py-2 bg-[#E2725B] text-white rounded-md hover:bg-[#D1614A] transition-colors"
-        >
-          {showPromotions ? "Hide Promotions" : "Show Promotions"}
-        </button>
-
-        {showPromotions && (
-          <div className="mt-4 p-4 border-2 border-[#E2725B] rounded-lg">
-            <h3 className="text-xl font-semibold text-[#E2725B] mb-4">Promotions created</h3>
-            {promotions.length === 0 ? (
-              <p>No data available</p>
-            ) : (
-              promotions.map((promo) => (
-                <div key={promo.id} className="mb-4 p-2 bg-white/10 rounded flex">
-                  <div className="w-1/4 mr-4">
-                    {promo.imageUrl ? (
-                      <img src={promo.imageUrl} alt={promo.title} className="w-full h-auto object-cover rounded" />
-                    ) : (
-                      <div className="w-full h-32 bg-gray-200 flex items-center justify-center rounded">
-                        <FiImage className="text-gray-400 text-4xl" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="w-3/4">
-                    <h4 className="font-semibold"><span className="text-[#E2725B]">TITLE:</span> {promo.title}</h4>
-                    <p><span className="text-[#E2725B]">Description:</span> {promo.description}</p>
-                    <p><span className="text-[#E2725B]">Category:</span> {promo.category}</p>
-                    <p><span className="text-[#E2725B]">Start Date:</span> {formatDate(promo.startDate)}</p>
-                    <p><span className="text-[#E2725B]">End Date:</span> {formatDate(promo.endDate)}</p>
-                  <p className="text-sm  text-gray-500"> <span className=" text-[#E2725B] ">Created:</span> {promo.createdAt.toLocaleString()}</p>
-                  <button
-                    onClick={() => handleDeletePromotion(promo.id)}
-                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-                  >
-                    Delete Promotion
-                  </button>
-                </div>
+      {promotions.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-[#E2725B]">Your Promotions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            {promotions.map(promo => (
+              <div key={promo.id} className="border p-4 rounded-md shadow-md">
+                <img src={promo.imageUrl} alt={promo.title} className="mb-4 rounded-md" />
+                <h3 className="text-lg font-semibold">{promo.title}</h3>
+                <p className="text-sm text-gray-600">{promo.description}</p>
+                <p className="text-sm text-gray-600">Start Date: {formatDate(promo.startDate)}</p>
+                <p className="text-sm text-gray-600">End Date: {formatDate(promo.endDate)}</p>
+                <button onClick={() => handleDeletePromotion(promo.id)} className="mt-2 px-3 py-1 bg-red-500 text-white rounded">
+                  Delete
+                </button>
               </div>
-            )))}
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
