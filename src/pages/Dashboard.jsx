@@ -13,9 +13,8 @@ import CustomerChart from '../components/CustomerChart';
 import ProgressBar from '../components/ProgressBar';
 
 const Dashboard = () => {
-  const {myProfile, userAdData} = useContext(profileContext)
+  const {myProfile, userAdData, promotions, setPromotions} = useContext(profileContext)
   const [myOrders, setMyOrders] = useState([])
-  const [userpromoData, setUserpromoData] = useState([])
 
 
 
@@ -26,9 +25,6 @@ const Dashboard = () => {
   const totalDishes = dishes.length
 
   useEffect(()=>{
-    setUserpromoData([
-      1,2,3,4,5
-    ])
     setMyOrders(dummyOrders
       .filter((items)=>items.userid === 'user1'))
   },[])
@@ -110,9 +106,9 @@ const Dashboard = () => {
             <div className="">
               <div className="flex justify-between">
                 <p>Promotions</p>
-                <p>{userpromoData.length}/100</p>
+                <p>{promotions.length}/100</p>
               </div>
-              <ProgressBar value={userpromoData.length} color={'p-button'} max='100'/> 
+              <ProgressBar value={promotions.length} color={'p-button'} max='100'/> 
             </div>
 
             <div className="">
