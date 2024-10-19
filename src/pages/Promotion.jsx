@@ -302,7 +302,7 @@ const Promotions = () => {
         </span>
 
         <span className="md:inline-block">
-          <h3 className="text-[#E2725B]">Choose an End date</h3>
+          <h3 className="text-[#E2725B] font-semibold">Choose an End date</h3>
           <ChoiceDate 
             value={adForm.promotions?.endDate ? new Date(adForm.promotions.endDate) : new Date()} 
             onChange={(date) => handleDateChange(date, 'endDate')}
