@@ -16,7 +16,7 @@ const ProfileDisplay = () => {
       <h1 className="text-center text-2xl font-medium my-4 ">My Profile</h1>
            <div className="mb-8 ">
             <div className="w-24 h-24 flex items-center justify-center m-auto rounded-full overflow-hidden">
-            <img src={myProfile?.profileImage ? myProfile?.profileImage : profileImg} alt="" className="w-fit h-fit rounded-full m-auto bg-[#E2725B]" />
+            <img src={myProfile?.profileImage ? myProfile?.profileImage : profileImg} alt="" className=" rounded-full m-auto bg-[#E2725B]" />
             </div>
             <p className='text-center m-4'>{myProfile?.name}</p>
             </div>
