@@ -82,9 +82,13 @@ const Profile = () => {
       let downloadURL = null
 
       if (profileForm.profileImage) {
-        const storageRef = ref(storage, `profileImages/${user.uid}`)
-        await uploadBytes(storageRef, profileForm.profileImage);
-         downloadURL  = await getDownloadURL(storageRef);
+        if (typeof profileForm.profileImage !== 'object' ) {
+          downloadURL = profileForm.profileImage
+        } else {
+          const storageRef = ref(storage, `profileImages/${user.uid}`)
+          await uploadBytes(storageRef, profileForm.profileImage);
+           downloadURL  = await getDownloadURL(storageRef);
+        }
       }
 
       await setDoc(doc(db, 'users', user.uid),{ ...profileForm, profileImage: downloadURL}, );
