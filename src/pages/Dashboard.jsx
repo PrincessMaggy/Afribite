@@ -18,16 +18,15 @@ const Dashboard = () => {
     useContext(profileContext);
   const [myOrders, setMyOrders] = useState([]);
 
-  const { menuLength, setMenuData } = useContext(menuContext);
+  const { menuLength, fetchAllMenu } = useContext(menuContext);
 
   const totalOrders = myOrders.length;
 
   const recentOrders = myOrders.slice(0, 3);
 
-  const totalDishes = dishes.length;
-
   useEffect(() => {
     setMyOrders(dummyOrders.filter((items) => items.userid === "user1"));
+    fetchAllMenu();
   }, []);
 
   return (
