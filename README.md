@@ -78,6 +78,7 @@ Afribite is an innovative food delivery platform that focuses on promoting Afric
 - connect landing Page to admin page (if user exist they are directed to the admin dashboard, else they are directed to the signup page)
 - handle admin logout (to log out admin user from admin dashboard)
 - Created menu context to get all menu data created by a authenticated user.
+- Added menu context to dashboard to generate admin total available dish.
 
 ### Magali Lapu
 
