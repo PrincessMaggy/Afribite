@@ -14,7 +14,8 @@ const ProfileDisplay = () => {
   return (
     <div>
       <h1 className="text-center text-2xl font-medium my-4 ">My Profile</h1>
-           <div className="mb-8 ">
+      <div className="flex flex-col justify-around">
+        <div className="mb-8 ">
             <div className="w-24 h-24 flex items-center justify-center m-auto rounded-full overflow-hidden">
             <img src={myProfile?.profileImage ? myProfile?.profileImage : profileImg} alt="" className=" rounded-full m-auto bg-[#E2725B]" />
             </div>
@@ -38,7 +39,7 @@ const ProfileDisplay = () => {
                 <p className='mt-2 break-all'>{myProfile?.address}</p>
               </div>
             </div>
-  
+      </div>
             <div className={`flex justify-end items-center gap-5 font-semibold m-6 ${location.pathname === '/Adminhome/Dashboard' ? 'hidden': ''}`}>
               <Button onClick={() => setShowProfile(false)}  text='Edit profile' className='bg-p-button3 hover:border-p-button3 hover:text-p-button3'/>
               <Link to='/Adminhome/Dashboard'><p className="text-p-button">Exit</p></Link>

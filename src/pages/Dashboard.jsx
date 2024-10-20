@@ -2,9 +2,8 @@ import bannerImage from '../assets/image.png'
 import dishIcon from '../assets/dishicon.png'
 import vector from '../assets/Vector.png'
 import { IoIosArrowDropdown } from "react-icons/io";
-import RecentOrder from '../components/RecentOrder';
-import { dummyOrders,dishes } from '../components/data';
-import { useContext, useEffect, useState } from 'react';
+import {NoRecentOrder, RecentOrder, } from '../components/RecentOrder';
+import { useContext, useEffect} from 'react';
 import ViewersChart from '../components/ViewersChart';
 import ProfileDisplay from '../components/ProfileDisplay';
 import { profileContext } from '../context/ProfileContext';
@@ -13,20 +12,21 @@ import CustomerChart from '../components/CustomerChart';
 import ProgressBar from '../components/ProgressBar';
 
 const Dashboard = () => {
-  const {myProfile, userAdData, promotions, setPromotions} = useContext(profileContext)
-  const [myOrders, setMyOrders] = useState([])
+  const {myProfile, userAdData, promotions} = useContext(profileContext)
 
 
 
-  const totalOrders = myOrders.length
 
-  const recentOrders = myOrders.slice(0,3)
+
+
+  const recentOrders = [].slice(0,3)
+
+  const dishes = []
 
   const totalDishes = dishes.length
 
   useEffect(()=>{
-    setMyOrders(dummyOrders
-      .filter((items)=>items.userid === 'user1'))
+  
   },[])
 
 
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <div className='w-full m-auto flex items-center px-2'>
               <img src={vector} alt="" className="rounded-full bg-yellow-200/50 p-1 border-2 border-yellow-200 h-10 md:h-full" />
               <div className='text-black/60 md:text-4xl font-semibold text-center flex-1 md:mr-12 '>
-                    {totalOrders}
+                    0
               </div>
             </div>
 
@@ -153,7 +153,7 @@ const Dashboard = () => {
       <div className=" ml-6 hidden lg:flex flex-col justify-between">
 
         {/* profile info display */}
-        <div className="bg-white px-8 p-4">
+        <div className="bg-white px-8 p-4 flex-1 my-auto">
           <ProfileDisplay/>
         </div>
 
@@ -161,8 +161,13 @@ const Dashboard = () => {
         <div className="bg-white px-2 p-4 mt-4 flex flex-col gap-2">
           <h1 className="text-center text-l font-medium my-4 ">Recent Order</h1>
           {recentOrders.map((items, index)=>
-                    <RecentOrder key={index} image={items.dishImg} dish={items.mealname} price={items.price} date={items.date} status={items.status}/>
-                  )}
+            <RecentOrder key={index} image={items.dishImg} dish={items.mealname} price={items.price} date={items.date} status={items.status}/>
+          )}
+
+          {recentOrders.length === 2 ? (<NoRecentOrder/>) : '' }
+          {recentOrders.length === 1 ? (<><NoRecentOrder/> <NoRecentOrder/></> ) : '' }
+          {recentOrders.length === 0 ? (<><NoRecentOrder/> <NoRecentOrder/> <NoRecentOrder/></>) : '' }
+                  
         </div>
 
       </div>
