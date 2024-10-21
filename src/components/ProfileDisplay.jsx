@@ -19,24 +19,24 @@ const ProfileDisplay = () => {
             <div className="w-24 h-24 flex items-center justify-center m-auto rounded-full overflow-hidden">
             <img src={myProfile?.profileImage ? myProfile?.profileImage : profileImg} alt="" className=" rounded-full m-auto bg-[#E2725B]" />
             </div>
-            <p className='text-center m-4 break-all h-[1rem]'>{myProfile?.name}</p>
+            <p className='text-center m-4 break-all h-[1rem]'>{myProfile?.name === '' ? " Nil" : myProfile?.name}</p>
             </div>
             <div className="flex flex-col gap-5 my-4">
               <div className="">
                 <h2 className='font-medium text-lg'>Restaurant&#39;s Name</h2>
-                <p className='mt-2 break-all h-[1rem]'>{myProfile?.restuarantName}</p>
+                <p className='mt-2 break-all h-[1rem]'>{myProfile?.restuarantName === '' ? "Nil" : myProfile?.restuarantName}</p>
               </div>
               <div>
                 <h2 className='font-medium text-lg'>Phone No</h2>
-                <p className='mt-2  h-[1rem]'>{myProfile?.phoneNo}</p>
+                <p className='mt-2  h-[1rem]'>{myProfile?.phoneNo === '' ? "Nil" : myProfile?.phoneNo}</p>
               </div>
               <div className="">
                 <h2 className='font-medium text-lg'>Email</h2>
-                <p className='mt-2 break-all  h-[1rem]'>{myProfile?.email}</p>
+                <p className='mt-2 break-all  h-[1rem]'>{myProfile?.email === '' ? "Nil" : myProfile?.email}</p>
               </div>
               <div>
                 <h2 className='font-medium text-lg'>Address</h2>
-                <p className='mt-2 break-all  h-[1rem]'>{myProfile?.address}</p>
+                <p className='mt-2 break-all  h-[1rem]'>{myProfile?.address === '' ? "Nil" : myProfile?.address}</p>
               </div>
             </div>
       </div>

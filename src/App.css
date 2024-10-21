@@ -1033,6 +1033,10 @@ a.active > div{
   height: 100px;
 }
 
+.h-\[1rem\]{
+  height: 1rem;
+}
+
 .h-\[480px\]{
   height: 480px;
 }
@@ -1068,14 +1072,6 @@ a.active > div{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-\[\]{
-  height: ;
-}
-
-.h-\[1rem\]{
-  height: 1rem;
 }
 
 .max-h-\[90vh\]{

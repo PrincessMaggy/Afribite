@@ -170,7 +170,7 @@ const Profile = () => {
             type="text" 
             className="border-2 bg-inherit border-[#E2725B]/20 w-full p-2 rounded-lg focus:outline-none focus:border-[#E2725B] "/>
 
-            <p className="mt-4 font-semibold text-[#E2725B]">Reasutrant name</p>
+            <p className="mt-4 font-semibold text-[#E2725B]">Resautrant name</p>
             <input
             name="restuarantName"
             value={profileForm.restuarantName}
