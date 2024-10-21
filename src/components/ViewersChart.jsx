@@ -13,38 +13,38 @@ import {
 const viewrsData = [
   {
     name: 'Mon',
-    viewed: 4000,
-    reacted: 2400,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Tue',
-    viewed: 3000,
-    reacted: 1398,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Wed',
-    viewed: 9800,
-    reacted: 2000,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Thur',
-    viewed: 3908,
-    reacted: 2780,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Fri',
-    viewed: 4800,
-    reacted: 1890,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Sat',
-    viewed: 3800,
-    reacted: 2390,
+    viewed: 0,
+    reacted: 0,
   },
   {
     name: 'Sun',
-    viewed: 3800,
-    reacted: 2390,
+    viewed: 0,
+    reacted: 0,
   },
 ];
 
