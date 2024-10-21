@@ -1070,6 +1070,14 @@ a.active > div{
   height: 100vh;
 }
 
+.h-\[\]{
+  height: ;
+}
+
+.h-\[1rem\]{
+  height: 1rem;
+}
+
 .max-h-\[90vh\]{
   max-height: 90vh;
 }
